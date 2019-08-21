@@ -19,7 +19,7 @@ if __name__ == '__main__':
     driver.find_element_by_xpath('//*[@id="su"]').click()
     time.sleep(3)
     # 浏览器有几个标签页
-    print driver.window_handles
+    print(driver.window_handles)
     
     # 屏幕快照
     driver.save_screenshot('baidu.png')
@@ -28,6 +28,6 @@ if __name__ == '__main__':
     # time.sleep(3)
     # 因为点击之后会打开一个新的标签，所以需要跳到新的标签
     # driver.switch_to_window(driver.window_handles[1])
-    print driver.window_handles
+    print(driver.window_handles)
     # 4. 屏幕快照
-    driver.save_screenshot('baidu1.png')
+    driver.save_screenshot('baidu1.png') 
