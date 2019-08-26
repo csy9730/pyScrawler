@@ -63,7 +63,8 @@ class tianyaBBSspider(CrawlSpider):
         article_url = str(response.url)
         import time
         today_timestamp = time.strftime('%Y-%m-%d %H:%M:%S') # today_timestamp = '32343244'# sp.get_tody_timestamp()
-        article_id =  str( int(round( time.time()*1000))) # sp.hashForUrl(article_url)
+        # article_id =  abs( int( hash( article_url )))
+        article_id = ( int(round( time.time()*1000))) # sp.hashForUrl(article_url)
         article_name =  sel.xpath('//div[@id="post_head"]/h1/span/span/text()').extract()
         # article_time =  sel.xpath('//div[@id="post_head"]/div[1]/div[@class="atl-info"]/span[2]/text()').extract()
         article_content =  sel.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]/text()').extract()
@@ -86,7 +87,7 @@ class tianyaBBSspider(CrawlSpider):
         reply_num = article_reply_num[0]# .encode('utf-8')[9::]
         
         l.add_value('article_name',article_name)
-        l.add_value('article_id',article_id)
+        l.add_value('article_id',int(article_id))
         l.add_value('article_content',content)
         l.add_value('crawl_time',crawl_time)
         l.add_value('article_time',article_time)
@@ -94,5 +95,6 @@ class tianyaBBSspider(CrawlSpider):
         l.add_value('reply_num',reply_num)
         l.add_value('click_num',click_num)
         l.add_value('article_author',article_author)
+        l.add_value('article_from',article_author)
 
         yield l.load_item()

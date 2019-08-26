@@ -21,3 +21,7 @@ print(type(sd))
 print(sd[3::])
 print( time.strftime('%Y-%m-%d %H:%M:%S') )
 print( time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())) )
+
+a=[1,2,3,'d']
+ss= "%s,%s,%d,%s" % (a[0],a[1],a[2],a[3])
+print(ss)

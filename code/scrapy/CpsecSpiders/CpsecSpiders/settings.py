@@ -22,3 +22,8 @@ COOKIES_ENABLED = False
 
 #声明Pipeline，定义的pipeline必须在这声明
 ITEM_PIPELINES = { 'CpsecSpiders.pipelines.CpsecspidersPipeline':300 }
+
+MYSQL_HOST = 'localhost'
+MYSQL_DBNAME = 'tianya_db'
+MYSQL_USER = 'csy_lg'
+MYSQL_PASSWD = '123456'
