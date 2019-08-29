@@ -17,8 +17,10 @@ class ScrapySampleItem(scrapy.Item):
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field()
     images = scrapy.Field()
+    
     referer = scrapy.Field()
-
+    title = scrapy.Field()
+    datetime = scrapy.Field()
 
 class BudejieItem(scrapy.Item):
     username = scrapy.Field()

@@ -3,6 +3,7 @@
 
 images/full/
 images/thumb/
+images/*/
 
 scr_*.jl
 scr_*.json

@@ -60,10 +60,19 @@ class BudejiePostgrePipeline(object):
 
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
-
+from items import ImageItem
 
 class RawFilenameImagePipeline(ImagesPipeline):
-    def file_path(self, request, response=None, info=None):
+    def get_media_requests(self, item, info):
+        if isinstance(item, ImageItem):
+            return
+        requests = super().get_media_requests(item, info)
+        for req in requests:
+            req.headers.appendlist("referer", item['referer'])
+        return requests
+        # for image_url in item['image_urls']:
+        #    yield Request(url=image_url,headers={'Referer':item['header_referer']})
+    def file_path2(self, request, response=None, info=None):
         if not isinstance(request, Request):
             url = request
         else:
