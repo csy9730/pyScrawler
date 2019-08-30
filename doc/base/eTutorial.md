@@ -71,6 +71,22 @@ tutorial/
 scrapy genspider scrawlerName targetUrl
 ```
 
+该命令会创建以下文件·scrawlerName.py
+
+``` python
+# -*- coding: utf-8 -*-
+import scrapy
+
+class Meizitu0Spider(scrapy.Spider):
+    name = 'scrawlerName'
+    allowed_domains = ['abcabc.com']
+    start_urls = ['https://www.abc.com/']
+
+    def parse(self, response):
+        pass
+
+```
+
 创建一个Spider，继承于 scrapy.Spider 类， 且定义以下属性:
 
 - name：是爬虫的名字，该名字必须是唯一的。

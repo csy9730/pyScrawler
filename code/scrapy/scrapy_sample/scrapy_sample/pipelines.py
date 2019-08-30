@@ -60,11 +60,11 @@ class BudejiePostgrePipeline(object):
 
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
-from items import ImageItem
+from scrapy_sample.items import ImageItem
 
 class RawFilenameImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
-        if isinstance(item, ImageItem):
+        if not isinstance(item, ImageItem):
             return
         requests = super().get_media_requests(item, info)
         for req in requests:

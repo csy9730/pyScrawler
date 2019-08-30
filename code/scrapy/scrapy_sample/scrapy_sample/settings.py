@@ -55,9 +55,12 @@ CONCURRENT_REQUESTS = 32
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'scrapy_sample.middlewares.MyCustomDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    # 'scrapy_sample.middlewares.MyCustomDownloaderMiddleware': 543,
+    'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+    'scrapy_sample.middlewares.MyproxiesSpiderMiddleware': 125
+ }
+
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -99,3 +102,12 @@ AUTOTHROTTLE_MAX_DELAY = 5
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+IPPOOL=[  
+    {"ipaddr":"123.163.97.190:9999"},
+    {"ipaddr":"58.253.158.138:9999"},
+    {"ipaddr":"163.204.244.97:9999"},
+    {"ipaddr":"222.89.32.187:9999"},
+    {"ipaddr":"113.120.39.243:9999"},
+    {"ipaddr":"163.204.242.62:9999"}
+]
