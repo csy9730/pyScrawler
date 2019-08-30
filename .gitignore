@@ -54,3 +54,4 @@ venv
 *~
 .*~
 *_build/
+*.ipynb

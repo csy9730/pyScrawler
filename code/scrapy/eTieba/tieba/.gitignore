@@ -1,0 +1,8 @@
+img/*.jpg
+img/*.png
+img/*
+scr_*.*
+*.swp
+
+
+

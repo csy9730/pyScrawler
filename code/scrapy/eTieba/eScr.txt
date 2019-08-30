@@ -1,0 +1,12 @@
+//*[@id="thread_list"]/li[3]/div/div[2]/div[1]/div[1]/a
+
+//*[@id="thread_list"]/li[42]/div/div[2]/div[1]/div[1]/a
+
+//*[@id="thread_list"]/li[41]/div/div[2]/div[1]/div[2]/span[1]/span[2]/a
+
+//*[@id="thread_list"]/li[2]/div/div[1]/span
+
+$x("//*[@id='thread_list']/li[3]/div/div[2]/div[1]/div[1]/a")
+
+
+-$(“”)
