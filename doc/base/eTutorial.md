@@ -107,10 +107,19 @@ Selector有四个基本的方法
 
 ### 运行
 
+命令行中运行
+
 ``` bash
 scrapy crawl scrawlerName
 scrapy crawl scrawlerName -o maoyan.csv # 文件导出
 scrapy crawl scrawlerName -o maoyan.json
 ```
 
+python中运行start.py
+
+``` python
+from scrapy import cmdline
+cmd = 'scrapy crawl scrawlerName' 
+cmdline.execute( cmd.split())
+```
 

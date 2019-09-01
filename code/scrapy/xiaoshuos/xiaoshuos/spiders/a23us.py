@@ -4,23 +4,33 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from xiaoshuos.items import BookItem,ChapterItem
 import re
-import bs4 as  BeautifulSoup
 from scrapy.http import Request
 
-class A23usSpider(scrapy.Spider):
+# https://www.23us.so/
+# "https://www.23us.so/top/allvisit_1.html",https://www.23us.so/list/3_1.html
+# http://www.23us.so/xiaoshuo/414.html
+# https://www.23us.so/files/article/html/0/414/index.html
+# https://www.23us.so/files/article/html/0/414/5361947.html
+# 
+class A23usSpider(CrawlSpider):
     name = '23us'
     allowed_domains = ["23us.so"] #允许爬取的域名
-    start_urls = ["http://www.23us.so/xiaoshuo/414.html"]#种子url
-    #跟进的url
+    start_urls = ["http://www.23us.so/xiaoshuo/414.html"
+    # "https://www.23us.so/",
+    #        "https://www.23us.so/top/allvisit_1.html"
+    ]#种子url
+    #跟进的url0
     rules=(
-        Rule(LinkExtractor(allow=("xiaoshuo/\d*\.html")),callback="parse_book_message",follow=True),
-        Rule(LinkExtractor(allow=("files/article/html/\d*?/\d*?.index.html")),callback="parse_book_chapter",follow=True),
-        Rule(LinkExtractor(allow=("files/article/html/\d*?/\d*?/\d*?.html")),callback="parse_chapter_content",follow=True),
+        # Rule(LinkExtractor(allow=("list/\d*_\d*.html"),restrict_xpaths=".//div[@class='main m_menu']//li")),
+        # Rule(LinkExtractor(allow=("list/\d*_\d*.html"),restrict_xpaths=".//div[@id ='pagelink']")),
+        
+        Rule(LinkExtractor(allow=("xiaoshuo/\d*\.html") ,restrict_xpaths=".//dl[@id='content']//dd"),callback="parse_book_message",follow=True),
+        Rule(LinkExtractor(allow=("files/article/html/\d*?/\d*?.index.html"),restrict_xpaths=".//*[@id='content']//dd//div"),follow=False),
+        Rule(LinkExtractor(allow=("files/article/html/\d*?/\d*?/\d*?.html"),restrict_xpaths=(".//*[@id='at']//tr//td")),callback="parse_chapter_content",follow=False),
         # Rule(LinkExtractor(allow=(".*")),follow=True),
     )
-    def parse( self,response):
-        return self.parse_book_message(response)
     def parse_book_message(self,response):
+        print("parse_book_message")
         if not response.body:
             print(response.url+"已经被爬取过了，跳过")
             return;
@@ -46,7 +56,7 @@ class A23usSpider(scrapy.Spider):
         novel_Introduction = "".join(match.group(1).replace("&nbsp;","")) if match else "None"
         #封装小说信息类
         bookitem = BookItem(
-            novel_Type = novel_Type[0],
+            novel_Type = novel_Type,
             novel_Name = novel_Name,
             novel_ImageUrl = novel_ImageUrl,
             _id = novel_ID,   #小说id作为唯一标识符
@@ -65,9 +75,11 @@ class A23usSpider(scrapy.Spider):
         )
 
         yield bookitem
-        url = response.xpath(".//*[@id='content']//dd//div//a[@class='read']/@href").get()
-        yield Request( url,callback= self.parse_book_chapter )  
+        # url = response.xpath(".//*[@id='content']//dd//div//a[@class='read']/@href").get()
+        # yield Request( url,callback= self.parse_book_chapter )  
     def parse_book_chapter(self,response):
+        print("parse_book_chapter")
+        return
         print( "parse_book_chapter",response.url)
         urls = response.xpath( ".//*[@id='at']//tr//td//a/@href").getall()
         print(urls)
@@ -78,12 +90,8 @@ class A23usSpider(scrapy.Spider):
         if not response.body:
             print(response.url+"已经被爬取过了，跳过")
             return;
-        ht = response.body.decode('utf-8')
-        text = response # html.fromstring(ht)
-        soup = BeautifulSoup(ht)
-        novel_ID = response.url.split("/")[-2]
-        novel_Name = text.xpath(".//p[@class='fr']/following-sibling::a[3]/text()")[0]
-        chapter_Name = text.xpath(".//h1[1]/text()")[0]
+        novel_Name = response.xpath(".//p[@class='fr']/following-sibling::a[3]/text()").get()
+        chapter_Name = response.xpath(".//h1[1]/text()").get()
         '''
         chapter_Content = "".join("".join(text.xpath(".//dd[@id='contents']/text()")).split())
         if len(chapter_Content) < 25:
@@ -92,8 +100,7 @@ class A23usSpider(scrapy.Spider):
         match = pattern.search(ht)
         chapter_Content = "".join(match.group(1).replace("&nbsp;","").split()) if match else "爬取错误"
         '''
-        result,number = re.subn("<.*?>","",str(soup.find("dd",id='contents')))
-        chapter_Content = "".join(result.split())
+        chapter_Content = response.xpath(".//dd[@id='contents']/text()").getall()
         print(len(chapter_Content))
         novel_ID = response.url.split("/")[-2]
         return ChapterItem(
@@ -104,6 +111,6 @@ class A23usSpider(scrapy.Spider):
             chapter_Content= chapter_Content,
             novel_ID = novel_ID,
             is_Error = len(chapter_Content) < 3000
-            )
+        )
     
 
