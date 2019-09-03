@@ -1,7 +1,4 @@
 import scrapy
-from twisted.internet import reactor
-from scrapy.crawler import CrawlerRunner
-from scrapy.utils.log import configure_logging
 
 class MySpider1(scrapy.Spider):
     # Your first spider definition
@@ -22,12 +19,16 @@ class MySpider2(scrapy.Spider):
     def parse(self, response):
         print("begin parse baidu")
         pass
-configure_logging()
-runner = CrawlerRunner()
-runner.crawl(MySpider1)
-runner.crawl(MySpider2)
-d = runner.join()
-d.addBoth(lambda _: reactor.stop())
+if __name__ == '__main__':
+    from twisted.internet import reactor
+    from scrapy.crawler import CrawlerRunner
+    from scrapy.utils.log import configure_logging
+    configure_logging()
+    runner = CrawlerRunner()
+    runner.crawl(MySpider1)
+    runner.crawl(MySpider2)
+    d = runner.join()
+    d.addBoth(lambda _: reactor.stop())
 
-reactor.run() # the script will block here until all crawling jobs are finished
-print("spider finished")
+    reactor.run() # the script will block here until all crawling jobs are finished
+    print("spider finished")
