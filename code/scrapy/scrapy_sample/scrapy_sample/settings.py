@@ -57,8 +57,8 @@ CONCURRENT_REQUESTS = 32
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'scrapy_sample.middlewares.MyCustomDownloaderMiddleware': 543,
-    'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
-    'scrapy_sample.middlewares.MyproxiesSpiderMiddleware': 125
+   #  'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+   # 'scrapy_sample.middlewares.MyproxiesSpiderMiddleware': 125
  }
 
 
