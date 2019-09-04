@@ -4,7 +4,8 @@
 # pip install selenium
 ```
 
-selenium支持多种浏览器，需要安装自动化测试驱动
+selenium支持多种浏览器，需要安装自动化测试驱动。
+
 
 ## demo
 与一个网页进行的真正的交互，具体的说，与网页的HTML元素进行交互。如果需要与之交互，那么久必须要查找到HTML的元素。WebDriver提供了多种查找HTML元素的方法。例如，给定一个元素为：
@@ -61,3 +62,4 @@ driver.add_cookie({"name":"foo","value":"laozhang"})
 print(driver.get_cookies()
 ```
 
+python中通过os.environ['PATH'] 获取可执行路径，然后调用webdriver.exe
