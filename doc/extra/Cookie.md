@@ -12,6 +12,31 @@ Cookie是http消息头中的一种属性，包括：
 - Cookie所在域名（Domain），使用Cookie进行安全连接（Secure）。
   前两个参数是Cookie应用的必要条件，另外，还包括Cookie大小（Size，不同浏览器对Cookie个数及大小限制是有差异的）。
 
+数据如下所示（json格式)：
+
+```json
+[
+    {
+        "domain": "www.baidu.com",
+        "expiry": 2513673649,
+        "httpOnly": false,
+        "name": "ORIGIN",
+        "path": "/",
+        "secure": false,
+        "value": "2"
+    },
+    {
+        "domain": "www.baidu.com",
+        "expiry": 2513673649,
+        "httpOnly": false,
+        "name": "sug",
+        "path": "/",
+        "secure": false,
+        "value": "3"
+    }
+]
+```
+
 
 
 Chrome 中可以通过document.cookie显示cookie
@@ -19,7 +44,15 @@ Chrome 中可以通过document.cookie显示cookie
 ``` python
 from selenium import webdriver
 cookies = driver.get_cookies()
+
+get_cookies() # 读取所有cookie
+get_cookie(name) # 读取指定cookie
+add_cookie(dict) # 添加cookie
+delete_all_cookies() # 删除所有cookie
+delete_cookie(name) # 删除指定cookie
 ```
+
+
 
 
 
@@ -42,3 +75,6 @@ def parse_page(self, response):
         meta={'cookiejar': response.meta['cookiejar']},
         callback=self.parse_other_page)
 ```
+
+
+
