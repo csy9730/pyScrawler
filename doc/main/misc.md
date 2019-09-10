@@ -36,3 +36,14 @@ class MySpider(scrapy.Spider):
         self.logger.info('Parse function called on %s', response.url)
 ```
 
+
+
+response.text str格式
+response.body bytes格式
+
+
+
+对于动态网页使用ajax技术，两种办法
+
+1. 寻找js的api的数据
+2. 渲染网页，可以使用phatphomjs、splash渲染网页。
