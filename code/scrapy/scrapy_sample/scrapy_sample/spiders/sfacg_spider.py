@@ -6,7 +6,7 @@ import  re
 class Mm131Spider(scrapy.Spider):
     name = 'sgacg'
 
-    start_urls = ['https://manhua.sfacg.com/mh/LYB/' ]
+    start_urls = ['https://manhua.sfacg.com/mh/LYB/', ]
     header = { #'accept-encoding': 'gzip, deflate, br', 
             #'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
             #'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
@@ -14,7 +14,7 @@ class Mm131Spider(scrapy.Spider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36' }
     def start_requests(self):      
         self.fJsonUrl= lambda x: x.find("Utility")>=0
-        return [scrapy.Request(self.start_urls[0],headers=self.header,callback=self.parse,meta={"cookiejar":1},)]
+        return [scrapy.Request(self.start_urls[0],headers=self.header,callback=self.parse,meta={"cookiejar":1}),]
     def parse(self,response):
         return self.parse_title(response)
     def parse_title(self,response):
