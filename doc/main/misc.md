@@ -47,3 +47,9 @@ response.body bytes格式
 
 1. 寻找js的api的数据
 2. 渲染网页，可以使用phatphomjs、splash渲染网页。
+
+
+
+ValueError: Missing scheme in request url:
+
+url缺乏https或http协议

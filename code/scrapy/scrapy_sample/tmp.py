@@ -15,5 +15,26 @@ def jsonRegexDemo():
     print(st2)
     imgUrl = re.findall(r"=\s\"([\w\d_/]+.jpg\")",st)
     print(imgUrl,len(imgUrl))
-jsonRegexDemo()
+def main():
+    pass
+    execJsDemo()
+    #jsonRegexDemo()
+def execJsDemo():
+    import execjs
+    import os
+    os.environ["EXECJS_RUNTIME"] = 'Node'
+    print( execjs.get().name )
+    # 执行 JS 语句
+    ctx = execjs.compile(""" 
+    function add(x, y) {
+       return x + y;
+    }
+    """)
+    print( ctx.call("add", 1, 2) )
+    return 
+    with open('./test.js') as f:  # 执行 JS 文件
+        ctx = execjs.compile(f.read())
+        ctx.call('add', 1, 2)
+if __name__ == "__main__":
+    main()
 

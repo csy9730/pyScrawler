@@ -11,10 +11,29 @@ def dataShow(pfn):
             #print(item)
     return lst
 
+def imgMove(lst,dirNew='images/'):
+    ls = []
+    for dct in lst:
+        images = dct["images"]
+        import os,sys
+        pth =  dirNew+dct["img_folder"]
+        os.mkdir(pth)
+        for img in images:
+            url = img["url"]
+            filenameOld = 'images/'+img["path"]
+            filenameNew = pth+'/'+url.split('/')[-1]
+            print(filenameOld,filenameNew)#
+            os.rename(filenameOld,filenameNew)#重命
+            ls.append( filenameNew )
+    return ls
+            
+
 def main():
+    pfn = 'scr'
     pfn = 'scr_mm131.jl'
     lst = dataShow(pfn )
-
+    img2 = imgMove(lst)
+    return 
     lst2= sorted(lst, key=lambda x : x["referer"],reverse=True)
     # lst.sort(key=lambda x : int(x["referer"]),reverse=True)
     for i in range(20):

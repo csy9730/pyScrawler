@@ -69,22 +69,20 @@ class RawFilenameImagePipeline(ImagesPipeline):
         requests = super().get_media_requests(item, info)
         for req in requests:
             req.headers.appendlist("referer", item['referer'])
+            req.meta["img_folder"] = item["img_folder"] or ''   
+              
         return requests
         # for image_url in item['image_urls']:
         #    yield Request(url=image_url,headers={'Referer':item['header_referer']})
-    def file_path2(self, request, response=None, info=None):
-        if not isinstance(request, Request):
-            url = request
-        else:
-            url = request.url
-        beg = url.rfind('/') + 1
-        end = url.rfind('.')
-        if end == -1:
-            return f'full/{url[beg:]}.jpg'
-        else:
-            return f'full/{url[beg:end]}.jpg'
+    def file_path(self, request, response=None, info=None):        
+        url = request.url   
+        # print( 'full/{1}{0}'.format( url.split('/')[-1], request.meta["img_folder"]) )
+        return 'full/{1}{0}'.format( url.split('/')[-1],  request.meta["img_folder"])
 
-
+        # image_guid = hashlib.sha1(to_bytes(request.url)).hexdigest()
+        # return 'full/%s.jpg' % (image_guid)
+    def item_completed2(self, results, item, info):
+        pass
 class RefererImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         requests = super().get_media_requests(item, info)
