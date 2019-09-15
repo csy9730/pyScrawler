@@ -4,6 +4,8 @@ data/heavy
 pdf
 tmp
 bak
+build*Qt*/
+*.autosave
 *.qmlc
 *.py[cod]
 tmp_*.*

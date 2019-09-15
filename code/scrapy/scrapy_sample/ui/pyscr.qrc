@@ -1,0 +1,30 @@
+﻿<RCC>
+    <qresource prefix="/">
+        <file>qss/1.qss</file>
+        <file>img/arrow_interface_send_upload_uploading_512px_1225505_easyicon.net.png</file>
+        <file>img/config_40px_1135862_easyicon.net.png</file>
+        <file>img/config_40px_1135863_easyicon.net.png</file>
+        <file>img/database_export_16px_14453_easyicon.net.png</file>
+        <file>img/doc_import_48px_14623_easyicon.net.png</file>
+        <file>img/editclear_128px_32658_easyicon.net.png</file>
+        <file>img/export_script_16px_25278_easyicon.net.ico</file>
+        <file>img/fileexport_22px_36006_easyicon.net.png</file>
+        <file>img/fileexport_32px_32919_easyicon.net.ico</file>
+        <file>img/folder_import_256px_526951_easyicon.net.png</file>
+        <file>img/graphics_841px_1197090_easyicon.net.png</file>
+        <file>img/send_145px_1223097_easyicon.net.png</file>
+        <file>img/send_email_373px_1187728_easyicon.net.png</file>
+        <file>img/send_file_512px_1169557_easyicon.net.png</file>
+        <file>img/spreadsheet_40px_573143_easyicon.net.png</file>
+        <file>img/start_128px_1169786_easyicon.net.ico</file>
+        <file>img/stop_320px_1197040_easyicon.net.png</file>
+        <file>img/stop_326px_1187740_easyicon.net (1).png</file>
+        <file>img/stop_326px_1187740_easyicon.net.png</file>
+        <file>img/开始_dis.png</file>
+        <file>img/开始_nor.png</file>
+        <file>img/开始_sel.png</file>
+        <file>img/停止_dis.png</file>
+        <file>img/停止_nor.png</file>
+        <file>img/停止_sel.png</file>
+    </qresource>
+</RCC>

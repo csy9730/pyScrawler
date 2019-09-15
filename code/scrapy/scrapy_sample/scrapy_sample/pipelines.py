@@ -36,7 +36,7 @@ class BudejieMongoPipeline(object):
         return item
 
 
-import psycopg2
+# import psycopg2
 
 
 class BudejiePostgrePipeline(object):
