@@ -9,17 +9,22 @@ from PyQt5 import QtCore, QtGui, uic,QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMessageBox, QVBoxLayout, QSizePolicy, QWidget,QListWidgetItem,QFileDialog
 from PyQt5.QtCore import Qt,QTimer
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl
+from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
 
 from ui.ui_mainwidow import  Ui_MainWindow
-# qtCreatorFile = "mainwindow.ui"
-# 使用uic加载
-# Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
+# Ui_MainWindow, QtBaseClass = uic.loadUiType("ui/mainwindow.ui")
 
+from scrapy import log
 class scrapySetting(object):
     def __init__(self):
-        self.cmd = 'scrapy crawl'
-        self.job = 'dmzj'
+        self._cmd = 'scrapy crawl'
+        self.spider = 'dmzj'
+        self.job = 'crawl'
+        self.setting = {"CLOSESPIDER_ITEMCOUNT":11,"JOBDIR":None}
+        self.tagSetting = {"book":"sss","page":"sfsdfsdf"}
+    def getCmd(self):
+        self._cmd = 'scrapy {0} {1}'.format( self.job,self.spider)
+        return self._cmd
         
 class EmittingStream(QtCore.QObject):  
         textWritten = QtCore.pyqtSignal(str)  #定义一个发送str的信号
@@ -31,61 +36,51 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.proc = None
-        self.tmrCmd = QtCore.QTimer()
-        self.tmrCmd.setInterval(200)
-        self.tmrCmd.timeout.connect(self.on_tmrCmd_timeout)
-#下面将输出重定向到textEdit中
-        # sys.stdout = EmittingStream(textWritten=self.outputWritten)  
-        # sys.stderr = EmittingStream(textWritten=self.outputWritten)  
-#接收信号str的信号槽
-    def outputWritten(self, text):
-        print("outputWritten")  
-        return
-        cursor = self.textEdit.textCursor()  
-        cursor.movePosition(QtGui.QTextCursor.End)  
-        cursor.insertText(text)  
-        self.textBrowser.setTextCursor(cursor)  
-        self.textBrowser.ensureCursorVisible()
+        self.initProc()        
+    def initProc(self):
+        self.proc = QProcess(self)
+        self.proc.setProcessChannelMode(QtCore.QProcess.MergedChannels)
+        self.proc.readyReadStandardOutput.connect(self.on_procReceived)
+        # QObject::connect(m_process,SIGNAL(readyRead()),this,SLOT(readOutput()));
+        self.proc.finished.connect(self.onFinished)
+
     @pyqtSlot() 
     def on_actionStart_triggered(self):
-        # self.actiondumpSetting
         print("start")        
-        book = self.ledBookname.text().split(' ')[0]
+        book = self.ledBookname.text()
         if book=='':
-            print("empty")
+            QMessageBox.warning(self,'警告',' 请输入书名(拼音形式)')
             return
-        cmd = 'scrapy crawl dmzj -a book={0} '.format( book )
-        proc = subprocess.Popen(cmd,
-                                stdout= None,#subprocess.STDOUT,
-                                bufsize=1)
-    @pyqtSlot() 
-    def on_tmrCmd_timeout(self):
-        if self.proc is not None:            
-            for s in iter(self.proc.stdout.readline, ''):
-                if len(s) < 1:
-                    break
-                self.textBrowser.append( s.decode('gbk').strip() )
-            # print(s.decode('gbk').strip())
+        cmd = 'scrapy crawl dmzj -a book={0} '.format( book ).split(' ')
+        cmd = list(filter(str.strip,cmd))
+        print(cmd)
+        self.proc.start(cmd[0],cmd[1:] )
+
     @pyqtSlot() 
     def on_btnRun_clicked(self):
+        self.btnRun.setEnabled(0)
         cmd = self.ledRunstring.text()
-        print(" on_btnRun_clicked",cmd)
-        #ss= os.popen(cmd,"w")
-        self.proc = subprocess.Popen(cmd,
-            shell=True,
-            bufsize=9999, #
-            stdout=subprocess.PIPE,
-            stdin=subprocess.PIPE
-        )
-        self.tmrCmd.start()
-        
+        cmdSp = cmd.split(' ')      
+        self.proc.start(cmdSp[0], cmdSp[1:] )
+    @pyqtSlot() 
+    def onFinished(self, exitCode, exitStatus):
+        print("onFinished ")
+        self.btnRun.setEnabled(True)
+    @pyqtSlot()
+    def on_procReceived(self):
+        # st = self.proc.readAllStandardOutput().data()        
+        st= bytes(self.proc.readAll()).decode('gbk').strip()  
+        print("on_procReceived",st )
+        self.textBrowser.append( st)        
         
     @pyqtSlot() 
     def on_actionStop_triggered(self):
         # self.actiondumpSetting
         print("stop")
-
+        self.proc.terminate()
+    @pyqtSlot() 
+    def on_actionClear_triggered(self):
+        self.textBrowser.clear()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

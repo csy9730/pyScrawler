@@ -13,9 +13,10 @@ from scrapy_splash import SplashRequest
 
 class JsSpider(scrapy.Spider):
     name = "jd"
-    allowed_domains = ["jd.com"]
+    # allowed_domains = ["jd.com"]
     start_urls = [
-        "http://www.jd.com/"
+        # "http://www.jd.com/"
+        "https://manhua.dmzj.com/yueshenhasi/92686.shtml#@page=1"
     ]
 
     def start_requests(self):
@@ -34,16 +35,24 @@ class JsSpider(scrapy.Spider):
     def parse_result(self, response):
         logging.info(u'----------使用splash爬取京东网首页异步加载内容-----------')
         #logging.info(response.text)
-        with open('scr_jd.html','ab+') as fp:
+        with open('scr_jd.html','wb') as fp:
             fp.write(response.body)
         guessyou = response.xpath('//div[@id="guessyou"]/div[1]/h2/text()').extract_first()
         logging.info(u"find：%s" % guessyou)
         logging.info(u'---------------success----------------')
 
 
-if __name__ == '__main__':
+def main():
     body = u'发布于： 2016年04月08日'
     pat4 = re.compile(r'\d{4}年\d{2}月\d{2}日')
     if (re.search(pat4, body)):
         print(re.search(pat4, body).group())
 
+if __name__ == '__main__':
+    from scrapy.crawler import CrawlerProcess 
+    from scrapy.utils.project import get_project_settings
+
+    process = CrawlerProcess(get_project_settings())
+    process.crawl(JsSpider) 
+    process.start() # the script will block here until the crawling is finished
+    print("crawl finished")

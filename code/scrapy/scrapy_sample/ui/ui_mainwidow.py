@@ -183,6 +183,11 @@ class Ui_MainWindow(object):
         icon1.addPixmap(QtGui.QPixmap(":/img/stop_326px_1187740_easyicon.net.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionStop.setIcon(icon1)
         self.actionStop.setObjectName("actionStop")
+        self.actionClear = QtWidgets.QAction(MainWindow)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/img/editclear_128px_32658_easyicon.net.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionClear.setIcon(icon2)
+        self.actionClear.setObjectName("actionClear")
         self.menuBar.addAction(self.menu.menuAction())
         self.menuBar.addAction(self.menu_2.menuAction())
         self.menuBar.addAction(self.menu_3.menuAction())
@@ -190,6 +195,7 @@ class Ui_MainWindow(object):
         self.menuBar.addAction(self.menu_5.menuAction())
         self.mainToolBar.addAction(self.actionStart)
         self.mainToolBar.addAction(self.actionStop)
+        self.mainToolBar.addAction(self.actionClear)
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(2)
@@ -236,5 +242,6 @@ class Ui_MainWindow(object):
         self.actionStart.setShortcut(_translate("MainWindow", "F5"))
         self.actionStop.setText(_translate("MainWindow", "停止"))
         self.actionStop.setShortcut(_translate("MainWindow", "Shift+F5"))
+        self.actionClear.setText(_translate("MainWindow", "清除"))
 
 import pyscr_rc
