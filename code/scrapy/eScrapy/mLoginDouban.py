@@ -56,16 +56,8 @@ class GithubSpider(CrawlSpider):
 
         return [FormRequest(url='https://accounts.douban.com/j/mobile/login/basic',
                                           meta={'cookiejar': response.meta['cookiejar']},
-                                          headers=self.post_headers,  # 注意此处的headers
+                                          headers=self.post_headers, 
                                           formdata=post_data,
-                                          callback=self.after_login,
-                                          dont_filter=True
-                                          )]
-        return [Request('https://accounts.douban.com/j/mobile/login/basic',
-                                     method='POST',
-                                          meta={'cookiejar': response.meta['cookiejar']},
-                                          headers=self.post_headers,  # 注意此处的headers
-                                          data=post_data,
                                           callback=self.after_login,
                                           dont_filter=True
                                           )]

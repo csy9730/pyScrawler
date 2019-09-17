@@ -3,7 +3,7 @@
 import re
 import scrapy
 from scrapy import Selector
-from cartoon.items import ComicItem
+# from cartoon.items import ComicItem
 
 class ComicSpider(scrapy.Spider):
 	name = 'comic'

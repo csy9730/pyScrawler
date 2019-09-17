@@ -1,34 +1,51 @@
 from selenium import webdriver
 import os,sys
 os.environ['PATH'] +=';../;'
-import json
 
-browser = webdriver.Chrome()
+import json
+from  selenium.webdriver.chrome.options import  Options
+chrome_options = Options()
+chrome_options.add_argument('--ignore-certificate-errors')
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--log-level=3")  # fatal
+chrome_options.add_argument('disable-infobars')
+chrome_options.add_experimental_option( "prefs",{'profile.managed_default_content_settings.javascript': 2})       
+chrome_path = 'drivers/chromedriver.exe'
+browser = webdriver.Chrome(chrome_options=chrome_options)
+browser.maximize_window()
+
+# browser = webdriver.Chrome()
 
 def loadCookies(browser,pfn):
     with open(pfn,"r") as fp:
         cookies = json.load(fp)        
         for ck in cookies:
+            if isinstance(ck.get('expiry'), float):
+                ck['expiry'] = int(ck['expiry'])
             browser.add_cookie(ck)
 
 def loginBaidu():
-    browser = webdriver.Chrome()
+    global browser 
     browser.get('http://www.baidu.com/')
-    loadCookies(browser,"aCookie.json")
+    loadCookies(browser,"aCookies2.json")
     browser.refresh()
     cookies = browser.get_cookies()
     print(cookies,type(cookies))
     with open("aCookies2.json","w") as fp:
         json.dump(cookies,fp,indent=4)
+    
     # browser.close()
+
+    
 def loginDouban():
     global browser    
     cookieFile = "doubanCookies.json"
-    if 0:# or os.exist(cookieFile):
+    if os.path.exists(cookieFile):
         browser.get('https://accounts.douban.com')
         print("load cookies")
         loadCookies(browser,cookieFile)
         browser.refresh()
+        browser.get("https://www.douban.com/")
     else:
         browser.get('https://accounts.douban.com/passport/login')
         browser.implicitly_wait(10)
@@ -48,12 +65,14 @@ def loginDouban():
     
     cookies = browser.get_cookies()
     print(cookies,type(cookies))
-    return
     with open(cookieFile,"w") as fp:
         json.dump(cookies,fp,indent=4)
     # browser.close()
+    import time
+    time.sleep(100)
 def main():
     loginDouban()
+    #loginBaidu()
 if __name__ == '__main__':
     main()
 

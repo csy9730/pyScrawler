@@ -14,7 +14,7 @@ from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProce
 from ui.ui_mainwidow import  Ui_MainWindow
 # Ui_MainWindow, QtBaseClass = uic.loadUiType("ui/mainwindow.ui")
 
-from scrapy import log
+# from scrapy import log
 class scrapySetting(object):
     def __init__(self):
         self._cmd = 'scrapy crawl'
@@ -36,6 +36,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowTitle(u'爬虫工具')
         self.initProc()        
     def initProc(self):
         self.proc = QProcess(self)
@@ -43,7 +44,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.proc.readyReadStandardOutput.connect(self.on_procReceived)
         # QObject::connect(m_process,SIGNAL(readyRead()),this,SLOT(readOutput()));
         self.proc.finished.connect(self.onFinished)
-
+        
     @pyqtSlot() 
     def on_actionStart_triggered(self):
         print("start")        
@@ -60,9 +61,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_btnRun_clicked(self):
         self.btnRun.setEnabled(0)
         cmd = self.ledRunstring.text()
-        cmdSp = cmd.split(' ')      
+        cmdSp = list( filter(lambda x:x!='',cmd.split(' ')) )
+        print(cmdSp) 
+        self.textBrowser.append(cmd)    
         self.proc.start(cmdSp[0], cmdSp[1:] )
-    @pyqtSlot() 
+    #@pyqtSlot() 
     def onFinished(self, exitCode, exitStatus):
         print("onFinished ")
         self.btnRun.setEnabled(True)

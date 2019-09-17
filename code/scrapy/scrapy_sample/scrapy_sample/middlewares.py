@@ -8,6 +8,9 @@
 import random  
 from scrapy import signals  
 from scrapy_sample.settings import IPPOOL  
+import random
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+
 
 class MyproxiesSpiderMiddleware(object):  
     def __init__(self,ip=''):  
@@ -64,3 +67,18 @@ class ScrapySampleSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class CustomizeUserAgentMiddleware(UserAgentMiddleware):
+    def __init__(self, user_agent):
+        self.user_agent = user_agent
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        """ 从 settings.py 中读取 预设的 UA 列表 """
+        return cls(user_agent=crawler.settings.get('CUSTOMIZE_USER_AGENT_LIST'))
+
+    def process_request(self, request, spider):
+        """ 随机选择一个 UA 并设置到 Request 中 """
+        agent = random.choice(self.user_agent)
+        request.headers['User-Agent'] = agent

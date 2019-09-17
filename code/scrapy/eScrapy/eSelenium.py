@@ -44,7 +44,7 @@ class ZhihuSpider(scrapy.Spider):
             xml = r'//*[@id="feed-%d"]/div[1]/div[2]/div[2]/h2/a/text()' %(i)
             titile = sel.xpath(xml).extract()
             if len(titile):
-                print str(titile[0])
+                print( str(titile[0]))
 
     def parse(self, response):
         return scrapy.Request(url=self.start_urls[0], cookies=self.get_cookies(), callback=self.after_login)

@@ -67,15 +67,20 @@ class RawFilenameImagePipeline(ImagesPipeline):
         if not isinstance(item, ImageItem):
             return
         requests = super().get_media_requests(item, info)
+        
         for req in requests:
-            req.headers.appendlist("referer", item['referer'])
+            # req.headers.appendlist("referer", item['referer'])
+            # req.headers["referer"]=item['referer']
+            # req.headers[b'User-Agent'] = b'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36' 
             req.meta["img_folder"] = item["img_folder"] or ''   
-              
+            # print(req.headers)              
         return requests
+
         # for image_url in item['image_urls']:
         #    yield Request(url=image_url,headers={'Referer':item['header_referer']})
     def file_path(self, request, response=None, info=None):        
         url = request.url   
+        print(request.headers)
         # print( 'full/{1}{0}'.format( url.split('/')[-1], request.meta["img_folder"]) )
         return 'full/{1}{0}'.format( url.split('/')[-1],  request.meta["img_folder"])
 
