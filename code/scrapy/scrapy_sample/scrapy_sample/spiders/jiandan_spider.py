@@ -14,7 +14,7 @@ class jiandanSpider(scrapy.Spider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36' }
      
     def parse(self, response):
-        print(response.request.headers)
+        # print(response.request.headers)
         
         item = ImageItem()
         urls = response.xpath('//div[@class="text"]//img//@src').getall()#提取图片链接
@@ -22,8 +22,8 @@ class jiandanSpider(scrapy.Spider):
         item['img_folder'] = 'jiandan'
         item['referer'] =  response.url
         yield item
-        new_url= "https:"+response.xpath('//a[@class="previous-comment-page"]//@href').get()#翻页
-        return
+        new_url= response.xpath('//a[@class="previous-comment-page"]//@href').get()#翻页
+        
         # print 'new_url',new_url
-        if new_url:
-            yield scrapy.Request(new_url,callback=self.parse,headers=self.header)
+        if new_url is not None:
+            yield scrapy.Request("https:"+new_url,callback=self.parse,headers=self.header)

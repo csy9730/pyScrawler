@@ -6,7 +6,7 @@ selenium.common.exceptions.UnableToSetCookieException: Message: unable to set co
 
 
 
-``` python\
+``` python
 
 selenium用法详解
 selenium主要是用来做自动化测试，支持多种浏览器，爬虫中主要用来解决JavaScript渲染问题。

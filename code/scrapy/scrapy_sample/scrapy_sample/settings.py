@@ -19,8 +19,8 @@ MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'budejie'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'
-# USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' 
+# USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' 
 CUSTOMIZE_USER_AGENT_LIST = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' ,
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0',
@@ -75,8 +75,8 @@ DOWNLOADER_MIDDLEWARES = {
     # 'scrapy_sample.middlewares.MyCustomDownloaderMiddleware': 543,
    #  'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
    # 'scrapy_sample.middlewares.MyproxiesSpiderMiddleware': 125
-   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 222,
-   # 'scrapy_sample.middlewares.CustomizeUserAgentMiddleware': 200
+  'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+   'scrapy_sample.middlewares.CustomizeUserAgentMiddleware': 200
  }
 
 # Enable or disable extensions
