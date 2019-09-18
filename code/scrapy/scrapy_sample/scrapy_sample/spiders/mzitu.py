@@ -24,7 +24,7 @@ class MzituSpider(scrapy.Spider):
         urls = response.xpath('//ul[@id="pins"]//li//span//@href').getall()
         for url in urls:
             print(url)
-            yield  Request(self.urlpre+ url ,headers=self.header,callback=self.parse_article)
+            yield  Request( url ,headers=self.header,callback=self.parse_article)
         page_urls= response.xpath('//div[@class="nav-links"]//a/@href').getall()
         for url in page_urls:
             yield  Request( url ,headers=self.header,callback=self.parse)
@@ -32,8 +32,10 @@ class MzituSpider(scrapy.Spider):
     def parse_article(self,response):
         image_urls = response.xpath('//div[@class="main-image"]//a/img/@src').getall()
         title = response.xpath("//h2//text()").get()
+        img_folder = title+'/'
         # datetime = response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get()
         # count = response.xpath('//div[@class="pagenavi"]//a/span/text()').getall()[-2]
+        yield ImageItem(image_urls=image_urls,referer =response.url,title = title,img_folder = img_folder)
         page_urls = response.xpath('//div[@class="pagenavi"]//a/@href').getall() 
         for page in page_urls:             
             yield  Request( page ,headers=self.header,callback=self.parse_image, meta={"img_folder":img_folder})
