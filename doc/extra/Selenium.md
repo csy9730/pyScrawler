@@ -1,6 +1,8 @@
 # Selenium
 
+driver.findElement(By.xpath(“//*[text()=’退出’]));
 
+selenium.common.exceptions.WebDriverException: Message: '.' executable may have wrong permissions.
 
 selenium.common.exceptions.UnableToSetCookieException: Message: unable to set cookie
 

@@ -48,10 +48,37 @@ class spider(object):
         urls = [ f.get_attribute('href') for f in fd]
         self.browser.get(urls[0])
         
+ 
+
+    def parse_book(self,url):
+        self.browser.get( url )
+        sel = '//div[@class="chapterlist_box"]//li/a'
+        fd = self.browser.find_elements_by_xpath( sel)
+        urls = [ f.get_attribute('href') for f in fd]
+        return urls
+        
+    def parse_chapter(self,url):
+        self.browser.get(urls[0])
         imgXpath = '//div[@id="current_read_image"]//img'
         imgs = self.browser.find_elements_by_xpath( imgXpath)
         img_urls = [ f.get_attribute('src') for f in imgs]
-        sel2 =  '//div[@class="selectpage"]/a'  
+        self.download_image(img_urls)
+        sel2 =  '//div[@class="selectpage"]/a' 
+        return img_urls
+    
+    def crawl(self):
+        book = self.parse_book(url)
+        for url in book["urls"]:
+            img_urls = self.parse_chapter(url)
+            
+
+    def download_image(self,url):
+        r = requests.get(url)
+        # 将获取到的图片二进制流写入本地文件
+        pfn = url.split('/')[-1]
+        with open(pfn, 'wb') as f:
+            # r.content 返回压缩格式的数据，一般图片之类的都是通过r.content获取
+            f.write(r.content)
 
 def main():
     spd = spider()
