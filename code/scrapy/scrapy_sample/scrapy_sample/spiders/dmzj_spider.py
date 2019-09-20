@@ -2,7 +2,6 @@
 import scrapy
 from scrapy_sample.items import ImageItem,BookItem
 
-import execjs
 import json,os
 os.environ["EXECJS_RUNTIME"] = 'Node'
 # @todo https://manhua.dmzj.com/haizeiwang/
@@ -71,6 +70,7 @@ class dmzjSpider(scrapy.Spider):
             @scrapes //images.dmzj.com/y/%E5%A6%96%E7%B2%BE%E7%9A%84%E5%B0%BE%E5%B7%B4/%E5%A6%96%E7%B2%BE%E7%9A%84%E5%B0%BE%E5%B7%B4%20%E7%AC%AC12%E5%8D%B7/0001.jpg
         """
         # print("response.url",response.url)
+        import execjs
         scripts = response.xpath('.//script/text()').getall() 
         ctx = execjs.compile(scripts[0])
         pages = ctx.eval('pages')        

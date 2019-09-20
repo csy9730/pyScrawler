@@ -9,7 +9,7 @@ import re
 import json
 import base64
 import scrapy
-from scrapy_splash import SplashRequest
+
 
 class JsSpider(scrapy.Spider):
     name = "jd"
@@ -20,6 +20,7 @@ class JsSpider(scrapy.Spider):
     ]
 
     def start_requests(self):
+        from scrapy_splash import SplashRequest
         splash_args = {
             'wait': 0.5,
             # 'http_method': 'GET',

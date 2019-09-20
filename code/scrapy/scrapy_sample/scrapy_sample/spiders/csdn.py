@@ -1,5 +1,5 @@
 import scrapy
-import urllib.parse
+
 
 
 class CsdnBlogSpider(scrapy.Spider):
@@ -12,6 +12,7 @@ class CsdnBlogSpider(scrapy.Spider):
         self.base_url = 'http://blog.csdn.net'
 
     def parse(self, response):
+        import urllib.parse
         articles = response.css('div#article_list div.article_item')
         for article in articles:
             list1 = article.css('div.article_title a::text').extract()

@@ -8,7 +8,6 @@
 import random  
 from scrapy import signals  
 from scrapy_sample.settings import IPPOOL  
-import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 

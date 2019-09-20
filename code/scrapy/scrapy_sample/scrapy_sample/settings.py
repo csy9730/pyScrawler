@@ -13,7 +13,7 @@ BOT_NAME = 'scrapy_sample'
 
 SPIDER_MODULES = ['scrapy_sample.spiders']
 NEWSPIDER_MODULE = 'scrapy_sample.spiders'
-FEED_EXPORT_ENCODING = 'utf-8'
+
 
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'budejie'
@@ -128,3 +128,10 @@ IPPOOL=[
     {"ipaddr":"113.120.39.243:9999"},
     {"ipaddr":"163.204.242.62:9999"}
 ]
+
+
+FEED_EXPORT_ENCODING = 'utf-8'
+FEED_EXPORTERS = {
+    'jsonlines': 'scrapy.exporters.JsonLinesItemExporter',
+}
+FEED_FORMAT = 'jsonlines'
