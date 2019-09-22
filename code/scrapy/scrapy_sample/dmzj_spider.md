@@ -65,3 +65,17 @@ https://ac.qq.com/
 http://www.u17.com/
 ```
 
+## pyinstaller
+* 添加scrapy目录的VERSION文件
+* 避免import错误，显式import 模块
+* 避免spider not found 错误
+
+
+主程序不能使用scrapy.exe,也不能使用cmdline调用，
+只能使用CrawlerProcess或CrawlerRunner调用核心主程序。
+CrawlerRunner可以通过name字符串或spiderClass调用spiderClass
+CrawlerProcess继承于CrawlerRunner。
+
+**Q**:KeyError: 'Spider not found: 
+**A**: 这种错误通常由于spiderName错误导致，也可能由于当前目录没有spider.py文件引起。更好的方式是显式把spiderClass传入参数，无需搜索工作目录。
+

@@ -57,10 +57,22 @@ import scrapy.pipelines.images  # 用到图片管道
 
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+import sys
+sys.path.append('scrapy_sample/spiders')
+
 import PIL
+import scrapy_sample.spiders
+from scrapy_sample.spiders.mzitu import MzituSpider
+# import scrapy_sample.spiders.meizitu
+import scrapy_sample.settings
+import scrapy_sample.pipelines
+import scrapy_sample.middlewares
+import scrapy_sample.items
+
+
 sett =  get_project_settings()
 print( sett)
-sett.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
+# sett.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
 process = CrawlerProcess( sett)
 
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
@@ -70,7 +82,7 @@ import sys,os
 if len(sys.argv)>1:
     keyword = sys.argv[1]
 else:
-    keyword = "baiduimage"
-print(keyword)
-process.crawl(keyword) # , domain='mzitu.com'
+    keyword = "mzitu"
+# print(keyword)
+process.crawl( MzituSpider ) # , domain='mzitu.com'
 process.start() # the script will block here until the crawling is finished
