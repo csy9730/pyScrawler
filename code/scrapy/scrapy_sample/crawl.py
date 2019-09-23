@@ -72,7 +72,7 @@ import scrapy_sample.items
 
 sett =  get_project_settings()
 print( sett)
-# sett.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
+sett.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
 process = CrawlerProcess( sett)
 
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)

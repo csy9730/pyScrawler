@@ -91,6 +91,9 @@ ITEM_PIPELINES = {
     'scrapy_sample.pipelines.RawFilenameImagePipeline': 1,
 	#     'scrapy_sample.pipelines.RefererImagePipeline': 1,
    # 'scrapy_sample.pipelines.CsdnBlogBackupPipeline': 2
+
+    'scrapy_sample.pipelines.JsonlineExportPipeline': 999,
+
 }
 
 IMAGES_STORE = 'images'

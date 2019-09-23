@@ -6,7 +6,7 @@ from scrapy import cmdline
 keysList = ["mm131","meizitu","meizitu0","ishuhui","sgacg","dmzj","mzitu"]
 keys = keysList[6]
 book = "tzdgzsnldydszldmfs"
-cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
+cmd = 'scrapy crawl %s -a book=%s  -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book)
 
 # 非续爬模式
 cmdline.execute(cmd .split())

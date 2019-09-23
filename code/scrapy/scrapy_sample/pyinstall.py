@@ -10,7 +10,8 @@ if __name__ == '__main__':
         , '--exclude-module=scikit-learn', '--exclude-module=PySide' 
         , '--exclude-module=pandas', '--exclude-module=matplotlib', '--exclude-module=numpy', '--exclude-module=scipy'
         ,  '--exclude-module=PyQt4'
-        ,'--hidden-import=pkg_resources','--add-data=ui/VERSION;scrapy','--add-data=ui/mime.types;scrapy'
+        ,'--hidden-import=pkg_resources','--add-data=ui/VERSION;scrapy','--add-data=scrapy.cfg;.'
+,'--add-data=ui/mime.types;scrapy'
         ]
           # '--icon=./qml/zlg.ico', ,'--add-data=qml/zlg.ico;qml','--add-data=smogFakeData.txt;.' '--exclude-module=enum34',
           # '--clean', 

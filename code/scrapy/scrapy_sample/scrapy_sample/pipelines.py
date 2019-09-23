@@ -5,11 +5,14 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-
+from scrapy import signals, Request
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy.http import Request
 from scrapy_sample.items import ImageItem
-
+from scrapy.exporters import JsonItemExporter, JsonLinesItemExporter
+import logging
+import os
+_log = logging.getLogger(__name__)
 class RawFilenameImagePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         if not isinstance(item, ImageItem):
@@ -103,3 +106,106 @@ class BudejiePostgrePipeline(object):
         self.cursor.execute('insert into joke(author,content) values(%s,%s)', (item['username'], item['content']))
         return item
 
+
+class JsonExportPipeline(object):
+    def __init__(self):
+        _log.info('JsonExportPipeline.init....')
+        self.files = {}
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        _log.info('JsonExportPipeline.from_crawler....')
+        pipeline = cls()
+        crawler.signals.connect(pipeline.spider_opened, signals.spider_opened)
+        crawler.signals.connect(pipeline.spider_closed, signals.spider_closed)
+        return pipeline
+
+    def spider_opened(self, spider):
+        _log.info('JsonExportPipeline.spider_opened....')
+        file = open('%s.json' % spider.name, 'w+b')
+        self.files[spider] = file
+        self.exporter = JsonItemExporter(file)
+        self.exporter.start_exporting()
+
+    def spider_closed(self, spider):
+        _log.info('JsonExportPipeline.spider_closed....')
+        self.exporter.finish_exporting()
+        file = self.files.pop(spider)
+        file.close()
+
+    def process_item(self, item, spider):
+        _log.info('JsonExportPipeline.process_item....')
+        self.exporter.export_item(item)
+        return item
+class JsonlineExportPipeline(object):
+    def __init__(self):
+        _log.info('JsonExportPipeline.init....')
+        self.files = {}
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        _log.info('JsonlineExportPipeline.from_crawler....')
+        pipeline = cls()
+        crawler.signals.connect(pipeline.spider_opened, signals.spider_opened)
+        crawler.signals.connect(pipeline.spider_closed, signals.spider_closed)
+        return pipeline
+
+    def spider_opened(self, spider):
+        _log.info('JsonExportPipeline.spider_opened....')
+        file = open('%s.json' % spider.name, 'w+b')
+        self.files[spider] = file
+        self.exporter = JsonLinesItemExporter(file)
+        self.exporter.start_exporting()
+
+    def spider_closed(self, spider):
+        _log.info('JsonExportPipeline.spider_closed....')
+        self.exporter.finish_exporting()
+        file = self.files.pop(spider)
+        file.close()
+
+    def process_item(self, item, spider):
+        _log.info('JsonExportPipeline.process_item....')
+        self.exporter.export_item(item)
+        return item
+    # sqlite
+import sqlite3
+
+class SQLitePipeline(object):
+
+    #打开数据库
+    def open_spider(self, spider):
+        db_name = spider.settings.get('SQLITE_DB_NAME', 'scrapy.db')
+        self.db_conn = sqlite3.connect(db_name)
+        
+        if os.path.exists(db_name) and os.path.isfile(db_name):
+            db_conn.execute('''CREATE TABLE COMPANY2
+            (ID INT PRIMARY KEY     NOT NULL,
+            NAME           TEXT    NOT NULL,
+            AGE            INT     NOT NULL,
+            ADDRESS        CHAR(50),
+            SALARY         REAL);''')        
+        self.db_cur = self.db_conn.cursor()
+
+    #关闭数据库
+    def close_spider(self, spider):
+        self.db_conn.commit()
+        self.db_conn.close()
+
+    #对数据进行处理
+    def process_item(self, item, spider):
+        self.insert_db(item)
+        return item
+
+    #插入数据
+    def insert_db(self, item):
+        values = (
+            item['image_urls'],
+            item['name'],
+            item['price'],
+            item['image_url'],
+            item['referer'],
+            item['title'],
+        )
+
+        sql = 'INSERT INTO books VALUES(?,?,?,?,?,?)'
+        self.db_cur.execute(sql, values)
