@@ -1,6 +1,6 @@
 import scrapy
 
-
+from scrapy_sample.items import BlogListItem
 
 class CsdnBlogSpider(scrapy.Spider):
     """我的CSDN所有文章和链接的爬虫"""
@@ -13,15 +13,19 @@ class CsdnBlogSpider(scrapy.Spider):
 
     def parse(self, response):
         import urllib.parse
-        articles = response.css('div#article_list div.article_item')
+        articles = response.css('div.article-list div.article-item-box')
         for article in articles:
-            list1 = article.css('div.article_title a::text').extract()
-            list2 = [e.strip() for e in list1 if e.strip()]
-            title = list2[0]
-            link = self.base_url + article.css('div.article_title a::attr(href)').extract_first().strip()
-            yield {'title': title, 'link': link}
+            title = ''.join( article.css('h4 a::text').getall()).strip()
+            href = self.base_url + article.css('h4 a::attr(href)').get()  
+            description =  article.css('p.content a::text').get().strip()
+            datetime =  article.css('div.info-box span.date::text').get().strip()
+            num =  article.css('div.info-box span.read-num span.num::text').getall() or [-1,-1]
+            read_num =  num[0]
+            reply_num =  num[1]
+            yield  BlogListItem(title=title, href=href,referer = response.url ,description=description, 
+                            datetime=datetime,read_num=read_num,reply_num=reply_num)
 
-        pages = response.css('div#papelist')
+        pages = response.css('div#pageBox')
         next_page_url = pages.css('a').re_first('<a href=\"(.*)\">下一页')
         if next_page_url is not None:
             yield scrapy.Request(urllib.parse.urljoin(self.base_url, next_page_url))

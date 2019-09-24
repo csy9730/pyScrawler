@@ -26,9 +26,20 @@ def imgMove(lst,dirNew='images/'):
             os.rename(filenameOld,filenameNew)#重命
             ls.append( filenameNew )
     return ls
-            
+def eSqlite():
+    import sqlite3
+    db_name ='scrapy.db'
+    db_conn = sqlite3.connect(db_name)
+    sql = "select ID,REFERER, image_url , path,title from images"
+    sel = db_conn.execute(sql)
+    for s in sel:
+        print(s[0],s[1],s[2],s[3].decode('utf-8'),s[4].decode('utf-8'))
+    db_conn.close()
+
 
 def main():
+    eSqlite()
+    return
     pfn = 'scr'
     pfn = 'scr_mm131.jl'
     lst = dataShow(pfn )

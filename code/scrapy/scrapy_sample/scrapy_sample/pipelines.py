@@ -170,20 +170,23 @@ class JsonlineExportPipeline(object):
     # sqlite
 import sqlite3
 
-class SQLitePipeline(object):
+class SQLiteImagePipeline(object):
 
     #打开数据库
     def open_spider(self, spider):
         db_name = spider.settings.get('SQLITE_DB_NAME', 'scrapy.db')
-        self.db_conn = sqlite3.connect(db_name)
         
-        if os.path.exists(db_name) and os.path.isfile(db_name):
-            db_conn.execute('''CREATE TABLE COMPANY2
-            (ID INT PRIMARY KEY     NOT NULL,
-            NAME           TEXT    NOT NULL,
-            AGE            INT     NOT NULL,
-            ADDRESS        CHAR(50),
-            SALARY         REAL);''')        
+        
+        if not (os.path.exists(db_name) and os.path.isfile(db_name)):
+            self.db_conn = sqlite3.connect(db_name)
+            self.db_conn.execute('''CREATE TABLE IMAGES
+            (ID CHAR(32) PRIMARY KEY     NOT NULL,            
+            image_url       CHAR(150),
+            REFERER        CHAR(150),
+            path       CHAR(150),
+            title       CHAR(150));''')  
+        else:
+            self.db_conn = sqlite3.connect(db_name)      
         self.db_cur = self.db_conn.cursor()
 
     #关闭数据库
@@ -193,19 +196,22 @@ class SQLitePipeline(object):
 
     #对数据进行处理
     def process_item(self, item, spider):
+        if not isinstance(item, ImageItem):
+            return item
         self.insert_db(item)
         return item
 
     #插入数据
     def insert_db(self, item):
-        values = (
-            item['image_urls'],
-            item['name'],
-            item['price'],
-            item['image_url'],
-            item['referer'],
-            item['title'],
-        )
-
-        sql = 'INSERT INTO books VALUES(?,?,?,?,?,?)'
-        self.db_cur.execute(sql, values)
+        imgs = item['images']
+        for img in imgs:
+            if img["checksum"] is not None:
+                values = (
+                    img["checksum"],
+                    img["url"],
+                    item['referer'],
+                    img["path"].encode('utf8'),                    
+                    item['title'].encode('utf8'),
+                )
+                sql = 'INSERT INTO IMAGES VALUES(?,?,?,?,?)'
+                self.db_cur.execute(sql, values)

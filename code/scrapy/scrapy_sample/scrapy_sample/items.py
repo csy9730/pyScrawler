@@ -7,13 +7,6 @@
 
 import scrapy
 
-
-class ScrapySampleItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
-
-
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field()
     images = scrapy.Field()
@@ -39,3 +32,12 @@ class BudejieItem(scrapy.Item):
 class CsdnBlogItem(scrapy.Item):
     title = scrapy.Field()
     content = scrapy.Field()
+
+class BlogListItem(scrapy.Item):
+    title = scrapy.Field()
+    referer = scrapy.Field()
+    href = scrapy.Field()
+    description = scrapy.Field()
+    datetime = scrapy.Field()
+    read_num = scrapy.Field()
+    reply_num = scrapy.Field()
