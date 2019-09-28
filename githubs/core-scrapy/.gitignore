@@ -2,6 +2,7 @@
 *.pyc
 *.log
 node_modules/
+scr_*
 _book/
 .project
 *~

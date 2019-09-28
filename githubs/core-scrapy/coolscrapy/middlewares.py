@@ -4,7 +4,7 @@
 Topic: 中间件集合
 Desc : 
 """
-import redis
+# import redis
 import random
 import logging
 from scrapy import signals

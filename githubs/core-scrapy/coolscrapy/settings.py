@@ -43,12 +43,12 @@ DOWNLOAD_DELAY = 5
 # 禁用Cookie
 COOKIES_ENABLES = True
 #COOKIES_DEBUG = True
-
+"""
 LOG_LEVEL = logging.INFO
 LOG_STDOUT = True
-LOG_FILE = "E:/logs/spider.log"
+LOG_FILE = "scr_spider.log"
 LOG_FORMAT = "%(asctime)s [%(name)s] %(levelname)s: %(message)s"
-
+"""
 
 # windows pip install mysqlclient
 # linux pip install MySQL-python
@@ -61,7 +61,7 @@ DATABASE = {'drivername': 'mysql',
             'query': {'charset': 'utf8'}}
 
 # 图片下载设置
-IMAGES_STORE = 'E:/logs/'
+IMAGES_STORE = 'scr_images/'
 IMAGES_EXPIRES = 30  # 30天内抓取的都不会被重抓
 # 图片链接前缀
 URL_PREFIX = 'http://enzhico.net/pics/'

@@ -28,7 +28,7 @@ def imgMove(lst,dirNew='images/'):
     return ls
 def eSqlite():
     import sqlite3
-    db_name ='scrapy.db'
+    db_name ='scr_image.db'
     db_conn = sqlite3.connect(db_name)
     sql = "select ID,REFERER, image_url , path,title from images"
     sel = db_conn.execute(sql)

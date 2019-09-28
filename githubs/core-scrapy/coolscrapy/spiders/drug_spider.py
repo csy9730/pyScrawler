@@ -9,7 +9,7 @@ from scrapy.spiders import Spider
 from scrapy.spiders import XMLFeedSpider, CrawlSpider, Rule
 from scrapy.linkextractors.lxmlhtml import LxmlLinkExtractor
 from scrapy.linkextractors import LinkExtractor
-from scrapy.selector import Selector, HtmlXPathSelector
+from scrapy.selector import Selector# , HtmlXPathSelector
 from scrapy.loader import ItemLoader
 from scrapy import Request
 from scrapy.exceptions import DropItem

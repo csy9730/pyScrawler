@@ -1,5 +1,5 @@
 import json
-import re
+import re,os,sys
 import requests
 
 def a():
@@ -15,9 +15,22 @@ def jsonRegexDemo():
     print(st2)
     imgUrl = re.findall(r"=\s\"([\w\d_/]+.jpg\")",st)
     print(imgUrl,len(imgUrl))
+def excelDemo():
+    import openpyxl      
+    wb = openpyxl.Workbook()
+    sheet = wb.get_active_sheet()
+    xls_name = "scr_scrapy.xlsx"
+    if os.path.exists( xls_name ):
+        wb = openpyxl.load_workbook(xls_name)
+        sheetnames = wb.get_sheet_names()
+        sheet = wb.get_sheet_by_name(sheetnames[0])
+        item = {"abc":456,"def":"wrtretert"}
+        sheet.append( [json.dumps( item[key],ensure_ascii=False )  for key  in item.keys() ] )
+        wb.save(xls_name)
+
 def main():
     pass
-    execJsDemo()
+    excelDemo()
     #jsonRegexDemo()
 def execJsDemo():
     import execjs

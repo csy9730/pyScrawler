@@ -2,7 +2,8 @@
 import scrapy
 from scrapy_sample.items import ImageItem
 from scrapy.http import Request
-
+import logging
+_log = logging.getLogger(__name__)
 class MeizituSpider(scrapy.Spider):
     name = 'meizitu'
     urlpre = 'https://www.meizitu.com'
@@ -21,10 +22,10 @@ class MeizituSpider(scrapy.Spider):
             @url https://www.meizitu.com
             @scrapes /a/list_1_1.html
         """
-        print(response.request.headers)
+        _log.info(response.request.headers)
         urls = response.xpath('.//*[@id="wp_page_numbers"]/ul/li/a/@href').getall()
         for url in urls:
-            print(url)
+            _log.info(url)
             yield  Request(self.urlpre+ url ,headers=self.header,callback=self.parse_page)
     def parse_page(self, response):
         """ This function parses pages

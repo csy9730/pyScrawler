@@ -8,8 +8,8 @@
 import scrapy
 
 class ImageItem(scrapy.Item):
-    image_urls = scrapy.Field()
-    images = scrapy.Field()
+    image_urls = scrapy.Field() 
+    images = scrapy.Field() # record output sha1
     img_folder = scrapy.Field()
     referer = scrapy.Field()
     title = scrapy.Field()
@@ -41,3 +41,9 @@ class BlogListItem(scrapy.Item):
     datetime = scrapy.Field()
     read_num = scrapy.Field()
     reply_num = scrapy.Field()
+
+class BodyItem(scrapy.Item):
+    referer = scrapy.Field()
+    body = scrapy.Field()
+    image_urls = scrapy.Field() 
+    title = scrapy.Field()

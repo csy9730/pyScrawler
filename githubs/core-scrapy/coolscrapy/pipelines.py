@@ -9,7 +9,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import datetime
-import redis
+# import redis
 import json
 import logging
 from contextlib import contextmanager
@@ -21,7 +21,7 @@ from scrapy.exceptions import DropItem
 from sqlalchemy.orm import sessionmaker
 from coolscrapy.models import News, db_connect, create_news_table, Article, Tobacco, Barcode
 
-Redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+# Redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 _log = logging.getLogger(__name__)
 
 

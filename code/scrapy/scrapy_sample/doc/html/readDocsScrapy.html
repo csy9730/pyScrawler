@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapy 0.24 文档 &mdash; Scrapy 0.24.6 文档</title>
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="top" title="Scrapy 0.24.6 文档" href="#" />
+    <link rel="next" title="初窥Scrapy" href="intro/overview.html" />
+    <script src="_static/js/modernizr.min.js"></script>
+    <!-- RTD Extra Head -->
+    <!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+    <link rel="canonical" href="http://scrapy-chs.readthedocs.io/zh_CN/0.24/" />
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+    <script type="text/javascript" src="_static/readthedocs-data.js"></script>
+    <!-- Add page-specific data, which must exist in the page js, not global -->
+    <script type="text/javascript">
+        READTHEDOCS_DATA['page'] = 'index'
+        READTHEDOCS_DATA['source_suffix'] = '.rst'
+    </script>
+    <script type="text/javascript" src="_static/readthedocs-dynamic-include.js"></script>
+    <!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav" role="document">
+    <div class="wy-grid-for-nav">
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+            <div class="wy-side-scroll">
+                <div class="wy-side-nav-search">
+                    <a href="#" class="icon icon-home"> Scrapy
+                    </a>
+                    <div class="version">
+                        0.24
+                    </div>
+                    <div role="search">
+                        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+                            <input type="text" name="q" placeholder="Search docs" />
+                            <input type="hidden" name="check_keywords" value="yes" />
+                            <input type="hidden" name="area" value="default" />
+                        </form>
+                    </div>
+                </div>
+                <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="intro/overview.html">初窥Scrapy</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal" href="intro/install.html">安装指南</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="intro/tutorial.html">Scrapy入门教程</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal" href="intro/examples.html">例子</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/commands.html">命令行工具(Command
+                                line tools)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/items.html">Items</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/spiders.html">Spiders</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/selectors.html">选择器(Selectors)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/loaders.html">Item Loaders</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/shell.html">Scrapy终端(Scrapy
+                                shell)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/item-pipeline.html">Item
+                                Pipeline</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/feed-exports.html">Feed
+                                exports</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/link-extractors.html">Link
+                                Extractors</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/logging.html">Logging</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/stats.html">数据收集(Stats
+                                Collection)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/email.html">发送email</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/telnetconsole.html">Telnet终端(Telnet Console)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/webservice.html">Web
+                                Service</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="faq.html">常见问题(FAQ)</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/debug.html">调试(Debugging)Spiders</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/contracts.html">Spiders
+                                Contracts</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/practices.html">实践经验(Common
+                                Practices)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/broad-crawls.html">通用爬虫(Broad
+                                Crawls)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/firefox.html">借助Firefox来爬取</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/firebug.html">使用Firebug进行爬取</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/leaks.html">调试内存溢出</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/images.html">下载项目图片</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/ubuntu.html">Ubuntu 软件包</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/scrapyd.html">Scrapyd</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/autothrottle.html">自动限速(AutoThrottle)扩展</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/benchmarking.html">Benchmarking</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/jobs.html">Jobs: 暂停，恢复爬虫</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/djangoitem.html">DjangoItem</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/architecture.html">架构概览</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/downloader-middleware.html">下载器中间件(Downloader Middleware)</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/spider-middleware.html">Spider中间件(Middleware)</a></li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/extensions.html">扩展(Extensions)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/api.html">核心API</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/request-response.html">Requests and Responses</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/settings.html">Settings</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/signals.html">信号(Signals)</a>
+                        </li>
+                        <li class="toctree-l1"><a class="reference internal"
+                                href="topics/exceptions.html">异常(Exceptions)</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="topics/exporters.html">Item
+                                Exporters</a></li>
+                    </ul>
+                    <ul>
+                        <li class="toctree-l1"><a class="reference internal" href="news.html">Release notes</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to
+                                Scrapy</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning and API
+                                Stability</a></li>
+                        <li class="toctree-l1"><a class="reference internal" href="experimental/index.html">试验阶段特性</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+            <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+                <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+                <a href="#">Scrapy</a>
+            </nav>
+            <div class="wy-nav-content">
+                <div class="rst-content">
+                    <div role="navigation" aria-label="breadcrumbs navigation">
+                        <ul class="wy-breadcrumbs">
+                            <li><a href="#">Docs</a> &raquo;</li>
+                            <li>Scrapy 0.24 文档</li>
+                            <li class="wy-breadcrumbs-aside">
+                                <a href="https://github.com/marchtea/scrapy_doc_chs/blob/0.24/./index.rst"
+                                    class="fa fa-github"> Edit on GitHub</a>
+                            </li>
+                        </ul>
+                        <hr />
+                    </div>
+                    <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+                        <div itemprop="articleBody">
+                            <div class="section" id="scrapy-version">
+                                <span id="topics-index"></span>
+                                <h1>Scrapy 0.24 文档<a class="headerlink" href="#scrapy-version" title="永久链接至标题">¶</a>
+                                </h1>
+                                <p>本文档涵盖了所有Scrapy的内容。</p>
+                                <div class="section" id="id1">
+                                    <h2>获得帮助<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+                                    <p>遇到问题了？我们来帮您！</p>
+                                    <ul class="simple">
+                                        <li>查看下 <a class="reference internal" href="faq.html"><span
+                                                    class="doc">FAQ</span></a> ，这里有些常见的问题的解决办法。</li>
+                                        <li>寻找详细的信息？试试 <a class="reference internal" href="genindex.html"><span
+                                                    class="std std-ref">索引</span></a> 或者 <a class="reference internal"
+                                                href="py-modindex.html"><span class="std std-ref">模块索引</span></a> 。</li>
+                                        <li>您可以在 <a class="reference external"
+                                                href="http://groups.google.com/group/scrapy-users/">scrapy-users的邮件列表</a>
+                                            中寻找内容，或者 <a class="reference external"
+                                                href="http://groups.google.com/group/scrapy-users/">提问问题</a></li>
+                                        <li>在 <a class="reference external" href="irc://irc.freenode.net/scrapy">#scrapy
+                                                IRC channel</a> 提问</li>
+                                        <li>在 <a class="reference external"
+                                                href="https://github.com/scrapy/scrapy/issues">issue tracker</a>
+                                            中提交Scrapy的bug</li>
+                                    </ul>
+                                </div>
+                                <div class="section" id="id3">
+                                    <h2>第一步<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="intro/overview.html"><span
+                                                    class="doc">初窥Scrapy</span></a></dt>
+                                        <dd>了解Scrapy如何助你一臂之力。</dd>
+                                        <dt><a class="reference internal" href="intro/install.html"><span
+                                                    class="doc">安装指南</span></a></dt>
+                                        <dd>安装Scrapy。</dd>
+                                        <dt><a class="reference internal" href="intro/tutorial.html"><span
+                                                    class="doc">Scrapy入门教程</span></a></dt>
+                                        <dd>编写您的第一个Scrapy项目。</dd>
+                                        <dt><a class="reference internal" href="intro/examples.html"><span
+                                                    class="doc">例子</span></a></dt>
+                                        <dd>通过把玩已存在的Scrapy项目来学习更多内容。</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="section-basics">
+                                    <span id="id4"></span>
+                                    <h2>基本概念<a class="headerlink" href="#section-basics" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="topics/commands.html"><span
+                                                    class="doc">命令行工具(Command line tools)</span></a></dt>
+                                        <dd>学习用于管理Scrapy项目的命令行工具</dd>
+                                        <dt><a class="reference internal" href="topics/items.html"><span
+                                                    class="doc">Items</span></a></dt>
+                                        <dd>定义爬取的数据</dd>
+                                        <dt><a class="reference internal" href="topics/spiders.html"><span
+                                                    class="doc">Spiders</span></a></dt>
+                                        <dd>编写爬取网站的规则</dd>
+                                        <dt><a class="reference internal" href="topics/selectors.html"><span
+                                                    class="doc">选择器(Selectors)</span></a></dt>
+                                        <dd>使用XPath提取网页的数据</dd>
+                                        <dt><a class="reference internal" href="topics/shell.html"><span
+                                                    class="doc">Scrapy终端(Scrapy shell)</span></a></dt>
+                                        <dd>在交互环境中测试提取数据的代码</dd>
+                                        <dt><a class="reference internal" href="topics/loaders.html"><span
+                                                    class="doc">Item Loaders</span></a></dt>
+                                        <dd>使用爬取到的数据填充item</dd>
+                                        <dt><a class="reference internal" href="topics/item-pipeline.html"><span
+                                                    class="doc">Item Pipeline</span></a></dt>
+                                        <dd>后处理(Post-process)，存储爬取的数据</dd>
+                                        <dt><a class="reference internal" href="topics/feed-exports.html"><span
+                                                    class="doc">Feed exports</span></a></dt>
+                                        <dd>以不同格式输出爬取数据到不同的存储端</dd>
+                                        <dt><a class="reference internal" href="topics/link-extractors.html"><span
+                                                    class="doc">Link Extractors</span></a></dt>
+                                        <dd>方便用于提取后续跟进链接的类。</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="id5">
+                                    <h2>内置服务<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="topics/logging.html"><span
+                                                    class="doc">Logging</span></a></dt>
+                                        <dd>了解Scrapy提供的logging功能。</dd>
+                                        <dt><a class="reference internal" href="topics/stats.html"><span
+                                                    class="doc">数据收集(Stats Collection)</span></a></dt>
+                                        <dd>收集爬虫运行数据</dd>
+                                        <dt><a class="reference internal" href="topics/email.html"><span
+                                                    class="doc">发送email</span></a></dt>
+                                        <dd>当特定事件发生时发送邮件通知</dd>
+                                        <dt><a class="reference internal" href="topics/telnetconsole.html"><span
+                                                    class="doc">Telnet终端(Telnet Console)</span></a></dt>
+                                        <dd>使用内置的Python终端检查运行中的crawler(爬虫)</dd>
+                                        <dt><a class="reference internal" href="topics/webservice.html"><span
+                                                    class="doc">Web Service</span></a></dt>
+                                        <dd>使用web service对您的爬虫进行监控和管理</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="id6">
+                                    <h2>解决特定问题<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="faq.html"><span
+                                                    class="doc">常见问题(FAQ)</span></a></dt>
+                                        <dd>常见问题的解决办法。</dd>
+                                        <dt><a class="reference internal" href="topics/debug.html"><span
+                                                    class="doc">调试(Debugging)Spiders</span></a></dt>
+                                        <dd>学习如何对scrapy spider的常见问题进行debug。</dd>
+                                        <dt><a class="reference internal" href="topics/contracts.html"><span
+                                                    class="doc">Spiders Contracts</span></a></dt>
+                                        <dd>学习如何使用contract来测试您的spider。</dd>
+                                        <dt><a class="reference internal" href="topics/practices.html"><span
+                                                    class="doc">实践经验(Common Practices)</span></a></dt>
+                                        <dd>熟悉Scrapy的一些惯例做法。</dd>
+                                        <dt><a class="reference internal" href="topics/broad-crawls.html"><span
+                                                    class="doc">通用爬虫(Broad Crawls)</span></a></dt>
+                                        <dd>调整Scrapy来适应并发爬取大量网站(a lot of domains)。</dd>
+                                        <dt><a class="reference internal" href="topics/firefox.html"><span
+                                                    class="doc">借助Firefox来爬取</span></a></dt>
+                                        <dd>了解如何使用Firefox及其他有用的插件来爬取数据。</dd>
+                                        <dt><a class="reference internal" href="topics/firebug.html"><span
+                                                    class="doc">使用Firebug进行爬取</span></a></dt>
+                                        <dd>了解如何使用Firebug来爬取数据。</dd>
+                                        <dt><a class="reference internal" href="topics/leaks.html"><span
+                                                    class="doc">调试内存溢出</span></a></dt>
+                                        <dd>了解如何查找并让您的爬虫避免内存泄露。</dd>
+                                        <dt><a class="reference internal" href="topics/images.html"><span
+                                                    class="doc">下载项目图片</span></a></dt>
+                                        <dd>下载爬取的item中的图片。</dd>
+                                        <dt><a class="reference internal" href="topics/ubuntu.html"><span
+                                                    class="doc">Ubuntu 软件包</span></a></dt>
+                                        <dd>在Ubuntu下下载最新的Scrapy。</dd>
+                                        <dt><a class="reference internal" href="topics/scrapyd.html"><span
+                                                    class="doc">Scrapyd</span></a></dt>
+                                        <dd>在生产环境中部署您的Scrapy项目。</dd>
+                                        <dt><a class="reference internal" href="topics/autothrottle.html"><span
+                                                    class="doc">自动限速(AutoThrottle)扩展</span></a></dt>
+                                        <dd>根据负载(load)动态调节爬取速度。</dd>
+                                        <dt><a class="reference internal" href="topics/benchmarking.html"><span
+                                                    class="doc">Benchmarking</span></a></dt>
+                                        <dd>在您的硬件平台上测试Scrapy的性能。</dd>
+                                        <dt><a class="reference internal" href="topics/jobs.html"><span
+                                                    class="doc">Jobs: 暂停，恢复爬虫</span></a></dt>
+                                        <dd>学习如何停止和恢复爬虫</dd>
+                                        <dt><a class="reference internal" href="topics/djangoitem.html"><span
+                                                    class="doc">DjangoItem</span></a></dt>
+                                        <dd>使用Django模型编写爬取的item</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="scrapy">
+                                    <span id="extending-scrapy"></span>
+                                    <h2>扩展Scrapy<a class="headerlink" href="#scrapy" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="topics/architecture.html"><span
+                                                    class="doc">架构概览</span></a></dt>
+                                        <dd>了解Scrapy架构。</dd>
+                                        <dt><a class="reference internal" href="topics/downloader-middleware.html"><span
+                                                    class="doc">下载器中间件(Downloader Middleware)</span></a></dt>
+                                        <dd>自定义页面被请求及下载操作。</dd>
+                                        <dt><a class="reference internal" href="topics/spider-middleware.html"><span
+                                                    class="doc">Spider中间件(Middleware)</span></a></dt>
+                                        <dd>自定义spider的输入与输出。</dd>
+                                        <dt><a class="reference internal" href="topics/extensions.html"><span
+                                                    class="doc">扩展(Extensions)</span></a></dt>
+                                        <dd>提供您自定义的功能来扩展Scrapy</dd>
+                                        <dt><a class="reference internal" href="topics/api.html"><span
+                                                    class="doc">核心API</span></a></dt>
+                                        <dd>在extension(扩展)和middleware(中间件)使用api来扩展Scrapy的功能</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="id7">
+                                    <h2>参考<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="topics/commands.html"><span
+                                                    class="doc">命令行工具(Command line tools)</span></a></dt>
+                                        <dd>学习命令行工具及所有 <a class="reference internal"
+                                                href="topics/commands.html#topics-commands-ref"><span
+                                                    class="std std-ref">可用的命令</span></a> 。</dd>
+                                        <dt><a class="reference internal" href="topics/request-response.html"><span
+                                                    class="doc">Requests and Responses</span></a></dt>
+                                        <dd>了解代表HTTP请求和回复的request,response类</dd>
+                                        <dt><a class="reference internal" href="topics/settings.html"><span
+                                                    class="doc">Settings</span></a></dt>
+                                        <dd>了解如何配置Scrapy及所有 <a class="reference internal"
+                                                href="topics/settings.html#topics-settings-ref"><span
+                                                    class="std std-ref">可用的设置</span></a> 。</dd>
+                                        <dt><a class="reference internal" href="topics/signals.html"><span
+                                                    class="doc">信号(Signals)</span></a></dt>
+                                        <dd>查看如何使用及所有可用的信号</dd>
+                                        <dt><a class="reference internal" href="topics/exceptions.html"><span
+                                                    class="doc">异常(Exceptions)</span></a></dt>
+                                        <dd>查看所有可用的exception以及相应的意义。</dd>
+                                        <dt><a class="reference internal" href="topics/exporters.html"><span
+                                                    class="doc">Item Exporters</span></a></dt>
+                                        <dd>快速将您爬取到的item导出到文件中(XML, CSV等格式)</dd>
+                                    </dl>
+                                </div>
+                                <div class="section" id="id8">
+                                    <h2>其他<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+                                    <div class="toctree-wrapper compound">
+                                    </div>
+                                    <dl class="docutils">
+                                        <dt><a class="reference internal" href="news.html"><span class="doc">Release
+                                                    notes</span></a></dt>
+                                        <dd>了解最近的Scrapy版本的修改。</dd>
+                                        <dt><a class="reference internal" href="contributing.html"><span
+                                                    class="doc">Contributing to Scrapy</span></a></dt>
+                                        <dd>了解如何为Scrapy项目做出贡献。</dd>
+                                        <dt><a class="reference internal" href="versioning.html"><span
+                                                    class="doc">Versioning and API Stability</span></a></dt>
+                                        <dd>了解Scrapy如何命名版本以及API的稳定性。</dd>
+                                        <dt><a class="reference internal" href="experimental/index.html"><span
+                                                    class="doc">试验阶段特性</span></a></dt>
+                                        <dd>了解最新的特性</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <h2>
+                                讨论
+                                <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+                            </h2>
+                            <div id="disqus_thread"></div>
+                        </div>
+                        <div class="articleComments">
+                        </div>
+                    </div>
+                    <footer>
+                        <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+                            <a href="intro/overview.html" class="btn btn-neutral float-right" title="初窥Scrapy"
+                                accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+                        </div>
+                        <hr />
+                        <div role="contentinfo">
+                            <p>
+                                &copy; Copyright 2008-2015, written by Scrapy developers, translated by
+                                Summer&amp;Friends.
+                                <span class="commit">
+                                    Revision <code>c5c8796e</code>.
+                                </span>
+                            </p>
+                        </div>
+                        Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+                            href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a
+                            href="https://readthedocs.org">Read the Docs</a>.
+                    </footer>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+        <span class="rst-current-version" data-toggle="rst-current-version">
+            <span class="fa fa-book"> Read the Docs</span>
+            v: 0.24
+            <span class="fa fa-caret-down"></span>
+        </span>
+        <div class="rst-other-versions">
+            <dl>
+                <dt>Versions</dt>
+                <dd><a href="/zh_CN/latest/">latest</a></dd>
+                <dd><a href="/zh_CN/stable/">stable</a></dd>
+                <dd><a href="/zh_CN/1.0/">1.0</a></dd>
+                <dd><a href="/zh_CN/0.24/">0.24</a></dd>
+                <dd><a href="/zh_CN/0.22/">0.22</a></dd>
+                <dd><a href="/zh_CN/master/">master</a></dd>
+            </dl>
+            <dl>
+                <dt>Downloads</dt>
+                <dd><a href="//readthedocs.org/projects/scrapy-chs/downloads/htmlzip/0.24/">htmlzip</a></dd>
+                <dd><a href="//readthedocs.org/projects/scrapy-chs/downloads/epub/0.24/">epub</a></dd>
+            </dl>
+            <dl>
+                <dt>On Read the Docs</dt>
+                <dd>
+                    <a href="//readthedocs.org/projects/scrapy-chs/?fromdocs=scrapy-chs">Project Home</a>
+                </dd>
+                <dd>
+                    <a href="//readthedocs.org/builds/scrapy-chs/?fromdocs=scrapy-chs">Builds</a>
+                </dd>
+            </dl>
+            <hr />
+            Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+        </div>
+    </div>
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT: './',
+            VERSION: '0.24.6',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE: true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript"
+        src="https://media.readthedocs.org/javascript/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://media.readthedocs.org/javascript/underscore.js"></script>
+    <script type="text/javascript" src="https://media.readthedocs.org/javascript/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="https://media.readthedocs.org/javascript/readthedocs-doc-embed.js"></script>
+    <script type="text/javascript">
+        jQuery(function () {
+            SphinxRtdTheme.StickyNav.enable();
+        });
+    </script>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'scrapychs'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-50189694-1', 'readthedocs.org');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
