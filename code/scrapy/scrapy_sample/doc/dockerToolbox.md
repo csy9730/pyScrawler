@@ -1,5 +1,13 @@
 # docker toolbox
 
+
+
+## install
+
+ubuntu 可以直接使用docker。win10安装docker，win7和win8使用docker toolbox。
+
+
+
 一. 使用docker toolbox安装docker
 
 对于Windows用户来说，使用docker toolbox来安装docker是最简单的方式
