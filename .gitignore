@@ -3,6 +3,7 @@
 data/heavy
 pdf
 tmp
+data/
 bak
 build*Qt*/
 *.autosave

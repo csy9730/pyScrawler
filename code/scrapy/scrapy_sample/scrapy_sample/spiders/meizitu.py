@@ -47,3 +47,21 @@ class MeizituSpider(scrapy.Spider):
         yield ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
 
 
+
+class MeizituSpider0(scrapy.Spider):
+    name = 'meizitu0'
+    urlpre = 'https://www.meizitu.com'
+    start_urls = [#'http://www.meizitu.org/page/2/',
+                  'https://www.meizitu.com/a/5296.html'
+                  ,'https://www.meizitu.com/a/5323.html'
+                  ,'https://www.meizitu.com/a/5133.html'
+	]
+    def parse(self, response):         
+        urls = response.css('div#picture img::attr(src)').extract()
+        title = response.xpath(".//div[@class='metaRight']/h2/a/text()").get()
+        datetime = response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get()
+        img_folder = title+'/'
+        print(response.url ,title,urls,datetime)
+        return ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
+
+

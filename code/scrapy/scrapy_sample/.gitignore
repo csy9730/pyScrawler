@@ -4,7 +4,12 @@
 images/full/
 images/thumb/
 images/*/
-
+scr_images/
+eggs/
+dbs/
+setup.py
+scr_*
+tmp_*
 scr*.db
 scr_*.jl
 scr_*.json

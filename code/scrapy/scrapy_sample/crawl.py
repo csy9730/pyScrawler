@@ -1,5 +1,5 @@
 # import robotparser
- 
+import os,sys 
 import scrapy.spiderloader
 import scrapy.statscollectors
 import scrapy.logformatter
@@ -63,26 +63,45 @@ sys.path.append('scrapy_sample/spiders')
 import PIL
 import scrapy_sample.spiders
 from scrapy_sample.spiders.mzitu import MzituSpider
-# import scrapy_sample.spiders.meizitu
+from scrapy_sample.spiders.meizitu import MeizituSpider,MeizituSpider0
+from scrapy_sample.spiders.mm131 import Mm131Spider
+from scrapy_sample.spiders.dmzj_spider import dmzjSpider
 import scrapy_sample.settings
 import scrapy_sample.pipelines
 import scrapy_sample.middlewares
 import scrapy_sample.items
 
-
-sett =  get_project_settings()
-print( sett)
-sett.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
-process = CrawlerProcess( sett)
-
+def main(cfg):
+    print(cfg)
+    spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"dmzj":dmzjSpider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider}
+    if cfg["spider"] in spiderDict.keys():
+        spd = spiderDict[cfg["spider"]]
+    settings =  get_project_settings()
+    sett = cfg["set"]
+    for c in sett:
+        print(c,sett[c])
+        if c.endswith('COUNT'):
+            sett[c] = int(sett[c])
+        settings.set(c,sett[c],priority='cmdline')
+#    print(vars(settings))
+#    settings.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
+    process = CrawlerProcess( settings)
+    process.crawl( spd ) # , domain='mzitu.com'
+    process.start() # the script will block here until the crawling is finished
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(prog='scrapy')
+    parser.add_argument('--custom','-c', default=[],action='append', help='custom setting help')
+    parser.add_argument('--set','-s', default=[],action='append', help='setting help')
+    parser.add_argument('--spider','-d',default='mzitu',action='store', help='spider help')
+    parser.add_argument('--output','-o', action='append', help='output help')
+    fCustom = lambda x:{f.split("=")[0]:f.split("=")[1] for f in x} if x is not None else None
+    args  = parser.parse_args(['--spider', 'meizitu0', '-o', 'scr_abc.jl','-c','abc=werw',
+            '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job'])
+    dct = vars(args)
+    dct["custom"] = fCustom( dct ["custom"])
+    dct["set"] = fCustom( dct ["set"])
+    main(dct)
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
 """ set: spider,spider_confg,setting,feedexport.
 """
-import sys,os
-if len(sys.argv)>1:
-    keyword = sys.argv[1]
-else:
-    keyword = "mzitu"
-# print(keyword)
-process.crawl( MzituSpider ) # , domain='mzitu.com'
-process.start() # the script will block here until the crawling is finished
