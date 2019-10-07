@@ -19,7 +19,9 @@ Rss:
 **Q**: 如何设置翻页设置？
         列表页翻页是否增加深度？
 命令行配置： 
-spider -c abc
+`spider -c abc`
+**Q**: 如何配置pythonobject，例如item，middleware，pipeline等等
+
 ## pyinstaller
 * 添加scrapy目录的VERSION文件
 * 避免import错误，显式import 模块
@@ -52,6 +54,10 @@ gui界面设计：
 []  smtp
 [] rss
 
+[] project-setting & scrapy-setting
+[] wizard & project-setting
+[] add headless chrome options
+
 ``` python
 for img in imgs:
     body.replace( img,)
@@ -60,15 +66,15 @@ body= response.xpath('body').get()
 byt = response.body #  type = bytes
 text = response.text  #  type =str
 ```
-scrapy markdown
-scrapy rss 
-scrapy 通用爬虫
-readthedocs
-
-rpc 框架
-
-
- 事件循环
+[] scrapy markdown
+[] scrapy rss 
+[] scrapy 通用爬虫,broadcrawler
+[] scrapy custom spider
+[] email 保存&接收&发送
+[] readthedocs
+[] ss: celery
+[] ss:rpc 框架
+[] ss:事件循环
  
 
 ## misc

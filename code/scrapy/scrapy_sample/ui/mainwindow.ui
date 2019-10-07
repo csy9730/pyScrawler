@@ -388,18 +388,25 @@
      <x>0</x>
      <y>0</y>
      <width>1022</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="actionxnjm"/>
+    <addaction name="actiondakl"/>
+    <addaction name="actionpzvi"/>
+    <addaction name="actionrecent"/>
+    <addaction name="actionXNJMYNDK"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>编辑</string>
     </property>
+    <addaction name="actionfuvi"/>
+    <addaction name="actionnmtx"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -476,7 +483,7 @@
   </widget>
   <action name="actionStart">
    <property name="icon">
-    <iconset resource="../../../../../../works/zalSer/code/ui/eSerial.qrc">
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/开始_dis.png</normaloff>:/img/开始_dis.png</iconset>
    </property>
    <property name="text">
@@ -488,7 +495,7 @@
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset resource="../../../../../../works/zalSer/code/ui/eSerial.qrc">
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/stop_326px_1187740_easyicon.net.png</normaloff>:/img/stop_326px_1187740_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -500,11 +507,46 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="../../../../../../works/zalSer/code/ui/eSerial.qrc">
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/editclear_128px_32658_easyicon.net.png</normaloff>:/img/editclear_128px_32658_easyicon.net.png</iconset>
    </property>
    <property name="text">
     <string>清除</string>
+   </property>
+  </action>
+  <action name="actionxnjm">
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="actiondakl">
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="actionpzvi">
+   <property name="text">
+    <string>偏好</string>
+   </property>
+  </action>
+  <action name="actionrecent">
+   <property name="text">
+    <string>recent</string>
+   </property>
+  </action>
+  <action name="actionfuvi">
+   <property name="text">
+    <string>复制</string>
+   </property>
+  </action>
+  <action name="actionnmtx">
+   <property name="text">
+    <string>黏贴</string>
+   </property>
+  </action>
+  <action name="actionXNJMYNDK">
+   <property name="text">
+    <string>新建（引导）</string>
    </property>
   </action>
  </widget>

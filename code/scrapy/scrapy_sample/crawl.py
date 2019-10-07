@@ -1,5 +1,6 @@
 # import robotparser
 import os,sys 
+import json
 import scrapy.spiderloader
 import scrapy.statscollectors
 import scrapy.logformatter
@@ -72,7 +73,6 @@ import scrapy_sample.middlewares
 import scrapy_sample.items
 
 def main(cfg):
-    print(cfg)
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"dmzj":dmzjSpider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider}
     if cfg["spider"] in spiderDict.keys():
         spd = spiderDict[cfg["spider"]]
@@ -101,6 +101,9 @@ if __name__ == "__main__":
     dct = vars(args)
     dct["custom"] = fCustom( dct ["custom"])
     dct["set"] = fCustom( dct ["set"])
+    print(dct)
+    with open("tmp_1.scrproj","w") as fp:
+        json.dump(dct,fp,indent=4)
     main(dct)
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
 """ set: spider,spider_confg,setting,feedexport.
