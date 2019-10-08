@@ -37,14 +37,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(u'爬虫工具')
-        self.initProc()        
+        self.initProc()  
+
+        self.config = None      
     def initProc(self):
         self.proc = QProcess(self)
         self.proc.setProcessChannelMode(QtCore.QProcess.MergedChannels)
         self.proc.readyReadStandardOutput.connect(self.on_procReceived)
         # QObject::connect(m_process,SIGNAL(readyRead()),this,SLOT(readOutput()));
         self.proc.finished.connect(self.onFinished)
-        
+    def config(self):
+        pass
+    def collectConfig(self):
+        pass  
     @pyqtSlot() 
     def on_actionStart_triggered(self):
         print("start")        
