@@ -71,7 +71,18 @@ import scrapy_sample.settings
 import scrapy_sample.pipelines
 import scrapy_sample.middlewares
 import scrapy_sample.items
+from scrapy_sample.utils import dict2cmdline
 
+# todo
+class crawlSetting(object):
+    def __init__(self):
+        self.custom = None
+        self.set = None
+        self.spider = "meizitu0"
+        self.output = None
+    def __dict__(self):
+        return dict()
+    
 def main(cfg):
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"dmzj":dmzjSpider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider}
     if cfg["spider"] in spiderDict.keys():
@@ -88,6 +99,7 @@ def main(cfg):
     process = CrawlerProcess( settings)
     process.crawl( spd ) # , domain='mzitu.com'
     process.start() # the script will block here until the crawling is finished
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(prog='scrapy')
@@ -102,9 +114,11 @@ if __name__ == "__main__":
     dct["custom"] = fCustom( dct ["custom"])
     dct["set"] = fCustom( dct ["set"])
     print(dct)
+    lst = dict2cmdline(dct)
+    print(lst)
     with open("tmp_1.scrproj","w") as fp:
         json.dump(dct,fp,indent=4)
-    main(dct)
+    # main(dct)
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
 """ set: spider,spider_confg,setting,feedexport.
 """

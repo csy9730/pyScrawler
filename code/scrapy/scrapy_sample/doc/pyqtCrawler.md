@@ -36,6 +36,8 @@ CrawlerProcess继承于CrawlerRunner。
 **Q**:KeyError: 'Spider not found: 
 **A**: 这种错误通常由于spiderName错误导致，也可能由于当前目录没有spider.py文件引起。更好的方式是显式把spiderClass传入参数，无需搜索工作目录。
 
+ModuleNotFoundError: No module named 'sip'
+
 ## argparse
 ``` bash
 crawl -o abc.json  -c werw=werwr -s werwer=tertert

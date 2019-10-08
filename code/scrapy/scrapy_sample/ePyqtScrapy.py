@@ -13,6 +13,7 @@ from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProce
 
 from ui.ui_mainwidow import  Ui_MainWindow
 # Ui_MainWindow, QtBaseClass = uic.loadUiType("ui/mainwindow.ui")
+from scrapy_sample.utils import dict2cmdline
 
 # from scrapy import log
 class scrapySetting(object):
@@ -39,19 +40,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle(u'爬虫工具')
         self.initProc()  
 
-        self.config = None      
+        self.config = { "custom": {"START_URLS":"www.abc.com"    },    "set": { "IMAGES_STORE":"images","CLOSESPIDER_ITEMCOUNT": "2","JOBDIR": "scr_job" },
+            "spider": "meizitu0",    "output": [        "scr_abc.jl"    ]}
+        self._configWrite( self.config  )
     def initProc(self):
         self.proc = QProcess(self)
         self.proc.setProcessChannelMode(QtCore.QProcess.MergedChannels)
         self.proc.readyReadStandardOutput.connect(self.on_procReceived)
         # QObject::connect(m_process,SIGNAL(readyRead()),this,SLOT(readOutput()));
         self.proc.finished.connect(self.onFinished)
-    def config(self):
-        pass
-    def collectConfig(self):
-        pass  
+
+    def _configWrite(self,dct):
+        self.comboBox.setCurrentIndex( self.comboBox.findText(dct['spider']))
+        dct['set']['JOBDIR']
+        if dct["set"].get("JOBDIR") is not None:
+            self.chbAddScratch.setChecked(True)
+            self.lineEdit.setText( dct["set"]["JOBDIR"])
+        if dct["set"].get("CLOSESPIDER_ITEMCOUNT") is not None:
+            self.chkMaxItem.setChecked(True)
+            self.spbMaxItem.setValue( int( dct["set"]["CLOSESPIDER_ITEMCOUNT"]) )
+        if dct["set"].get("CLOSESPIDER_TIMEOUT") is not None:
+            self.chkMaxTime.setChecked(True)
+            self.spbMaxTime.setValue( int( dct["set"]["CLOSESPIDER_TIMEOUT"]) )
+        if dct["set"].get("CLOSESPIDER_PAGECOUNT") is not None:
+            self.chkMaxPage.setChecked(True)
+            self.spbMaxPage.setValue( int( dct["set"]["CLOSESPIDER_PAGECOUNT"]) )
+    def _configRead(self):
+        dct= self.config
+        if self.chbAddScratch.isChecked():
+            dct['set']['JOBDIR'] = self.lineEdit.text()
+        else:
+            del(dct['set']['JOBDIR'])
+        if self.chkMaxItem.isChecked():
+            dct['set']['CLOSESPIDER_ITEMCOUNT'] = self.spbMaxItem.value()
+        else:
+            if dct['set'].get("CLOSESPIDER_ITEMCOUNT"):
+                del(dct['set']['CLOSESPIDER_ITEMCOUNT'])
+        if self.chkMaxTime.isChecked():
+            dct['set']['CLOSESPIDER_TIMEOUT'] = self.spbMaxItem.value()
+        else:
+            if dct['set'].get("CLOSESPIDER_TIMEOUT"):
+                del(dct['set']['CLOSESPIDER_TIMEOUT'])
+        if self.chkMaxPage.isChecked():
+            dct['set']['CLOSESPIDER_PAGECOUNT'] = self.spbMaxPage.value()
+        else:
+            if dct['set'].get("CLOSESPIDER_PAGECOUNT"):
+                del(dct['set']['CLOSESPIDER_PAGECOUNT'])
+
+        dct["spider"] = self.comboBox.currentText() 
+        return dct
+
     @pyqtSlot() 
     def on_actionStart_triggered(self):
+        self.config = self._configRead()
+        print(self.config)
+        
+        conf = json.dumps( self.config,indent=4)
+        self.txtConfig.setText(conf)
+        cmdline = dict2cmdline(self.config)
+        print(cmdline)
+        self.proc.start("crawl",cmdline )
+        return 
         print("start")        
         book = self.ledBookname.text()
         if book=='':

@@ -34,6 +34,11 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>页</string>
+         </attribute>
+        </widget>
         <widget class="QWidget" name="tab_5">
          <attribute name="title">
           <string>漫画</string>
@@ -69,29 +74,19 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="5" column="0">
-          <widget class="QCheckBox" name="checkBox_2">
+          <widget class="QCheckBox" name="chkMaxTime">
            <property name="text">
-            <string>最大时间(分)</string>
+            <string>最长时间(秒)</string>
            </property>
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QSpinBox" name="spinBox_2"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QCheckBox" name="chkMaxItem">
-           <property name="text">
-            <string>最多物件</string>
+          <widget class="QSpinBox" name="spbMaxTime">
+           <property name="maximum">
+            <number>86400</number>
            </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QSpinBox" name="spbMaxItem"/>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string/>
+           <property name="singleStep">
+            <number>300</number>
            </property>
           </widget>
          </item>
@@ -111,7 +106,14 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
+         <item row="4" column="0">
+          <widget class="QCheckBox" name="chkMaxItem">
+           <property name="text">
+            <string>最多物件</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -124,18 +126,26 @@
            </property>
           </spacer>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>https://manhua.dmzj.com/</string>
+            <string/>
            </property>
           </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QSpinBox" name="spbMaxItem"/>
          </item>
          <item row="1" column="1">
           <widget class="QComboBox" name="comboBox">
            <item>
             <property name="text">
              <string>dmzj</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>meizitu0</string>
             </property>
            </item>
            <item>
@@ -164,6 +174,23 @@
             </property>
            </item>
           </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>https://manhua.dmzj.com/</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QCheckBox" name="chkMaxPage">
+           <property name="text">
+            <string>最多页面</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QSpinBox" name="spbMaxPage"/>
          </item>
         </layout>
        </widget>
@@ -412,6 +439,16 @@
         <attribute name="title">
          <string>配置</string>
         </attribute>
+        <widget class="QTextEdit" name="txtConfig">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>421</width>
+           <height>311</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QTextBrowser" name="textBrowser"/>
@@ -425,7 +462,7 @@
      <x>0</x>
      <y>0</y>
      <width>1022</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
