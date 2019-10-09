@@ -2,6 +2,7 @@
 import scrapy
 from scrapy_sample.items import ImageItem
 from scrapy.http import Request
+from ..utils import removeDirtyChar
 import logging
 _log = logging.getLogger(__name__)
 class MeizituSpider(scrapy.Spider):
@@ -40,8 +41,8 @@ class MeizituSpider(scrapy.Spider):
             yield  Request( url ,headers=self.header,callback=self.parse_title)
     def parse_title(self, response):         
         urls = response.css('div#picture img::attr(src)').extract()
-        title = response.xpath(".//div[@class='metaRight']/h2/a/text()").get()
-        datetime = response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get()
+        title = removeDirtyChar(response.xpath(".//div[@class='metaRight']/h2/a/text()").get())
+        datetime = removeDirtyChar(response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get())
         img_folder = title+'/'
         print(response.url ,title,urls,datetime)
         yield ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
@@ -58,10 +59,10 @@ class MeizituSpider0(scrapy.Spider):
 	]
     def parse(self, response):         
         urls = response.css('div#picture img::attr(src)').extract()
-        title = response.xpath(".//div[@class='metaRight']/h2/a/text()").get()
-        datetime = response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get()
+        title = removeDirtyChar(response.xpath(".//div[@class='metaRight']/h2/a/text()").get())
+        datetime = removeDirtyChar(response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get())
         img_folder = title+'/'
-        print(response.url ,title,urls,datetime)
+        # print(response.url ,title,urls,datetime)
         return ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
 
 

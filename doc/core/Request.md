@@ -35,7 +35,10 @@ Requests 简便的 API 意味着所有 HTTP 请求类型都是显而易见的。
 
  `r.text`和 `r.content`，content对应bytes类型？text对应有编码的str类型，
 
-
+``` python
+byt = response.body #  type = bytes
+text = response.text  #  type =str
+```
 
 ```python
 from PIL import Image

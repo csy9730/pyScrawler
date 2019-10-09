@@ -20,7 +20,6 @@ class DuduSpider(scrapy.Spider):
     #构建url的起始值offset，具体由网页分析后确定
     offset = 90
     word = "moon"
-    #此处url的'https://'一定要写，不然会报错，而且不容易找出
     url = 'https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%s&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&pn=%s'
     #起始url，列表内字符串的拼接
     start_urls = [url % ( word,str(offset))]

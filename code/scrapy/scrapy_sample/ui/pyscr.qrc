@@ -25,5 +25,6 @@
         <file>img/停止_dis.png</file>
         <file>img/停止_nor.png</file>
         <file>img/停止_sel.png</file>
+        <file>img/icons8-spider.svg</file>
     </qresource>
 </RCC>

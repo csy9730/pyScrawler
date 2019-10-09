@@ -13,3 +13,13 @@ def dict2cmdline(dct):
             else:
                 lst.extend( ['--%s'% d  , b ])            
     return lst
+def removeDirtyChar(s):
+    move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
+    return s.translate(move)
+def main():
+    inputstring = u'\n               Door:\xa0Novum    \t'
+    move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
+    output = inputstring.translate(move)
+    print(output)
+if __name__ == "__main__":
+    pass

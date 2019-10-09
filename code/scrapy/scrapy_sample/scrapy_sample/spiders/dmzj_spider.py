@@ -12,8 +12,7 @@ class dmzjSpider(scrapy.Spider):
     start_urls = [ 
                    # 'https://manhua.dmzj.com/tags/maoxian/139.shtml',
                     'https://manhua.dmzj.com/yaojingdeweibabainianrenwu',
-                   # 'https://manhua.dmzj.com/yaojingdeweiba',
-                  #'https://www.mm131.net/xinggan/2746.html',
+                   # 'https://manhua.dmzj.com/yaojingdeweiba',                 
                  ]
     header = { #'accept-encoding': 'gzip, deflate, br', 
             #'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',

@@ -50,52 +50,62 @@ setting接口：通过文本文件导入设置
 api接口： 导出相关格式 csv,json,xml,jsonline =>xls,sqlite, pickle
 gui界面设计：
 
+### log
+
 ### todo
-[] coolscrapy
-[] docker & splash
-[]  smtp
-[] rss
-
-[] project-setting & scrapy-setting
+[]  http://www.girl13.com  https://github.com/chenjiandongx/mmjpg  http://www.mmjpg.com
+[]  添加下载进程的可视化设计
+[]  定时刷新 dirmodel
+[]  ss: 网络矿工  https://zhuanlan.zhihu.com/p/33868523
+[+] add depth bfs,dfs
+[+] add QFileDialog
+[] add recent ,preference,recent folder path,gui position
+[] ctrl+C 暂停信号
+[] add custom spider to gui
+[] add file treeWidget
+[+] set output file path
+[] how to set pipeline & fileformat(csv,json,xls...)
+[+] spider添加 属性： 分类tag，name，base_url,
+[+] project-setting & scrapy-setting 
 [] wizard & project-setting
+[] scrapy markdown
+[] scrapy rss 
+[+] readthedocs
+[] scrapy 通用爬虫,broadcrawler
+[] scrapy custom spider
+[] coolscrapy
+[-] docker & splash
+[] smtp
+[] rss
 [] add headless chrome options
+[] email 保存&接收&发送
+[] ss: celery
+[] ss:rpc 框架
+[] ss:事件循环
 
-``` python
+
+## misc
+
 for img in imgs:
     body.replace( img,)
 title = response.css('title').get()
 body= response.xpath('body').get()
-byt = response.body #  type = bytes
-text = response.text  #  type =str
-```
-[] scrapy markdown
-[] scrapy rss 
-[] scrapy 通用爬虫,broadcrawler
-[] scrapy custom spider
-[] email 保存&接收&发送
-[] readthedocs
-[] ss: celery
-[] ss:rpc 框架
-[] ss:事件循环
- 
-
-## misc
-
-File (code: 302): Error downloading file from <GET referred in None 
-item['referer'] = response.url
-
-HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器我是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。比如从我主页上链接到一个朋友那里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我主页上的链接访问他的网站。
-
-200 表示正常访问
-
-302 状态，
-只能启用 重定向: `MEDIA_ALLOW_REDIRECTS = True`或`REDIRECT_ENABLED = True`
-
-522 Connection Timed Out
-Cloudflare could not negotiate a TCP handshake with the origin server.
-
-DEBUG: Retrying <GET https://www.abc.com> (failed 1 times): TCP connection timed out: 10060: 由于 
 
 字符串转合法路径：
 re.sub('[^\w\-_\. ]', '_', 'some\\*-file._n\\\\ame')
 Out[27]: 'some__-file._n__ame'
+
+\xa0表示不间断空白符。在Python中，使用re.sub方法不能将其去除，但有以下两种方法可行：
+
+1.使用translate方法，示例：
+>>> inputstring = u'\n               Door:\xa0Novum    \t'
+>>> move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
+>>> output = inputstring.translate(move)
+>>> output
+             Door:Novum     
+2.利用split()方法，示例:
+>>> s = 'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'
+>>> out = "".join(s.split())
+>>> out
+'T-shirt短袖圆领衫,体恤衫'
+参考：python中去掉字符串中的\xa0、\t、\n

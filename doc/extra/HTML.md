@@ -1,6 +1,17 @@
 # HTML
 
 
+HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器我是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。比如从我主页上链接到一个朋友那里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我主页上的链接访问他的网站。
+
+200 表示正常访问
+
+302 状态，
+只能启用 重定向: `MEDIA_ALLOW_REDIRECTS = True`或`REDIRECT_ENABLED = True`
+
+522 Connection Timed Out
+Cloudflare could not negotiate a TCP handshake with the origin server.
+
+## http状态码
 
 | 状态码 | 状态码英文名称                  | 中文描述                                                     |
 | :----- | :------------------------------ | :----------------------------------------------------------- |

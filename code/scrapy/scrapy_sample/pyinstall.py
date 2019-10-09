@@ -5,14 +5,15 @@ import  os
 """
 if __name__ == '__main__':
     from PyInstaller.__main__ import run
-    # '-F'  单文件打包 ,'-w'
-    opts=['ePyqtScrapy.py','--onedir', '--hidden-import=queue', "--distpath=dist"
+    # '-F'  单文件打包    '--clean', 
+    opts=['ePyqtScrapy.py','-w','--onedir', '--hidden-import=queue', "--distpath=dist"
         , '--exclude-module=scikit-learn', '--exclude-module=PySide' 
         , '--exclude-module=pandas', '--exclude-module=matplotlib', '--exclude-module=numpy', '--exclude-module=scipy'
         ,  '--exclude-module=PyQt4'
         ,'--hidden-import=pkg_resources','--add-data=ui/VERSION;scrapy','--add-data=scrapy.cfg;.'
-,'--add-data=ui/mime.types;scrapy'
-        ]
-          # '--icon=./qml/zlg.ico', ,'--add-data=qml/zlg.ico;qml','--add-data=smogFakeData.txt;.' '--exclude-module=enum34',
-          # '--clean', 
+        ,'--add-data=ui/mime.types;scrapy','--add-data=ui/misc/pureVenv.bat;.','--add-data=ui/misc/pyscr_rc.py;ui',
+        '--add-data=ui/img/icons8-spider-64.png;ui/img',
+        '--icon=./ui/img/20191009052302759_easyicon_net_64.ico', 
+    ]
+   
     run(opts)

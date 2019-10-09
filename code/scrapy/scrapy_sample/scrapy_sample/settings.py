@@ -19,8 +19,8 @@ MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'budejie'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'
-USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' 
+# USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' 
+USER_AGENT = "Mozilla/5.0 (Linux; U; Android 8.1.0; zh-cn; BLA-AL00 Build/HUAWEIBLA-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/8.9 Mobile Safari/537.36"
 CUSTOMIZE_USER_AGENT_LIST = [
     'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36' ,
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0',
@@ -35,7 +35,6 @@ CUSTOMIZE_USER_AGENT_LIST = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36',
     'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
-
 ]
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -44,11 +43,12 @@ REDIRECT_ENABLED = True
 CONCURRENT_REQUESTS = 32
 
 # LOG_LEVEL = 'INFO'
-# LOG_LEVEL = 'INFO'
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 0.25
+# RANDOMIZE_DOWNLOAD_DELAY = True
+
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_IP = 16
 
@@ -76,7 +76,7 @@ DOWNLOADER_MIDDLEWARES = {
    #  'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
    # 'scrapy_sample.middlewares.MyproxiesSpiderMiddleware': 125
   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-   'scrapy_sample.middlewares.CustomizeUserAgentMiddleware': 200
+  'scrapy_sample.middlewares.CustomizeUserAgentMiddleware': 200
  }
 
 # Enable or disable extensions
@@ -94,7 +94,6 @@ ITEM_PIPELINES = {
 
     #'scrapy_sample.pipelines.JsonlineExportPipeline': 999,
     'scrapy_sample.pipelines.xlsPipeline': 998,   # SQLiteImagePipeline
-
 }
 
 IMAGES_STORE = 'images'

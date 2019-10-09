@@ -67,6 +67,9 @@ from scrapy_sample.spiders.mzitu import MzituSpider
 from scrapy_sample.spiders.meizitu import MeizituSpider,MeizituSpider0
 from scrapy_sample.spiders.mm131 import Mm131Spider
 from scrapy_sample.spiders.dmzj_spider import dmzjSpider
+from scrapy_sample.spiders.baiduImage_spider import DuduSpider
+from scrapy_sample.spiders.doc_spider import DocScrapySpider
+
 import scrapy_sample.settings
 import scrapy_sample.pipelines
 import scrapy_sample.middlewares
@@ -84,41 +87,49 @@ class crawlSetting(object):
         return dict()
     
 def main(cfg):
-    spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"dmzj":dmzjSpider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider}
+    spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider,
+                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":MzituSpider,"baiduimage": DuduSpider}
     if cfg["spider"] in spiderDict.keys():
         spd = spiderDict[cfg["spider"]]
     settings =  get_project_settings()
     sett = cfg["set"]
     for c in sett:
-        print(c,sett[c])
-        if c.endswith('COUNT'):
+        if c.endswith('COUNT') or c.endswith('OUT'):
             sett[c] = int(sett[c])
         settings.set(c,sett[c],priority='cmdline')
-#    print(vars(settings))
-#    settings.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
     process = CrawlerProcess( settings)
-    process.crawl( spd ) # , domain='mzitu.com'
+    spdArgList = ["start_urls","name","allowed_domains"]
+    spdArgDict= {k:v   for k,v in cfg.items() if k in spdArgList and v is not None}
+    print(spdArgDict)
+    process.crawl( spd,**spdArgDict) # , domain='mzitu.com' ,start_urls=[baidu.com,]
     process.start() # the script will block here until the crawling is finished
-
+""" custom 是 spider自定义配置，set是setting的自带配置。loadconfig从文件导入配置
+    set: spider,spider_confg,feedexport."""
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(prog='scrapy')
-    parser.add_argument('--custom','-c', default=[],action='append', help='custom setting help')
-    parser.add_argument('--set','-s', default=[],action='append', help='setting help')
-    parser.add_argument('--spider','-d',default='mzitu',action='store', help='spider help')
+    parser.add_argument('--custom','-c', default=[],action='append', help='custom setting ')
+    parser.add_argument('--set','-s', default=[],action='append', help='setting')
+    parser.add_argument('--spider','-d',default='meizitu0',action='store', help='spider')
     parser.add_argument('--output','-o', action='append', help='output help')
+    parser.add_argument('--start_urls','-u', action='append', help='start urls ')
+    parser.add_argument('--name', action='store', help='spider name')
+    parser.add_argument('--allowed_domains', action='append', help='domain')
+    parser.add_argument('--loadconfig','-l', action='store', help='load config file')
+    
     fCustom = lambda x:{f.split("=")[0]:f.split("=")[1] for f in x} if x is not None else None
-    args  = parser.parse_args(['--spider', 'meizitu0', '-o', 'scr_abc.jl','-c','abc=werw',
-            '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job'])
+    cmdline = ['--spider', 'meizitu0', '-o', 'scr_abc.jl','-c','abc=werw',
+            '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job','-u',"https://www.meizitu.com/a/5388.html",
+            "--start_urls","https://www.meizitu.com/a/5378.html","--name","meizitu000","--allowed_domains","meizitu.com"]
+    cmdline =  ['--spider', 'dmzj',"-u","https://manhua.dmzj.com/yaojingdeweibabainianrenwu",'-s','CLOSESPIDER_ITEMCOUNT=2',]
+    args  = parser.parse_args()
     dct = vars(args)
     dct["custom"] = fCustom( dct ["custom"])
     dct["set"] = fCustom( dct ["set"])
     print(dct)
-    lst = dict2cmdline(dct)
-    print(lst)
+    # lst = dict2cmdline(dct)
+    # print(lst)
     with open("tmp_1.scrproj","w") as fp:
         json.dump(dct,fp,indent=4)
-    # main(dct)
+    main(dct)
 # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
-""" set: spider,spider_confg,setting,feedexport.
-"""

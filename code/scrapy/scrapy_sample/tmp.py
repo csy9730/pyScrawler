@@ -1,7 +1,10 @@
 import json
 import re,os,sys
 import requests
-
+def ssdf():
+    pass
+    #    print(vars(settings))
+#    settings.set("CLOSESPIDER_ITEMCOUNT", 3, priority='cmdline')
 def a():
     comments = requests.get('http://comment5.news.sina.com.cn/page/info?version=1&format=js&channel=gn&newsid=comos-fyfzhac1650783')
     comments.encoding = 'utf-8'
