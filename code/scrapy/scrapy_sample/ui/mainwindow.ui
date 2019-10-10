@@ -986,7 +986,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">
@@ -1061,16 +1061,24 @@
         <attribute name="title">
          <string>配置</string>
         </attribute>
-        <widget class="QTextEdit" name="txtConfig">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>421</width>
-           <height>311</height>
-          </rect>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QTextEdit" name="txtConfig"/>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>244</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QTextBrowser" name="textBrowser"/>
@@ -1084,7 +1092,7 @@
      <x>0</x>
      <y>0</y>
      <width>1022</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -1184,7 +1192,7 @@
   </widget>
   <action name="actionStart">
    <property name="icon">
-    <iconset resource="pyscr.qrc">
+    <iconset>
      <normaloff>:/img/开始_dis.png</normaloff>:/img/开始_dis.png</iconset>
    </property>
    <property name="text">
@@ -1196,7 +1204,7 @@
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset resource="pyscr.qrc">
+    <iconset>
      <normaloff>:/img/stop_326px_1187740_easyicon.net.png</normaloff>:/img/stop_326px_1187740_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -1208,7 +1216,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset resource="pyscr.qrc">
+    <iconset>
      <normaloff>:/img/editclear_128px_32658_easyicon.net.png</normaloff>:/img/editclear_128px_32658_easyicon.net.png</iconset>
    </property>
    <property name="text">

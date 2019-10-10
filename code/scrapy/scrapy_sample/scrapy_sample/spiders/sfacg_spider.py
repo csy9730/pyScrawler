@@ -3,7 +3,7 @@ import scrapy
 from scrapy_sample.items import ImageItem
 import  re
 
-class Mm131Spider(scrapy.Spider):
+class SfacgSpider(scrapy.Spider):
     name = 'sgacg'
 
     start_urls = ['https://manhua.sfacg.com/mh/LYB/', ]

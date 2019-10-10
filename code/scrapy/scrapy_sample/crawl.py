@@ -67,6 +67,7 @@ from scrapy_sample.spiders.mzitu import MzituSpider
 from scrapy_sample.spiders.meizitu import MeizituSpider,MeizituSpider0
 from scrapy_sample.spiders.mm131 import Mm131Spider
 from scrapy_sample.spiders.dmzj_spider import dmzjSpider
+from scrapy_sample.spiders.sfacg_spider import SfacgSpider
 from scrapy_sample.spiders.baiduImage_spider import DuduSpider
 from scrapy_sample.spiders.doc_spider import DocScrapySpider
 
@@ -88,7 +89,7 @@ class crawlSetting(object):
     
 def main(cfg):
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider,
-                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":MzituSpider,"baiduimage": DuduSpider}
+                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider}
     if cfg["spider"] in spiderDict.keys():
         spd = spiderDict[cfg["spider"]]
     settings =  get_project_settings()

@@ -6,7 +6,7 @@ sys.path.append('ui')
 import subprocess, io
 
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMessageBox, QVBoxLayout, QSizePolicy, QWidget,QListWidgetItem,QFileDialog,QDirModel
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMessageBox, QVBoxLayout, QSizePolicy, QWidget,QListWidgetItem,QFileDialog,QFileSystemModel 
 from PyQt5.QtCore import Qt,QTimer
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
@@ -56,18 +56,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "mm131":{"tag":["图片"],"base_url":"https://www.mm131.net","description":"..."},
             "mzitu":{"tag":["图片"],"base_url":"https://www.mzitu.net","description":"..."},
             "dmzj":{"tag":["漫画"],"base_url":"https://manhua.dmzj.com","description":"..."},
+            "sfacg":{"tag":["漫画"],"base_url":"https://manhua.sfacg.com","description":"..."},
         }
         self._recordRecent = {"recentProject":["setting.scrproj"],}
-        self.setDir("images")
+        self.dirModel = QFileSystemModel()
+        self.treeView.setModel(self.dirModel )  
+        self.setDir()
+        QTimer.singleShot(200, self.setDir)
+
+        # self.tmrTime = QtCore.QTimer()
+        # self.tmrTime.setInterval(1000)
+        # self.tmrTime.timeout.connect( self.on_tmrTime_timeout)
+        # self.tmrTime.start()
     def initProc(self):
         self.proc = QProcess(self)
         self.proc.setProcessChannelMode(QtCore.QProcess.MergedChannels)
         self.proc.readyReadStandardOutput.connect(self.on_procReceived)
         # QObject::connect(m_process,SIGNAL(readyRead()),this,SLOT(readOutput()));
         self.proc.finished.connect(self.onFinished)
-    def setDir(self,pth):
-        self.dirModel = QDirModel()
-        self.treeView.setModel(self.dirModel )
+    def setDir(self,pth= "images"):    
+        self.dirModel.setRootPath(pth)             
         self.treeView.setRootIndex(self.dirModel.index(pth))
 
     def _configWrite(self,dct):

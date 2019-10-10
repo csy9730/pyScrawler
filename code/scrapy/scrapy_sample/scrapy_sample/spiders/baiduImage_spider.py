@@ -22,6 +22,8 @@ class DuduSpider(scrapy.Spider):
     word = "moon"
     url = 'https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%s&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&pn=%s'
     #起始url，列表内字符串的拼接
+    "http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1570638475678_R&pv=&ic=&nc=1&z=0&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&sid=&word=%E6%B2%99%E5%83%A7"
+    # url = "http://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1570638475678_R&pv=&ic=&nc=1&z=0&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&sid=&word=%E6%B2%99%E5%83%A7"
     start_urls = [url % ( word,str(offset))]
 
     def parse(self, response):
@@ -29,9 +31,7 @@ class DuduSpider(scrapy.Spider):
         pattern = re.compile(r'"middleURL":"(.*?)",', re.S)
         #此datas返回的是一个正则表达式列表，可迭代取出里面的url
         datas = re.findall(pattern, response.text)
-        img_folder =  self.word+'/'
-        # for data in datas:
-            #实例化item
+        img_folder =  self.word+'/'        
         item = ImageItem()
         # print("图片链接是:", data)
         item['image_urls'] = datas
@@ -42,5 +42,7 @@ class DuduSpider(scrapy.Spider):
         yield item
         #跳出循环后offset自增30（网页决定）
         self.offset += 30
+        url2 = self.url  % (self.word,str(self.offset))
         #调用此生成器，并发送下一个网页url，回调函数调用self.parse自身，再次循环处理列表中的图片链接url，循环往复获取图片
-        yield scrapy.Request(self.url + str(self.offset), callback=self.parse)
+        yield scrapy.Request( url2, callback=self.parse)
+        
