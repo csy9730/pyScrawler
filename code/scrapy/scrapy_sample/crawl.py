@@ -92,20 +92,23 @@ def main(cfg):
     if cfg["spider"] in spiderDict.keys():
         spd = spiderDict[cfg["spider"]]
     settings =  get_project_settings()
+
     sett = cfg["set"]
     for c in sett:
         if c.endswith('COUNT') or c.endswith('OUT'):
-            sett[c] = int(sett[c])
+            sett[c] = int(sett[c])    
         settings.set(c,sett[c],priority='cmdline')
+
     process = CrawlerProcess( settings)
-    spdArgList = ["start_urls","name","allowed_domains"]
-    spdArgDict= {k:v   for k,v in cfg.items() if k in spdArgList and v is not None}
-    print(spdArgDict)
-    process.crawl( spd,**spdArgDict) # , domain='mzitu.com' ,start_urls=[baidu.com,]
+    SPD_ARG_LIST = ["start_urls","name","allowed_domains"]
+    spdArgDict= {k:v   for k,v in cfg.items() if k in SPD_ARG_LIST and v is not None}
+
+    process.crawl( spd,**spdArgDict,**cfg["custom"]) # , domain='mzitu.com' ,start_urls=[baidu.com,]
     process.start() # the script will block here until the crawling is finished
 """ custom 是 spider自定义配置，set是setting的自带配置。loadconfig从文件导入配置
     set: spider,spider_confg,feedexport."""
 if __name__ == "__main__":
+    fStrList2Dict = lambda x:{f.split("=")[0]:f.split("=")[1] for f in x} if x is not None else None
     import argparse
     parser = argparse.ArgumentParser(prog='scrapy')
     parser.add_argument('--custom','-c', default=[],action='append', help='custom setting ')
@@ -117,18 +120,17 @@ if __name__ == "__main__":
     parser.add_argument('--allowed_domains', action='append', help='domain')
     parser.add_argument('--loadconfig','-l', action='store', help='load config file')
     
-    fCustom = lambda x:{f.split("=")[0]:f.split("=")[1] for f in x} if x is not None else None
     cmdline = ['--spider', 'meizitu0', '-o', 'scr_abc.jl','-c','abc=werw',
             '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job','-u',"https://www.meizitu.com/a/5388.html",
             "--start_urls","https://www.meizitu.com/a/5378.html","--name","meizitu000","--allowed_domains","meizitu.com"]
     cmdline =  ['--spider', 'dmzj',"-u","https://manhua.dmzj.com/yaojingdeweibabainianrenwu",'-s','CLOSESPIDER_ITEMCOUNT=2',]
-    args  = parser.parse_args()
+    cmdline =  ['--spider', 'baiduimage','-c','word=猪八戒','-s','CLOSESPIDER_ITEMCOUNT=2',]
+    args  = parser.parse_args(cmdline)
     dct = vars(args)
-    dct["custom"] = fCustom( dct ["custom"])
-    dct["set"] = fCustom( dct ["set"])
+    dct["custom"] = fStrList2Dict( dct ["custom"])
+    dct["set"] = fStrList2Dict( dct ["set"])
     print(dct)
     # lst = dict2cmdline(dct)
-    # print(lst)
     with open("tmp_1.scrproj","w") as fp:
         json.dump(dct,fp,indent=4)
     main(dct)
