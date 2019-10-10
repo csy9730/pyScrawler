@@ -25,13 +25,12 @@ class DuduSpider(scrapy.Spider):
         self.offset = 90
         self.start_urls = [self.base_url % ( self.word,str(self.offset))]
 
+
     def parse(self, response):        
         #使用scrapy shell 返回的内容为json格式，正则匹配出图片链接并提取
         pattern = re.compile(r'"middleURL":"(.*?)",', re.S)
         datas = re.findall(pattern, response.text)
-        img_folder =  self.word+'/'
-        # for data in datas:
-            #实例化item
+        img_folder =  self.word+'/'        
         item = ImageItem()
         # print("图片链接是:", data)
         item['image_urls'] = datas
@@ -42,6 +41,7 @@ class DuduSpider(scrapy.Spider):
         yield item
         #跳出循环后offset自增30（网页决定）
         self.offset += 30
-        #调用此生成器，并发送下一个网页url，回调函数调用self.parse自身，再次循环处理列表中的图片链接url，循环往复获取图片
+        
         url = self.base_url % ( self.word,str(self.offset))
         yield scrapy.Request( url, callback=self.parse)
+

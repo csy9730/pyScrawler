@@ -55,16 +55,17 @@ gui界面设计：
 ### todo
 []  http://www.girl13.com  https://github.com/chenjiandongx/mmjpg  http://www.mmjpg.com
 []  添加下载进程的可视化设计
-[]  定时刷新 dirmodel
+[+]  定时刷新 dirmodel
 []  ss: 网络矿工  https://zhuanlan.zhihu.com/p/33868523
 [+] add depth bfs,dfs
 [+] add QFileDialog
 [] add recent ,preference,recent folder path,gui position
+[] qss
 [] ctrl+C 暂停信号
-[] add custom spider to gui
-[] add file treeWidget
+[] add custom spider to gui: linkExtract & rule & callback
+[+] add file treeWidget
 [+] set output file path
-[] how to set pipeline & fileformat(csv,json,xls...)
+[+] how to set pipeline & fileformat(csv,json,xls...)
 [+] spider添加 属性： 分类tag，name，base_url,
 [+] project-setting & scrapy-setting 
 [] wizard & project-setting
@@ -76,7 +77,6 @@ gui界面设计：
 [] coolscrapy
 [-] docker & splash
 [] smtp
-[] rss
 [] add headless chrome options
 [] email 保存&接收&发送
 [] ss: celery
