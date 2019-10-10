@@ -1,0 +1,88 @@
+{
+  "spider": "universal",
+  "name":"universal",
+  "allowed_domains": [
+    "tech.china.com"
+  ],
+
+  "start_urls":[
+    {
+        "format_url": "https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word={word}&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&pn={pn}",
+        "pn":30,
+        "word":"moon",
+    },
+    "https://www.baidu.com",
+  ],
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+  },
+
+  "website": "中华网科技",
+  "type": "news",
+  "index_url": "http://tech.china.com/", 
+  
+  "rule":[      
+        {
+            "allow":"xiaoshuo/\d*\.html" ,
+            "restrict_xpaths":".//dl[@id='content']//dd",
+            "callback":"parse_book_message",
+            "follow":true
+        },
+    ],
+  "item": {
+    "class": "NewsItem",
+    "loader": "ChinaLoader",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": [
+            "//h1[@id='chan_newsTitle']/text()"
+          ]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": [
+            "url"
+          ]
+        }
+      ],
+      "text": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsDetail']//text()"
+          ]
+        }
+      ],
+      "datetime": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsInfo']/text()"
+          ],
+          "re": "(\\d+-\\d+-\\d+\\s\\d+:\\d+:\\d+)"
+        }
+      ],
+      "source": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsInfo']/text()"
+          ],
+          "re": "来源：(.*)"
+        }
+      ],
+      "website": [
+        {
+          "method": "value",
+          "args": [
+            "中华网"
+          ]
+        }
+      ]
+    }
+  }
+}
