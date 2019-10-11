@@ -3,6 +3,7 @@ import scrapy
 from scrapy_sample.items import ImageItem
 from scrapy.http import Request
 from ..utils import removeDirtyChar
+from scrapy.loader import ItemLoader
 import logging
 _log = logging.getLogger(__name__)
 class MeizituSpider(scrapy.Spider):
@@ -57,8 +58,18 @@ class MeizituSpider0(scrapy.Spider):
                   ,'https://www.meizitu.com/a/5323.html'
                   ,'https://www.meizitu.com/a/5133.html'
 	]
-    def parse(self, response):         
-        urls = response.css('div#picture img::attr(src)').extract()
+    def parse(self, response): 
+        l = ItemLoader(item=ImageItem(), response=response)
+        l.add_css('image_urls', 'div#picture img::attr(src)')
+        l.add_xpath('title', './/div[@class="metaRight"]/h2/a/text()')
+        l.add_xpath('img_folder', './/div[@class="metaRight"]/h2/a/text()')
+        l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')
+        l.add_value('referer', response.url) # you can also use literal values
+        
+        return l.load_item()
+
+
+        urls = response.css('div#picture img::attr(src)').get()
         title = removeDirtyChar(response.xpath(".//div[@class='metaRight']/h2/a/text()").get())
         datetime = removeDirtyChar(response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get())
         img_folder = title+'/'

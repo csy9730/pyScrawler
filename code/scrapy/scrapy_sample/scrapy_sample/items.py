@@ -6,13 +6,21 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from .utils import removeDirtyChar
+from scrapy.loader.processors import Join, MapCompose, TakeFirst,Compose
 
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
     images = scrapy.Field() # record output sha1
-    img_folder = scrapy.Field()
+    img_folder = scrapy.Field(
+        input_processor=MapCompose(removeDirtyChar,lambda x:x+u'/'),    #     
+        output_processor=Join ())
+
+    title = scrapy.Field(
+        input_processor=MapCompose(removeDirtyChar),
+        output_processor=TakeFirst( ))
     referer = scrapy.Field()
-    title = scrapy.Field()
+
     datetime = scrapy.Field()
 
 class BookItem(scrapy.Item):
