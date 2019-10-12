@@ -75,3 +75,35 @@ rules=(
 ## 问题
 
 Rule机制对网页筛选不够灵活，难以利用当前页面的item信息筛选链接，难以传递meta值，还得结合使用parse函数。
+
+``` python
+class CrawlSpider(Spider):
+
+    rules = ()
+
+    def __init__(self, *a, **kw):
+        super(CrawlSpider, self).__init__(*a, **kw)
+        self._compile_rules()
+    def parse(self, response):
+        return self._parse_response(response, self.parse_start_url, cb_kwargs={}, follow=True)
+
+    def parse_start_url(self, response):
+        return []
+```
+
+rule的allow，可以拒绝不匹配的url。
+``` python
+allow_res = [x if isinstance(x, _re_type) else re.compile(x)
+                          for x in arg_to_iter(allow)]
+_matches = lambda url, regexs: any(r.search(url) for r in regexs)
+if _matches(link.url, self.allow_res):
+  return
+
+# 基于字符串返回 成员函数（parse）
+def get_method(method):
+      if callable(method):
+          return method
+      elif isinstance(method, six.string_types):
+          return getattr(self, method, None)
+```  
+

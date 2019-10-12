@@ -106,13 +106,13 @@ def main(cfg):
 
     process.crawl( spd,**spdArgDict,**cfg["custom"]) # , domain='mzitu.com' ,start_urls=[baidu.com,]
     process.start() # the script will block here until the crawling is finished
-""" custom 是 spider自定义配置，set是setting的自带配置。loadconfig从文件导入配置
+""" argument 是 spider自定义配置，set是setting的自带配置。loadconfig从文件导入配置
     set: spider,spider_confg,feedexport."""
 if __name__ == "__main__":
     fStrList2Dict = lambda x:{f.split("=")[0]:f.split("=")[1] for f in x} if x is not None else None
     import argparse
     parser = argparse.ArgumentParser(prog='scrapy')
-    parser.add_argument('--custom','-c', default=[],action='append', help='custom setting ')
+    parser.add_argument('--argument','-a', default=[],action='append', help='argument setting ')
     parser.add_argument('--set','-s', default=[],action='append', help='setting')
     parser.add_argument('--spider','-d',default='meizitu0',action='store', help='spider')
     parser.add_argument('--output','-o', action='append', help='output help')
@@ -121,14 +121,14 @@ if __name__ == "__main__":
     parser.add_argument('--allowed_domains', action='append', help='domain')
     parser.add_argument('--loadconfig','-l', action='store', help='load config file')
     
-    cmdline = ['--spider', 'meizitu0', '-o', 'scr_abc.jl','-c','abc=werw',
+    cmdline = ['--spider', 'meizitu0', '-o', 'scr_abc.jl','-a','abc=werw',
             '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job','-u',"https://www.meizitu.com/a/5388.html",
             "--start_urls","https://www.meizitu.com/a/5378.html","--name","meizitu000","--allowed_domains","meizitu.com"]
     cmdline =  ['--spider', 'dmzj',"-u","https://manhua.dmzj.com/yaojingdeweibabainianrenwu",'-s','CLOSESPIDER_ITEMCOUNT=2',]
-    cmdline =  ['--spider', 'baiduimage','-c','word=猪八戒','-s','CLOSESPIDER_ITEMCOUNT=2',]
+    cmdline =  ['--spider', 'baiduimage','-a','word=猪八戒','-s','CLOSESPIDER_ITEMCOUNT=2',]
     args  = parser.parse_args(cmdline)
     dct = vars(args)
-    dct["custom"] = fStrList2Dict( dct ["custom"])
+    dct["argument"] = fStrList2Dict( dct ["argument"])
     dct["set"] = fStrList2Dict( dct ["set"])
     print(dct)
     # lst = dict2cmdline(dct)

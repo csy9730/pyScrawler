@@ -1,0 +1,18 @@
+{
+    "custom": {
+        "START_URLS": "www.abc.com"
+    },
+    "set": {
+        "IMAGES_STORE": "images",
+        "CLOSESPIDER_ITEMCOUNT": 2,
+        "JOBDIR": "scr_job",
+        "CLOSESPIDER_TIMEOUT": 555
+    },
+    "spider": "meizitu0",
+    "output": [
+        "scr_abc.jl"
+    ],
+    "start_urls": [
+        "www.baidu.com"
+    ]
+}

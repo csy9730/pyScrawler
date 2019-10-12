@@ -43,7 +43,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle(u'爬虫工具')
         self.initProc()  
 
-        self._default_config = { "custom": {"START_URLS":"www.abc.com"    },    "set": { "IMAGES_STORE":"images","CLOSESPIDER_ITEMCOUNT": "2","JOBDIR": "scr_job" },
+        self._default_config = { "argument": {"START_URLS":"www.abc.com"    },    "set": { "IMAGES_STORE":"images","CLOSESPIDER_ITEMCOUNT": "2","JOBDIR": "scr_job" },
             "spider": "meizitu0",    "output": [        "scr_abc.jl"    ]}
         self.config = copy.copy(self._default_config)
         self.loadConfig()
@@ -231,7 +231,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(cmdSp) 
         self.textBrowser.append(cmd)    
         self.proc.start(cmdSp[0], cmdSp[1:] )
-    #@pyqtSlot() 
+    #@pyqtSlot() a
     def onFinished(self, exitCode, exitStatus):
         print("onFinished ")
         self.btnRun.setEnabled(True)

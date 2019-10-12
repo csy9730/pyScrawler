@@ -13,15 +13,12 @@ class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
     images = scrapy.Field() # record output sha1
     img_folder = scrapy.Field(
-        input_processor=MapCompose(removeDirtyChar,lambda x:x+u'/'),    #     
-        output_processor=Join ())
+        output_processor=Compose( TakeFirst (),removeDirtyChar,lambda x:x+'/' ))
 
     title = scrapy.Field(
-        input_processor=MapCompose(removeDirtyChar),
-        output_processor=TakeFirst( ))
-    referer = scrapy.Field()
-
-    datetime = scrapy.Field()
+        output_processor=Compose( TakeFirst (),removeDirtyChar ))
+    referer = scrapy.Field(output_processor= TakeFirst() )
+    datetime = scrapy.Field( output_processor=Compose( TakeFirst (),removeDirtyChar,str.strip ))
 
 class BookItem(scrapy.Item):
     title  = scrapy.Field()

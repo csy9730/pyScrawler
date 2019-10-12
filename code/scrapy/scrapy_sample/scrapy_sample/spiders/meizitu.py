@@ -40,15 +40,14 @@ class MeizituSpider(scrapy.Spider):
         for url in urls:
             print(url)
             yield  Request( url ,headers=self.header,callback=self.parse_title)
-    def parse_title(self, response):         
-        urls = response.css('div#picture img::attr(src)').extract()
-        title = removeDirtyChar(response.xpath(".//div[@class='metaRight']/h2/a/text()").get())
-        datetime = removeDirtyChar(response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get())
-        img_folder = title+'/'
-        print(response.url ,title,urls,datetime)
-        yield ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
-
-
+    def parse_title(self, response): 
+        l = ItemLoader(item=ImageItem(), response=response)
+        l.add_css('image_urls', 'div#picture img::attr(src)')
+        l.add_xpath('title', './/div[@class="metaRight"]/h2/a/text()')
+        l.add_xpath('img_folder', './/div[@class="metaRight"]/h2/a/text()')
+        l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')
+        l.add_value('referer', response.url) # you can also use literal values
+        return l.load_item()        
 
 class MeizituSpider0(scrapy.Spider):
     name = 'meizitu0'
@@ -65,15 +64,4 @@ class MeizituSpider0(scrapy.Spider):
         l.add_xpath('img_folder', './/div[@class="metaRight"]/h2/a/text()')
         l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')
         l.add_value('referer', response.url) # you can also use literal values
-        
         return l.load_item()
-
-
-        urls = response.css('div#picture img::attr(src)').get()
-        title = removeDirtyChar(response.xpath(".//div[@class='metaRight']/h2/a/text()").get())
-        datetime = removeDirtyChar(response.xpath(".//div[@class='metaLeft']//div[@class='month_Year']/text()").get())
-        img_folder = title+'/'
-        # print(response.url ,title,urls,datetime)
-        return ImageItem(image_urls=urls,referer =response.url,title = title,datetime=datetime,img_folder=img_folder)
-
-
