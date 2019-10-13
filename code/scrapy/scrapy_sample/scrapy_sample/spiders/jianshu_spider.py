@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import scrapy
-from scrapy.linkextractor import LinkExtractor
+from scrapy.linkextractors import LinkExtractor
 
 class Jianshu(scrapy.Spider):
     name = "jianshu_spider"

@@ -88,6 +88,10 @@ class crawlSetting(object):
         return dict()
     
 def main(cfg):
+    cfg.pop("handle")
+    with open("tmp_1.scrproj","w") as fp:
+        json.dump(cfg,fp,indent=4)
+    # return 
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider,
                 "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider}
     if cfg["spider"] in spiderDict.keys():
@@ -101,10 +105,10 @@ def main(cfg):
         settings.set(c,sett[c],priority='cmdline')
 
     process = CrawlerProcess( settings)
-    SPD_ARG_LIST = ["start_urls","name","allowed_domains"]
+    SPD_ARG_LIST = ["name","allowed_domains"]
     spdArgDict= {k:v   for k,v in cfg.items() if k in SPD_ARG_LIST and v is not None}
 
-    process.crawl( spd,**spdArgDict,**cfg["custom"]) # , domain='mzitu.com' ,start_urls=[baidu.com,]
+    process.crawl( spd,**spdArgDict,**cfg["argument"]) # , domain='mzitu.com' ,start_urls=[baidu.com,]
     process.start() # the script will block here until the crawling is finished
 """ argument 是 spider自定义配置，set是setting的自带配置。loadconfig从文件导入配置
     set: spider,spider_confg,feedexport."""
@@ -120,19 +124,30 @@ if __name__ == "__main__":
     parser.add_argument('--name', action='store', help='spider name')
     parser.add_argument('--allowed_domains', action='append', help='domain')
     parser.add_argument('--loadconfig','-l', action='store', help='load config file')
-    
+    parser.set_defaults(handle = main ) 
     cmdline = ['--spider', 'meizitu0', '-o', 'scr_abc.jl','-a','abc=werw',
             '-s','CLOSESPIDER_ITEMCOUNT=2','-s','JOBDIR=scr_job','-u',"https://www.meizitu.com/a/5388.html",
             "--start_urls","https://www.meizitu.com/a/5378.html","--name","meizitu000","--allowed_domains","meizitu.com"]
     cmdline =  ['--spider', 'dmzj',"-u","https://manhua.dmzj.com/yaojingdeweibabainianrenwu",'-s','CLOSESPIDER_ITEMCOUNT=2',]
-    cmdline =  ['--spider', 'baiduimage','-a','word=猪八戒','-s','CLOSESPIDER_ITEMCOUNT=2',]
-    args  = parser.parse_args(cmdline)
+    cmdline =  ['--spider', 'baiduimage','--argument','word=猪八戒','--set','CLOSESPIDER_ITEMCOUNT=2',
+                '--start_urls','www.baidu.com'] # ,'--start_urls','word=moon',
+    
+    # dct0 = {'argument': {'word': 'moon\n==='}, 'set': {'CLOSESPIDER_ITEMCOUNT': '2'},
+    #     'spider': 'baiduimage', 'output': None, 'start_urls': ['www.baidu.com'], 'name': None, 'allowed_domains': None, 'loadconfig': None}
+    # dctstr = json.dumps(dct0,ensure_ascii=False)
+    # lst = dict2cmdline(dct0)
+    # print(lst)
+    args  = parser.parse_args()
     dct = vars(args)
-    dct["argument"] = fStrList2Dict( dct ["argument"])
-    dct["set"] = fStrList2Dict( dct ["set"])
-    print(dct)
+    for k in dct.keys():
+        if k in ["set","argument"]:
+            dct[k] = fStrList2Dict( dct[k] )
+    # print("dct2=",dct==dct0, dct)
     # lst = dict2cmdline(dct)
-    with open("tmp_1.scrproj","w") as fp:
-        json.dump(dct,fp,indent=4)
-    main(dct)
-# cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)
+    # print(lst,set(lst)==set(cmdline))
+      
+    print(args) 
+    if hasattr(args,'handle'):        
+        args.handle( dct)
+    # main(dct)
+    # cmd = 'scrapy crawl %s -a book=%s -o scr_%s.jl -s CLOSESPIDER_ITEMCOUNT=3' % (keys,book,keys)

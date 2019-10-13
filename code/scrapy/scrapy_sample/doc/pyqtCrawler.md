@@ -54,7 +54,6 @@ gui界面设计：
 rule 是扁平化，没有结构，不好用
 有时需要有结构化设计
 ### todo
-[]  baiduimage &dmzj 的动态生成start_urls 
 []  http://www.girl13.com  https://github.com/chenjiandongx/mmjpg  http://www.mmjpg.com
 []  添加下载进程的可视化设计
 [+]  定时刷新 dirmodel
@@ -65,6 +64,7 @@ rule 是扁平化，没有结构，不好用
 [] qss
 [] ctrl+C 暂停信号
 [] add custom spider to gui: linkExtract & rule & callback
+[] scrapy custom spider
 [+] add file treeWidget
 [+] set output file path
 [+] how to set pipeline & fileformat(csv,json,xls...)
@@ -75,7 +75,6 @@ rule 是扁平化，没有结构，不好用
 [] scrapy rss 
 [+] readthedocs
 [] scrapy 通用爬虫,broadcrawler
-[] scrapy custom spider
 [] coolscrapy
 [-] docker & splash
 [] smtp
