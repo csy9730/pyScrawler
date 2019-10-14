@@ -70,6 +70,8 @@ from scrapy_sample.spiders.dmzj_spider import dmzjSpider
 from scrapy_sample.spiders.sfacg_spider import SfacgSpider
 from scrapy_sample.spiders.baiduImage_spider import DuduSpider
 from scrapy_sample.spiders.doc_spider import DocScrapySpider
+from scrapy_sample.spiders.a23us import A23usSpider
+
 
 import scrapy_sample.settings
 import scrapy_sample.pipelines
@@ -93,7 +95,9 @@ def main(cfg):
         json.dump(cfg,fp,indent=4)
     # return 
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider,
-                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider}
+                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider
+                "23us":A23usSpider
+                }
     if cfg["spider"] in spiderDict.keys():
         spd = spiderDict[cfg["spider"]]
     settings =  get_project_settings()

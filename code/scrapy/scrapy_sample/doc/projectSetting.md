@@ -3,9 +3,9 @@
 
 配置文件基于变化频率，分为 
 * spider默认配置
-* project配置，
+* project配置文件，
 * 命令行配置
-* 当前配置。
+* 当前内存缓存配置。
 
 
 []  baiduimage &dmzj 的动态生成start_urls 

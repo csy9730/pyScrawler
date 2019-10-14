@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*- 
+﻿#-*- coding:utf-8 -*- 
 import os,sys,time
 import json
 import configparser
@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMessageBo
 from PyQt5.QtCore import Qt,QTimer
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog,QListWidgetItem,QTableWidgetItem
 
 from ui.pyscr_rc import  *
 from ui.ui_mainwidow import  Ui_MainWindow
@@ -49,15 +49,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.loadConfig()
         self._configWrite( self.config  )
         self.project_name = 'setting.scrproj'
-        
-        self.spider_info={
-            "meizitu":{"tag":["图片"],"base_url":"https://www.meizitu.com","description":"..."},
-            "meizitu0":{"tag":["图片"],"base_url":"https://www.meizitu.com","description":"..."},
-            "mm131":{"tag":["图片"],"base_url":"https://www.mm131.net","description":"..."},
-            "mzitu":{"tag":["图片"],"base_url":"https://www.mzitu.net","description":"..."},
-            "dmzj":{"tag":["漫画"],"base_url":"https://manhua.dmzj.com","description":"..."},
-            "sfacg":{"tag":["漫画"],"base_url":"https://manhua.sfacg.com","description":"..."},
-        }
+        self.spider_info=[
+            {"name":"meizitu","tag":["图片"],"base_url":"https://www.meizitu.com","description":"..."},
+            {"name":"meizitu0","tag":["图片"],"base_url":"https://www.meizitu.com","description":"..."},
+            {"name":"mm131","tag":["图片"],"base_url":"https://www.mm131.net","description":"..."},
+            {"name":"mzitu","tag":["图片"],"base_url":"https://www.mzitu.net","description":"..."},
+            {"name":"dmzj","tag":["漫画"],"base_url":"https://manhua.dmzj.com","description":"..."},
+            {"name": "sfacg","tag":["漫画"],"base_url":"https://manhua.sfacg.com","description":"..."},
+        ]
+        with open('spider_info.json','r',encoding="utf-8")as fp:
+            self.spider_info = json.load(fp)
+        spiderList = [d["name"] for d in self.spider_info ]
+        self.comboBox.clear()
+        self.comboBox.addItems(spiderList)  
+
+        self.listWidget.addAction(self.actionNewItem)
+        self.listWidget.addAction(self.actionDeleteItem)        
+        self.listWidget.addAction(self.actionClearItems)
+        self.listWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        self.listWidget.itemDoubleClicked.connect( self.on_listWidget_itemDoubleClicked)
+
+        self.tableWidget_import(self.spider_info)
         self._recordRecent = {"recentProject":["setting.scrproj"],}
         self.dirModel = QFileSystemModel()
         self.treeView.setModel(self.dirModel )  
@@ -93,11 +105,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spbMaxTime.setValue( int( dct["set"]["CLOSESPIDER_TIMEOUT"]) )
         if dct["set"].get("CLOSESPIDER_PAGECOUNT") is not None:
             self.chkMaxPage.setChecked(True)
-            self.spbMaxPage.setValue( int( dct["set"]["CLOSESPIDER_PAGECOUNT"]) )        
+            self.spbMaxPage.setValue( int( dct["set"]["CLOSESPIDER_PAGECOUNT"]) )  
+
+        if dct["set"].get("LOG_LEVEL") is not None:
+            self.cmbLogLevel.setCurrentIndex( self.cmbLogLevel.findText( dct["set"]["LOG_LEVEL"] ) )
+        if dct["set"].get("LOG_ENABLED") is not None:
+            self.chkLogEnable.setChecked( dct["set"].get("LOG_ENABLED") )
+        if dct["set"].get("LOG_FILE") is not None:
+            self.ledLogFile.setText( dct["set"].get("LOG_FILE") )    
+        if dct["set"].get("LOG_STDOUT") is not None:
+            self.chkLogStdout.setChecked( dct["set"].get("LOG_STDOUT") )
+
+
         if dct.get('start_urls'):
-            self.ledBookname.setText(dct['start_urls'][0])
-        else:
-            self.ledBookname.setText("")
+            self.listWidget_import( dct['start_urls']  )
+            # self.ledBookname.setText(dct['start_urls'][0])
+            # self.ledBookname.setText("")
                    
         self.spbMaxDepth.setValue(  dct["set"].get("DEPTH_LIMIT",0) )
         self.spbMaxDepthWeight.setValue(  dct["set"].get("DEPTH_PRIORITY",0) )
@@ -128,28 +151,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if dct['set'].get("CLOSESPIDER_PAGECOUNT"):
                 del(dct['set']['CLOSESPIDER_PAGECOUNT'])
         
-        if self.ledBookname.text()!='':
-            dct['start_urls'] = [self.ledBookname.text() ]
+        lst = self.listWidget_export()
+        if lst!=[]:
+            dct['start_urls'] = lst
         else:
             if dct.get("start_urls"):
                 del(dct['start_urls'])
+
         if self.spbMaxDepth.value():
             dct["set"]["DEPTH_LIMIT"] = self.spbMaxDepth.value()
         if self.spbMaxDepthWeight.value():
             dct["set"]["DEPTH_PRIORITY"] = self.spbMaxDepth.value()    
 
+        dct["set"]["LOG_LEVEL"] = self.cmbLogLevel.currentText()
+        dct["set"]["LOG_ENABLED"] = self.chkLogEnable.isChecked()
+        dct["set"]["LOG_FILE"] = self.ledLogFile.text() or 'scrapy.log'
+        dct["set"]["LOG_STDOUT"] = self.chkLogStdout.isChecked()
+
         dct["spider"] = self.comboBox.currentText() 
         return dct
     def saveConf(self,project_name='setting.scrproj'):
-        self.config.update(self._configRead())
+        self.config.update(self._configRead())        
         with open(project_name,'w') as fp:
             json.dump(self.config,fp,indent=4)
+        self.showConfig()
     
     def loadConfig(self,project_name =  'setting.scrproj'):
         if os.path.exists(project_name):
-            with open(project_name, 'r')   as fp:              
+            with open(project_name, 'r')   as fp:                           
                 dct = json.load(fp)
                 self.config.update( dct)
+                self.showConfig()
+    def showConfig(self):
+        self.txtConfig.setText( json.dumps( self.config,indent=4,ensure_ascii=False))           
     @pyqtSlot() 
     def on_actionNewProj_triggered(self):
         print("on_actionNewProj_triggered")
@@ -176,7 +210,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(fileName1,filetype)
             self.ledProjectpath.setText( fileName1 )
             self.project_name = fileName1
-            self.loadConfig()
+            self.loadConfig(self.project_name)
     
     @pyqtSlot() 
     def on_btnProjectpath_clicked(self):        
@@ -201,14 +235,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if folder_path:
             print(folder_path)
             self.ledJobdir.setText( folder_path )
-    
+            
     @pyqtSlot() 
     def on_actionStart_triggered(self):
         self.config = self._configRead()
-        print(self.config)
-        self.saveConf()
-        conf = json.dumps( self.config,indent=4)
-        self.txtConfig.setText(conf)
+        # print(self.config)
+        self.showConfig()
         cmdline = dict2cmdline(self.config)
         print(cmdline)
         self.proc.start("crawl",cmdline )
@@ -250,7 +282,66 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot() 
     def on_actionClear_triggered(self):
         self.textBrowser.clear()
+    @pyqtSlot()     
+    def on_btnNewItem_clicked(self):
+        self.on_actionNewItem_triggered()
+    @pyqtSlot() 
+    def on_actionNewItem_triggered(self):
+        index = self.listWidget.currentRow();
+        item = QListWidgetItem();
+        item.setText(self.ledBookname.text());
+        self.listWidget.insertItem(index + 1, item);
+    @pyqtSlot() 
+    def on_actionDeleteItem_triggered(self):
+        item = self.listWidget.currentRow()        
+        self.listWidget.takeItem(item)
+    @pyqtSlot() 
+    def on_actionClearItems_triggered(self):
+        self.listWidget.clear();
+    @pyqtSlot() 
+    def on_listWidget_itemDoubleClicked(self):
+        item = self.listWidget.currentItem() 
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
+    def listWidget_import(self,lst):
+        self.listWidget.clear()
+        for s in lst:
+            aItem = QListWidgetItem()
+            aItem.setText(s);
+            self.listWidget.addItem( aItem);
+    def listWidget_export(self):
+        return [ self.listWidget.item(i).text() for i in range(self.listWidget.count())  ]
+    @pyqtSlot() 
+    def on_tableWidget_itemDoubleClicked(self):
+        item = self.tableWidget.currentItem() 
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
 
+    def tableWidget_import(self,lst): 
+        row = len(lst);
+        col = len(lst[0].keys() );
+        self.tableWidget.clear()
+        self.tableWidget.setRowCount(row);
+        self.tableWidget.setColumnCount(col);
+        
+        for i,s in enumerate(lst):
+            for j,k in enumerate(s.keys()):
+                aItem = QTableWidgetItem()
+                v=   lst[i][k]
+                if isinstance(v,list):
+                    v= ','.join(v)
+                aItem.setText( v )
+                self.tableWidget.setItem( i,j,aItem);
+    @pyqtSlot() 
+    def on_btnTmp_clicked(self):
+        lst = self.listWidget_export()
+        print( lst)
+    @pyqtSlot() 
+    def on_btnTmp2_clicked(self):
+        lst = ['1', '234234', '_为e东扥个qwe  er   ']
+        self.listWidget_import(lst )
+
+
+        
+    
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QIcon('ui/img/icons8-spider-64.png'))

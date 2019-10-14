@@ -1,0 +1,77 @@
+[
+    {
+        "name": "meizitu",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://www.meizitu.com",
+        "description": "..."
+    },
+    {
+        "name": "meizitu0",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://www.meizitu.com",
+        "description": "..."
+    },
+    {
+        "name": "mm131",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://www.mm131.net",
+        "description": "..."
+    },
+    {
+        "name": "mzitu",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://www.mzitu.net",
+        "description": "..."
+    },
+    {
+        "name": "dmzj",
+        "tag": [
+            "漫画"
+        ],
+        "base_url": "https://manhua.dmzj.com",
+        "description": "..."
+    },
+    {
+        "name": "sfacg",
+        "tag": [
+            "漫画"
+        ],
+        "base_url": "https://manhua.sfacg.com",
+        "description": "..."
+    },
+	{
+        "name": "baiduimage",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://image.baidu.com/",
+        "description": "输入关键字生成start_url"
+    },
+		{
+        "name": "doc_scrapy",
+        "tag": [
+            "文档"
+        ],
+        "base_url": "https://scrapy-chs.readthedocs.io",
+        "description": "..."
+    }
+	,
+		{
+        "name": "23us",
+        "tag": [
+            "小说"
+        ],
+        "base_url": "http://www.23us.so",
+        "description": "..."
+    }
+	
+	
+]

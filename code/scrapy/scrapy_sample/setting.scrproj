@@ -1,18 +1,19 @@
 {
-    "custom": {
+    "argument": {
         "START_URLS": "www.abc.com"
     },
     "set": {
         "IMAGES_STORE": "images",
         "CLOSESPIDER_ITEMCOUNT": 2,
         "JOBDIR": "scr_job",
-        "CLOSESPIDER_TIMEOUT": 555
+        "CLOSESPIDER_TIMEOUT": 555,
+        "LOG_LEVEL": "DEBUG",
+        "LOG_ENABLED": true,
+        "LOG_FILE": "scrapy.log",
+        "LOG_STDOUT": false
     },
     "spider": "meizitu0",
     "output": [
         "scr_abc.jl"
-    ],
-    "start_urls": [
-        "www.baidu.com"
     ]
 }

@@ -108,23 +108,46 @@
          <string/>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="2" column="0" colspan="2">
-          <widget class="QLineEdit" name="ledBookname">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>输入书名拼音，多本书使用分号间隔</string>
-           </property>
-           <property name="placeholderText">
-            <string>https://manhua.dmzj.com/yaojingdeweiba</string>
-           </property>
-          </widget>
+         <item row="3" column="0" colspan="2">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLineEdit" name="ledBookname">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>输入书名拼音，多本书使用分号间隔</string>
+             </property>
+             <property name="placeholderText">
+              <string>https://manhua.dmzj.com/yaojingdeweiba</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnNewItem">
+             <property name="minimumSize">
+              <size>
+               <width>75</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>添加</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -193,7 +216,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0" colspan="2">
+         <item row="4" column="0" colspan="2">
           <widget class="QListWidget" name="listWidget">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -208,13 +231,8 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>起始网页链接列表</string>
+            <string>右键添加起始网页链接列表</string>
            </property>
-           <item>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
@@ -229,7 +247,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="tab_11">
          <attribute name="title">
@@ -692,6 +710,32 @@
            <string>redis</string>
           </property>
          </widget>
+         <widget class="QRadioButton" name="radioButton_11">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>80</y>
+            <width>53</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>sqlite</string>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="radioButton_12">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>110</y>
+            <width>81</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>postgres</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="tab_21">
          <attribute name="title">
@@ -700,8 +744,8 @@
          <widget class="QCheckBox" name="checkBox_4">
           <property name="geometry">
            <rect>
-            <x>15</x>
-            <y>33</y>
+            <x>20</x>
+            <y>200</y>
             <width>119</width>
             <height>16</height>
            </rect>
@@ -710,7 +754,7 @@
            <string>调试模式</string>
           </property>
          </widget>
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="chkLogEnable">
           <property name="geometry">
            <rect>
             <x>15</x>
@@ -723,7 +767,7 @@
            <string>启用记录</string>
           </property>
          </widget>
-         <widget class="QComboBox" name="comboBox_2">
+         <widget class="QComboBox" name="cmbLogLevel">
           <property name="geometry">
            <rect>
             <x>140</x>
@@ -781,7 +825,7 @@
            <string>定时任务</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_8">
+         <widget class="QLineEdit" name="ledLogFile">
           <property name="geometry">
            <rect>
             <x>140</x>
@@ -794,7 +838,7 @@
            <string>scrapy.log</string>
           </property>
          </widget>
-         <widget class="QCheckBox" name="checkBox_7">
+         <widget class="QCheckBox" name="chkLogStdout">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -986,7 +1030,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">
@@ -1028,6 +1072,32 @@
           <string>测试工具，验证码识别</string>
          </property>
         </widget>
+        <widget class="QPushButton" name="btnTmp">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>150</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>tmp</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btnTmp2">
+         <property name="geometry">
+          <rect>
+           <x>350</x>
+           <y>190</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>tmp2</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="tab_14">
         <attribute name="title">
@@ -1056,6 +1126,24 @@
         <attribute name="title">
          <string>表格</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QTableWidget" name="tableWidget"/>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </widget>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1092,7 +1180,7 @@
      <x>0</x>
      <y>0</y>
      <width>1022</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -1192,7 +1280,7 @@
   </widget>
   <action name="actionStart">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/开始_dis.png</normaloff>:/img/开始_dis.png</iconset>
    </property>
    <property name="text">
@@ -1204,7 +1292,7 @@
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/stop_326px_1187740_easyicon.net.png</normaloff>:/img/stop_326px_1187740_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -1216,7 +1304,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/editclear_128px_32658_easyicon.net.png</normaloff>:/img/editclear_128px_32658_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -1282,6 +1370,21 @@
   <action name="actionSave">
    <property name="text">
     <string>保存</string>
+   </property>
+  </action>
+  <action name="actionNewItem">
+   <property name="text">
+    <string>新建列表项</string>
+   </property>
+  </action>
+  <action name="actionDeleteItem">
+   <property name="text">
+    <string>删除列表项</string>
+   </property>
+  </action>
+  <action name="actionClearItems">
+   <property name="text">
+    <string>清除列表项</string>
    </property>
   </action>
  </widget>

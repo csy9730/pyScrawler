@@ -54,8 +54,13 @@ gui界面设计：
 rule 是扁平化，没有结构，不好用
 有时需要有结构化设计
 ### todo
-[]  http://www.girl13.com  https://github.com/chenjiandongx/mmjpg  http://www.mmjpg.com
+[] 合并文件夹 23us,doubanMovieTop250
+[] https://www.51xs.org/info/1.html
+[+]  添加tableWIdgetWIdget,spider_info.json
+[+] combobox读取 spider_info
+[]  http://www.girl13.com  
 []  添加下载进程的可视化设计
+[+]  # LOG_LEVEL = 'INFO'
 [+]  定时刷新 dirmodel
 []  ss: 网络矿工  https://zhuanlan.zhihu.com/p/33868523
 [+] add depth bfs,dfs
