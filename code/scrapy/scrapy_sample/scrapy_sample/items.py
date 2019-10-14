@@ -55,13 +55,12 @@ class BodyItem(scrapy.Item):
 
 
 class ChapterItem(scrapy.Item):
-    chapter_Url = scrapy.Field()#章节url
+    referer = scrapy.Field()#章节url
     _id = scrapy.Field()#章节id
     novel_Name = scrapy.Field()#小说名称
     chapter_Name = scrapy.Field()#章节名称
     chapter_Content = scrapy.Field()#内容
     novel_ID = scrapy.Field()#小说id
-    is_Error = scrapy.Field()#是否异常
  
 class BookItem(scrapy.Item):
     _id = scrapy.Field() #小说id，用于定位章节信息，章节唯一
@@ -78,7 +77,7 @@ class BookItem(scrapy.Item):
     novel_AllComm = scrapy.Field()#总推荐
     novel_MonthComm = scrapy.Field()#月推荐
     novel_WeekComm = scrapy.Field()#周推荐
-    novel_Url = scrapy.Field()#小说url
+    referer = scrapy.Field()#小说url
     novel_Introduction = scrapy.Field()#小说简介
 
 class DoubanMovieItem(scrapy.Item):

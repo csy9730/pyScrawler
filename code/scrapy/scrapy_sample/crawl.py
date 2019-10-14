@@ -95,7 +95,7 @@ def main(cfg):
         json.dump(cfg,fp,indent=4)
     # return 
     spiderDict = {"mzitu": MzituSpider,"mm131":Mm131Spider,"meizitu0":MeizituSpider0,"meizitu":MeizituSpider,
-                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider
+                "dmzj":dmzjSpider,"doc_scrapy":DocScrapySpider,"sgacg":SfacgSpider,"baiduimage": DuduSpider,
                 "23us":A23usSpider
                 }
     if cfg["spider"] in spiderDict.keys():
@@ -104,7 +104,7 @@ def main(cfg):
 
     sett = cfg["set"]
     for c in sett:
-        if c.endswith('COUNT') or c.endswith('OUT'):
+        if c.endswith('COUNT') or c.endswith('TIMEOUT'):
             sett[c] = int(sett[c])    
         settings.set(c,sett[c],priority='cmdline')
 

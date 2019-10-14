@@ -57,6 +57,9 @@ class MeizituSpider0(scrapy.Spider):
                   ,'https://www.meizitu.com/a/5323.html'
                   ,'https://www.meizitu.com/a/5133.html'
 	]
+    def __init__(self,**entries):
+        super(MeizituSpider0, self).__init__( **entries)
+        print("start_urls",self.start_urls)
     def parse(self, response): 
         l = ItemLoader(item=ImageItem(), response=response)
         l.add_css('image_urls', 'div#picture img::attr(src)')

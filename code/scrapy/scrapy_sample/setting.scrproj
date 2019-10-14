@@ -9,7 +9,6 @@
         "CLOSESPIDER_TIMEOUT": 555,
         "LOG_LEVEL": "DEBUG",
         "LOG_ENABLED": true,
-        "LOG_FILE": "scrapy.log",
         "LOG_STDOUT": false
     },
     "spider": "meizitu0",

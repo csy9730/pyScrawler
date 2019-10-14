@@ -165,7 +165,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dct["set"]["LOG_LEVEL"] = self.cmbLogLevel.currentText()
         dct["set"]["LOG_ENABLED"] = self.chkLogEnable.isChecked()
-        dct["set"]["LOG_FILE"] = self.ledLogFile.text() or 'scrapy.log'
+        if self.ledLogFile.text() !="":
+            dct["set"]["LOG_FILE"] = self.ledLogFile.text() 
+        else:
+            if dct["set"].get("LOG_FILE"):
+                del(dct["set"]["LOG_FILE"])
         dct["set"]["LOG_STDOUT"] = self.chkLogStdout.isChecked()
 
         dct["spider"] = self.comboBox.currentText() 
@@ -241,9 +245,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.config = self._configRead()
         # print(self.config)
         self.showConfig()
-        cmdline = dict2cmdline(self.config)
+        param = dict2cmdline(self.config)
+        if os.path.exists('crawl.exe'):
+            cmdline =  [ 'crawl'  ]
+        else:
+            cmdline =  [ 'python','crawl.py' ]
+        cmdline.extend( param)
         print(cmdline)
-        self.proc.start("crawl",cmdline )
+        self.proc.start(cmdline[0],cmdline[1:] )
         return 
         print("start")        
         book = self.ledBookname.text()
