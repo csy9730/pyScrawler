@@ -13,8 +13,9 @@ def dict2cmdline(dct):
             else:
                 lst.extend( ['--%s'% d  , b ])            
     return lst
+
 def removeDirtyChar(s):
-    move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
+    move = dict.fromkeys((ord(c) for c in u"\xa0\n\t\u3000"))
     return s.translate(move)
 def main():
     inputstring = u'\n               Door:\xa0Novum    \t'

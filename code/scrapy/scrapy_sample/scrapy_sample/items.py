@@ -8,6 +8,7 @@
 import scrapy
 from .utils import removeDirtyChar
 from scrapy.loader.processors import Join, MapCompose, TakeFirst,Compose
+from w3lib.html import remove_tags
 
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
@@ -55,31 +56,34 @@ class BodyItem(scrapy.Item):
 
 
 class ChapterItem(scrapy.Item):
-    referer = scrapy.Field()#章节url
+    referer = scrapy.Field(output_processor=TakeFirst())#章节url    
+    novel = scrapy.Field(output_processor=TakeFirst())#小说名称
+    chapter = scrapy.Field(output_processor=TakeFirst())#章节名称
+    text = scrapy.Field(
+        output_processor=Compose( Join(separator=''),removeDirtyChar ))
+    #内容
+    bookId = scrapy.Field()#小说id
     _id = scrapy.Field()#章节id
-    novel_Name = scrapy.Field()#小说名称
-    chapter_Name = scrapy.Field()#章节名称
-    chapter_Content = scrapy.Field()#内容
-    novel_ID = scrapy.Field()#小说id
- 
-class BookItem(scrapy.Item):
-    _id = scrapy.Field() #小说id，用于定位章节信息，章节唯一
-    novel_Name = scrapy.Field() #小说名称
-    novel_Writer = scrapy.Field()#小说作者
-    novel_Type = scrapy.Field()#小说类型
-    novel_Status = scrapy.Field()#小说状态，连载或者完结
-    novel_UpdateTime = scrapy.Field()#最后更新时间
-    novel_Words = scrapy.Field() #总字数
-    novel_ImageUrl = scrapy.Field()#封面图片
-    novel_AllClick = scrapy.Field()#总点击
-    novel_MonthClick = scrapy.Field()#月点击
-    novel_WeekClick = scrapy.Field()#周点击
-    novel_AllComm = scrapy.Field()#总推荐
-    novel_MonthComm = scrapy.Field()#月推荐
-    novel_WeekComm = scrapy.Field()#周推荐
-    referer = scrapy.Field()#小说url
-    novel_Introduction = scrapy.Field()#小说简介
 
+class NovelItem(scrapy.Item):
+    _id = scrapy.Field(output_processor=TakeFirst()) #小说id，用于定位章节信息，章节唯一
+    novel = scrapy.Field(output_processor=TakeFirst()) #小说名称
+    author = scrapy.Field(output_processor=TakeFirst())#小说作者
+    tags = scrapy.Field(output_processor=Join(','))#小说类型
+    status = scrapy.Field(output_processor=Compose(TakeFirst(),removeDirtyChar))#小说状态，连载或者完结
+    updateTime = scrapy.Field(output_processor=TakeFirst())#最后更新时间
+    wordCount = scrapy.Field(output_processor=TakeFirst()) #总字数
+    cover = scrapy.Field(output_processor=TakeFirst())#封面图片
+    referer = scrapy.Field(output_processor=TakeFirst())#小说url
+    introduction = scrapy.Field(output_processor= Compose(Join(),removeDirtyChar))#小说简介
+    latestChapter = scrapy.Field(output_processor=TakeFirst())#小说简介
+    novel_AllClick = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#总点击
+    novel_MonthClick = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#月点击
+    novel_WeekClick = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#周点击
+    novel_AllComm = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#总推荐
+    novel_MonthComm = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#月推荐
+    novel_WeekComm = scrapy.Field(output_processor=Compose(TakeFirst(),str.strip,int))#周推荐  
+   
 class DoubanMovieItem(scrapy.Item):
     # 排名
     ranking = scrapy.Field()
