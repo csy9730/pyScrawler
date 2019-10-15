@@ -32,7 +32,6 @@ import scrapy.downloadermiddlewares.cookies
 import scrapy.downloadermiddlewares.useragent
 import scrapy.downloadermiddlewares.httpproxy
 import scrapy.downloadermiddlewares.ajaxcrawl
-import scrapy.downloadermiddlewares.chunked
 import scrapy.downloadermiddlewares.decompression
 import scrapy.downloadermiddlewares.defaultheaders
 import scrapy.downloadermiddlewares.downloadtimeout

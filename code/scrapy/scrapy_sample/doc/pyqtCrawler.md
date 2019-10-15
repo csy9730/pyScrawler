@@ -54,7 +54,7 @@ gui界面设计：
 rule 是扁平化，没有结构，不好用
 有时需要有结构化设计
 ### todo
-[] 合并文件夹 23us,doubanMovieTop250
+[+] 合并文件夹 23us,doubanMovieTop250
 [] https://www.51xs.org/info/1.html
 [+]  添加tableWIdgetWIdget,spider_info.json
 [+] combobox读取 spider_info
@@ -69,7 +69,7 @@ rule 是扁平化，没有结构，不好用
 [] qss
 [] ctrl+C 暂停信号
 [] add custom spider to gui: linkExtract & rule & callback
-[] scrapy custom spider
+[+] scrapy custom spider
 [+] add file treeWidget
 [+] set output file path
 [+] how to set pipeline & fileformat(csv,json,xls...)

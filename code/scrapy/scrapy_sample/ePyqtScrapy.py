@@ -174,7 +174,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         dct["spider"] = self.comboBox.currentText() 
         return dct
-    def saveConf(self,project_name='setting.scrproj'):
+    def saveConfig(self,project_name='setting.scrproj'):
         self.config.update(self._configRead())        
         with open(project_name,'w') as fp:
             json.dump(self.config,fp,indent=4)
@@ -187,7 +187,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.config.update( dct)
                 self.showConfig()
     def showConfig(self):
-        self.txtConfig.setText( json.dumps( self.config,indent=4,ensure_ascii=False))           
+        self.txtConfig.setText( json.dumps( self.config,indent=4,ensure_ascii=False))
+    def importConfig(self):
+        try:
+            txt = self.txtConfig.toPlainText()
+            self.config = json.loads( txt )
+        except:
+            QMessageBox.warning(self,"error","配置导入出错")
+    @pyqtSlot() 
+    def on_btnImportConfig_clicked(self):
+        self.importConfig()
+        self._configWrite(self.config) 
+    @pyqtSlot() 
+    def on_btnExportConfig_clicked(self):
+        self.showConfig()
     @pyqtSlot() 
     def on_actionNewProj_triggered(self):
         print("on_actionNewProj_triggered")
@@ -203,7 +216,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(fileName1,filetype)
             self.ledProjectpath.setText( fileName1 )
             self.project_name = fileName1
-            self.saveConf()
+            self.saveConfig()
     @pyqtSlot()
     def on_actionOpenProj_triggered(self):
         fileName1, filetype = QFileDialog.getOpenFileName(self,
@@ -339,17 +352,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     v= ','.join(v)
                 aItem.setText( v )
                 self.tableWidget.setItem( i,j,aItem);
+
+        
     @pyqtSlot() 
     def on_btnTmp_clicked(self):
-        lst = self.listWidget_export()
-        print( lst)
+        pass
+        # print( lst)
     @pyqtSlot() 
     def on_btnTmp2_clicked(self):
         lst = ['1', '234234', '_为e东扥个qwe  er   ']
         self.listWidget_import(lst )
-
-
-        
+    
     
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
