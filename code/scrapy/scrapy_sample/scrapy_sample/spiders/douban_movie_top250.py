@@ -19,14 +19,10 @@ class DoubanMovieTop250Spider(scrapy.Spider):
         item = DoubanMovieItem()
         movies = response.xpath('//ol[@class="grid_view"]/li')
         for movie in movies:
-            item['ranking'] = movie.xpath(
-                './/div[@class="pic"]/em/text()').extract()[0]
-            item['movie_name'] = movie.xpath(
-                './/div[@class="hd"]/a/span[1]/text()').extract()[0]
-            item['score'] = movie.xpath(
-                './/div[@class="star"]/span[@class="rating_num"]/text()'
-            ).extract()[0]
-            item['score_num'] = movie.xpath( './/div[@class="star"]/span/text()').re(u'(\\d+)人评价')[0]
+            item['ranking'] = movie.xpath('.//div[@class="pic"]/em/text()').get()
+            item['movie_name'] = movie.xpath('.//div[@class="hd"]/a/span[1]/text()').get()
+            item['score'] = movie.xpath('.//div[@class="star"]/span[@class="rating_num"]/text()').get()
+            item['score_num'] = movie.xpath( './/div[@class="star"]/span/text()',re=u'(\\d+)人评价').get()
             yield item
         next_url = response.xpath('//span[@class="next"]/a/@href').extract()
         if next_url:

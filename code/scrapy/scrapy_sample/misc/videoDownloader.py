@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from tkinter.filedialog import askdirectory
-from MyQR.myqr import run
+# from MyQR.myqr import run
 from urllib import request, parse
 from bs4 import BeautifulSoup
 
@@ -235,7 +235,9 @@ class APP:
 			get_movie_response = request.urlopen(get_movie_req, get_movie_data)
 			get_movie_html = get_movie_response.read().decode('utf-8')
 			get_movie_data = json.loads(get_movie_html)
-			webbrowser.open(get_movie_data['url'])
+			new_url = get_movie_data['url']
+			print( new_url)
+			webbrowser.open( new_url)
 		else:
 			msgbox.showerror(title='错误',message='视频链接地址无效，请重新输入！')
 
@@ -266,7 +268,7 @@ class APP:
 			qr_name = 'qrcode.png'
 			qr_path = images_pwd + 'qrcode.png'
 
-			run(words = words, picture = png_path, save_name = qr_name, save_dir = images_pwd)
+			### run(words = words, picture = png_path, save_name = qr_name, save_dir = images_pwd)
 
 			top = tk.Toplevel(self.root)
 			img = tk.PhotoImage(file = qr_path)

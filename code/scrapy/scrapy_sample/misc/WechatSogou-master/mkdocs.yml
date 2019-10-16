@@ -1,0 +1,9 @@
+site_name: 'wechatsogou'
+pages:
+- 'API列表': 'README.md'
+- '更新日志': 'CHANGELOG.md'
+- 'FAQ': 'FAQ.md'
+extra_css: ['docs/bootstrap/css']
+extra_javascript: ['docs/bootstrap/js']
+theme_dir: 'docs/bootstrap'
+repo_url: 'https://github.com/Chyroc/WechatSogou'

@@ -113,6 +113,6 @@ class MzituSpider2(CrawlSpider):
     def parse_image(self,response):
         it = copy.copy( response.meta['item'])
         it['referer'] =  response.url
-        it["image_urls"] = response.xpath('//div[@class="main-image"]//a/img/@src').getall()
+        it["image_urls"] = response.xpath('//div[@class="main-image"]//a/img/@src').getall()# "https://i5.meizitu.net/2019/07/07c02.jpg"
         return it
 

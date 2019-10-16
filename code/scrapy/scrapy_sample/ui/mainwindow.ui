@@ -252,7 +252,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="tab_11">
          <attribute name="title">
@@ -1041,7 +1041,20 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget5" native="true"/>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>80</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1059,7 +1072,7 @@
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">
@@ -1126,6 +1139,35 @@
          <property name="text">
           <string>tmp2</string>
          </property>
+        </widget>
+        <widget class="QTabWidget" name="tabWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>240</y>
+           <width>201</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="tabPosition">
+          <enum>QTabWidget::West</enum>
+         </property>
+         <property name="tabShape">
+          <enum>QTabWidget::Triangular</enum>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_25">
+          <attribute name="title">
+           <string>Tab 1</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_26">
+          <attribute name="title">
+           <string>Tab 2</string>
+          </attribute>
+         </widget>
         </widget>
        </widget>
        <widget class="QWidget" name="tab_14">
@@ -1440,6 +1482,7 @@
    <addaction name="actionStart"/>
    <addaction name="actionStop"/>
    <addaction name="actionClear"/>
+   <addaction name="actionPause"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <widget class="QLabel" name="label_4">
@@ -1509,7 +1552,7 @@
   </widget>
   <action name="actionStart">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/开始_dis.png</normaloff>:/img/开始_dis.png</iconset>
    </property>
    <property name="text">
@@ -1521,7 +1564,7 @@
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/stop_326px_1187740_easyicon.net.png</normaloff>:/img/stop_326px_1187740_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -1533,7 +1576,7 @@
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
+    <iconset resource="pyscr.qrc">
      <normaloff>:/img/editclear_128px_32658_easyicon.net.png</normaloff>:/img/editclear_128px_32658_easyicon.net.png</iconset>
    </property>
    <property name="text">
@@ -1614,6 +1657,14 @@
   <action name="actionClearItems">
    <property name="text">
     <string>清除列表项</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>暂停</string>
    </property>
   </action>
  </widget>

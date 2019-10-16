@@ -10,6 +10,7 @@ from .utils import removeDirtyChar
 from scrapy.loader.processors import Join, MapCompose, TakeFirst,Compose
 from w3lib.html import remove_tags
 
+
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
     images = scrapy.Field() # record output sha1
@@ -93,3 +94,10 @@ class DoubanMovieItem(scrapy.Item):
     score = scrapy.Field()
     # 评论人数
     score_num = scrapy.Field()
+class ZuopinjiItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    author_name = scrapy.Field()
+    book_name = scrapy.Field()
+    chapter_name = scrapy.Field()
+    chapter_content = scrapy.Field()

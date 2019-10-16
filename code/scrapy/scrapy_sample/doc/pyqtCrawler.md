@@ -1,22 +1,46 @@
 # pyqtCrawler
 
+视频下载器，数据采集器，网页内容监视器，工具接口集成，
 ## crawler
-图片爬虫： baidu_img, meizitu,mzitu,mm131,
-漫画爬虫：dmzj
+* 图片爬虫： 
+  * baidu_img, 
+  * meizitu,mzitu,mm131,
+漫画爬虫：dmzj,sfacg
 文档爬虫: blog,
-BBS爬虫：
+小说：biquge，
+BBS爬虫： tieba，
 新闻爬虫：
-shop： jingdong，taobao
-music：netease
+shop： 
+    jingdong，
+    taobao
+music：
+    netease, spider163-master
+    baidumusic
 video：biblbili
+    * VIP 视频破解无名网站：http://www.administrator5.com/WMXZ.WANG/index.html
 Rss:
+movie: 
+    * doubantop250,
+    * maoyanboard
+    * https://github.com/iawia002/annie
+
+12306
+
+知乎登录
+豆瓣登录
+微博登陆
+
 
 ### 配置
 层级： index-> list->(book/album)->article 
 开始url： 指定url？如何判断当前页面parse函数
 抓取策略： 几级深度？深度优先vs广度优先
 结束策略： item_count, time_expire
-**Q**: 如何设置翻页设置？
+
+**Q**:结构化搜索？
+**A**:scrapy是扁平化解构，常规网站是多级结构。rule 是扁平化，没有结构，不好用.扁平化结构，不关心网站结构层次，所有内容都经过队列，队列后进先出，丢失了先后顺序，结构信息。常规网站有着鲜明的结构层次，入口页面包含多个列表页，列表页含有多个分页，列表页包含内容页，按照这个层次化结构抓取，上级页面包含了下级页面的部分信息。
+**Q**: 如何设置翻页设置？添加翻页数
+        通过翻页，限制页面数量。
         列表页翻页是否增加深度？
 命令行配置： 
 `spider -c abc`
@@ -51,9 +75,13 @@ api接口： 导出相关格式 csv,json,xml,jsonline =>xls,sqlite, pickle
 gui界面设计：
 
 ### log
-rule 是扁平化，没有结构，不好用
-有时需要有结构化设计
+
+
 ### todo
+[] 如何集成request和scrapy和selenium于一个框架
+[] 添加类postman内容
+[] 查询参数拼接时是否有序？
+[]  添加浏览器支持：webkit，v8，本地浏览器。
 [+] 合并文件夹 23us,doubanMovieTop250
 [] https://www.51xs.org/info/1.html
 [+]  添加tableWIdgetWIdget,spider_info.json
@@ -97,21 +125,4 @@ for img in imgs:
 title = response.css('title').get()
 body= response.xpath('body').get()
 
-字符串转合法路径：
-re.sub('[^\w\-_\. ]', '_', 'some\\*-file._n\\\\ame')
-Out[27]: 'some__-file._n__ame'
 
-\xa0表示不间断空白符。在Python中，使用re.sub方法不能将其去除，但有以下两种方法可行：
-
-1.使用translate方法，示例：
->>> inputstring = u'\n               Door:\xa0Novum    \t'
->>> move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
->>> output = inputstring.translate(move)
->>> output
-             Door:Novum     
-2.利用split()方法，示例:
->>> s = 'T-shirt\xa0\xa0短袖圆领衫,体恤衫\xa0'
->>> out = "".join(s.split())
->>> out
-'T-shirt短袖圆领衫,体恤衫'
-参考：python中去掉字符串中的\xa0、\t、\n

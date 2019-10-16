@@ -1,17 +1,28 @@
 # projectSetting
 
-
+配置包含： project，preferences，machine
+preferences配置包含 skin，窗口及控件的位置和大小布局，插件相关，快捷键相关。（由用户设置，偏慢变化）
+machine：保存project history，（内置，无需用户操心，快速变化）
+project配置包含：spider配置，外围配置，
 配置文件基于变化频率，分为 
-* spider默认配置
-* project配置文件，
-* 命令行配置
-* 当前内存缓存配置。
+* 基于project的缺省内存配置 （缺省生效）
+* 当前内存的缓存配置 （核心）
+* UI界面的可编辑配置  （UI触发生效）
+* 文本框缓存配置        （UI触发生效）
+* 命令行配置和临时json配置文件（命令行调用生效）
+* 保存的project配置文件，   （文件打开生效）
+* custom_spider配置文件    （文件打开生效）
+* 基于spider内置配置    （默认生效）
 
-
+## UI
+UI布局使用H型布局，左边栏，右边栏，中上主框体，中下交互命令行。
+仿vscode布局页面，仿vscode的peacock的调色模块。
+[] REPL工具 prompt
+[] 状态栏添加按钮，点击可以显示或隐藏split的widget。
 []  baiduimage &dmzj 的动态生成start_urls 
-[] 
-
-
+[] 下拉抽屉菜单，可以持久显示，移动界面不消失。
+[] jupyter中调试request。
+## cmdline配置
 ``` python
     import argparse
     parser = argparse.ArgumentParser(prog='scrapy')
@@ -48,6 +59,7 @@ set对应 setting，argument对应自定义参数。
 扁平化， 把json的结构转船扁平化的key&value。
 配合curd 实现json任意尺度编辑，
 
+## 配置文件
 
 ``` json
 {
