@@ -101,3 +101,11 @@ class ZuopinjiItem(scrapy.Item):
     book_name = scrapy.Field()
     chapter_name = scrapy.Field()
     chapter_content = scrapy.Field()
+
+class NewsItem(Item):
+    title = Field()
+    text = Field()
+    datetime = Field()
+    source = Field()
+    url = Field()
+    website = Field()

@@ -20,3 +20,12 @@ Docker Compose. 用来运行docker-compose命令
 Kitematic. 这是Docker的GUI版本
 Docker QuickStart shell. 这是一个已经配置好Docker的命令行环境
 Oracle VM Virtualbox. 虚拟机
+
+## helloworld
+
+``` bash
+
+docker pull library/hello-world # 下载镜像
+docker images
+docker run  
+```

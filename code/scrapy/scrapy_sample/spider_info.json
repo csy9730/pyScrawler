@@ -5,7 +5,7 @@
             "图片"
         ],
         "base_url": "https://www.meizitu.com",
-        "description": "..."
+        "description": "美女图"
     },
     {
         "name": "meizitu0",
@@ -13,7 +13,7 @@
             "图片"
         ],
         "base_url": "https://www.meizitu.com",
-        "description": "..."
+        "description": "美女图"
     },
     {
         "name": "mm131",
@@ -21,7 +21,7 @@
             "图片"
         ],
         "base_url": "https://www.mm131.net",
-        "description": "..."
+        "description": "美女图"
     },
     {
         "name": "mzitu",
@@ -29,7 +29,7 @@
             "图片"
         ],
         "base_url": "https://www.mzitu.net",
-        "description": "..."
+        "description": "美女图"
     },
     {
         "name": "dmzj",
@@ -37,7 +37,7 @@
             "漫画"
         ],
         "base_url": "https://manhua.dmzj.com",
-        "description": "..."
+        "description": "动漫之家漫画网站"
     },
     {
         "name": "sfacg",
@@ -45,7 +45,7 @@
             "漫画"
         ],
         "base_url": "https://manhua.sfacg.com",
-        "description": "..."
+        "description": "sfacg漫画网站"
     },
 	{
         "name": "baiduimage",
@@ -70,8 +70,33 @@
             "小说"
         ],
         "base_url": "http://www.23us.so",
-        "description": "..."
+        "description": "23us网站小说"
     }
-	
-	
+	,
+		{
+        "name": "douban_movie_top250",
+        "tag": [
+            "电影"
+        ],
+        "base_url": "https://movie.douban.com/top250",
+        "description": "豆瓣电影top250"
+    }	
+	,
+		{
+        "name": "techchina",
+        "tag": [
+            "新闻"
+        ],
+        "base_url": "http://tech.china.com/articles/",
+        "description": "新华网技术类新闻"
+    }	
+    ,
+    {
+    "name": "zuopinj",
+    "tag": [
+        "小说"
+    ],
+    "base_url": "http://zuopinj.com/writer/",
+    "description": "作品集网站小说"
+    }		
 ]
