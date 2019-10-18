@@ -9,16 +9,16 @@ from scrapy.http import Request
 from scrapy.utils.response import get_base_url
 from scrapy.utils.url import urljoin_rfc
 
-from bdmms.items import BdmmsItem
+from scrapy_sample.items import BdmmsItem
 
-
+"""
 import logging
 from scrapy.log import ScrapyFileLogObserver
 
 logfile = open('bdmms.log', 'a')
 log_observer = ScrapyFileLogObserver(logfile, level=logging.DEBUG)
 log_observer.start()
-
+"""
 
 class BdmmSpider(Spider):
     # scrapy内建属性
@@ -33,9 +33,11 @@ class BdmmSpider(Spider):
         '''从入口地址[歌手列表开始抓取]'''
 
         a = '/html/body/div[3]/div/div/div[3]/ul/li[position()>1]/ul/li/a/'
-        singer_names = self._query(a + 'text()', response)
-        singer_links = self._query(a + '@href', response)
-
+        singer_names = response.xpath(a + 'text()').getall()
+        singer_links = response.xpath(a + '@href').getall()
+        # singer_names = self._query(a + 'text()', response)
+        # singer_links = self._query(a + '@href', response)
+        print( singer_names)
         # 进入单页抓取
         for name, link in zip(singer_names, singer_links):
             yield Request(

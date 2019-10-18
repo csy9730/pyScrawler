@@ -9,7 +9,8 @@ import scrapy
 from .utils import removeDirtyChar
 from scrapy.loader.processors import Join, MapCompose, TakeFirst,Compose
 from w3lib.html import remove_tags
-
+from scrapy import Item
+from scrapy import Field
 
 class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
@@ -109,3 +110,30 @@ class NewsItem(Item):
     source = Field()
     url = Field()
     website = Field()
+
+
+class BdmmsItem(Item):
+    # 歌名
+    song_name = Field()
+    # 歌曲在百度mp3中的url
+    song_link = Field()
+    # 歌手
+    singer = Field()
+    # 歌手封面
+    singer_face = Field()
+
+    # 所属专辑
+    album_name = Field()
+    album_link = Field()
+    # 专辑发行时间
+    release_date = Field()
+    # 所属公司
+    company = Field()
+    # 专辑封面
+    album_cover = Field()
+    # 专辑简介
+    album_intro = Field()
+    # 标签
+    tags = Field()
+    # 歌词
+    lrc = Field()
