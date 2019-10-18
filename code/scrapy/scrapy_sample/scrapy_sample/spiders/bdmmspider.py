@@ -30,13 +30,12 @@ class BdmmSpider(Spider):
     host = 'http://music.baidu.com'
 
     def parse(self, response):
-        '''从入口地址[歌手列表开始抓取]'''
+        '''从入口地址[歌手列表开始抓取]
+            总计5631    
+        '''
+        singer_names = response.xpath('//li[@class="list-item"]//li/a/text()').getall()
+        singer_links = response.xpath('//li[@class="list-item"]//li/a/@href').getall() # "/artist/340442495"
 
-        a = '/html/body/div[3]/div/div/div[3]/ul/li[position()>1]/ul/li/a/'
-        singer_names = response.xpath(a + 'text()').getall()
-        singer_links = response.xpath(a + '@href').getall()
-        # singer_names = self._query(a + 'text()', response)
-        # singer_links = self._query(a + '@href', response)
         print( singer_names)
         # 进入单页抓取
         for name, link in zip(singer_names, singer_links):
@@ -46,6 +45,13 @@ class BdmmSpider(Spider):
                 callback=self.parse_single_singer)
 
     def parse_single_singer(self, response):
+        title = response.xpath('//div[@id="songList"]//li//div[@class="songlist-inline songlist-title"]//span[@class="songname"]/a/@title').getall()
+        href = response.xpath('//span[@class="songname"]/a/@href').getall()       
+        album = response.xpath('//div[@class="songlist-inline songlist-album overdd"]//a/text()')
+        time = response.xpath('//div[@class="songlist-inline songlist-time"]//text()').getall()
+
+
+    def parse_single_singer2(self, response):
         '''歌手单页抓取歌手信息以及歌曲列表'''
         # 歌手的id
         artist_id = response.url.strip('/').rsplit('/', 1)[1]
