@@ -15,8 +15,8 @@ class JsSpider(scrapy.Spider):
     name = "jd"
     # allowed_domains = ["jd.com"]
     start_urls = [
-        # "http://www.jd.com/"
-        "https://manhua.dmzj.com/yueshenhasi/92686.shtml#@page=1"
+        "http://www.jd.com/",
+        # "https://manhua.dmzj.com/yueshenhasi/92686.shtml#@page=1",
     ]
 
     def start_requests(self):
