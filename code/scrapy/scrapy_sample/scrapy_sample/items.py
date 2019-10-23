@@ -6,7 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from .utils import removeDirtyChar
+from .utils import removeDirtyChar,removePathChar
 from scrapy.loader.processors import Join, MapCompose, TakeFirst,Compose
 from w3lib.html import remove_tags
 from scrapy import Item
@@ -16,7 +16,7 @@ class ImageItem(scrapy.Item):
     image_urls = scrapy.Field() 
     images = scrapy.Field() # record output sha1
     img_folder = scrapy.Field(
-        output_processor=Compose( TakeFirst (),removeDirtyChar,lambda x:x+'/' ))
+        output_processor=Compose( TakeFirst (),removeDirtyChar,removePathChar,lambda x:x+'/' ))
 
     title = scrapy.Field(
         output_processor=Compose( TakeFirst (),removeDirtyChar ))

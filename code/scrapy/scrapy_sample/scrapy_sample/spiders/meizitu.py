@@ -68,3 +68,40 @@ class MeizituSpider0(scrapy.Spider):
         l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')
         l.add_value('referer', response.url) # you can also use literal values
         return l.load_item()
+
+
+class KonachanSpider(scrapy.Spider):
+    name = 'konachan'
+    urlpre = 'https://konachan.com'
+    start_urls = [#'http://www.meizitu.org/page/2/',
+        'https://konachan.com/post/',
+        #'https://konachan.com/post?page=3&tags=',
+	]
+    pages = 5
+    custom_settings = {
+        "ITEM_PIPELINES":{
+            'scrapy_sample.pipelines.RefererImagePipeline': 1,
+        }
+    }
+    def __init__(self,**entries):
+        super(KonachanSpider, self).__init__( **entries)
+        print("start_urls",self.start_urls)
+    def parse(self, response): 
+        urls = response.xpath('//li//a[@class="thumb"]/@href').getall()
+        pages = response.xpath('//div[@class="pagination"]//a[@class="next_page"]/@href').getall()
+        for url in urls:
+            yield  Request( self.urlpre+url ,callback=self.parse_image)
+        for url in pages:
+            if self.pages<0:
+                yield  Request( self.urlpre+url ,callback=self.parse)
+                self.pages -=1
+        
+    def parse_image(self,response):
+        l = ItemLoader(item=ImageItem(), response=response)         
+        l.add_xpath('image_urls', '//a[@id="png"]//@href|//a[@id="highres"]//@href|//a[@id="highres-show"]//@href'     )  
+         # '//img[@id="image"]/@src'  # '//a[@class="original-file-unchanged"]/@href'     
+        l.add_xpath('title', '//title/text()')
+        l.add_xpath('img_folder', '//title/text()')
+        # l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')
+        l.add_value('referer', response.url) # you can also use literal values
+        return l.load_item()

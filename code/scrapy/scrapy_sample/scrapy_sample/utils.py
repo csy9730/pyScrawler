@@ -17,6 +17,10 @@ def dict2cmdline(dct):
 def removeDirtyChar(s):
     move = dict.fromkeys((ord(c) for c in u"\xa0\n\t\u3000"))
     return s.translate(move)
+def removePathChar(s):
+    move = dict.fromkeys((ord(c) for c in u"\\/|*?"))
+    return s.translate(move)
+
 def main():
     inputstring = u'\n               Door:\xa0Novum    \t'
     move = dict.fromkeys((ord(c) for c in u"\xa0\n\t"))
