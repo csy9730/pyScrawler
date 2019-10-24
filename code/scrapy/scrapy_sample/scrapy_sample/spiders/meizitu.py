@@ -98,8 +98,8 @@ class KonachanSpider(scrapy.Spider):
         
     def parse_image(self,response):
         l = ItemLoader(item=ImageItem(), response=response)         
-        l.add_xpath('image_urls', '//a[@id="png"]//@href|//a[@id="highres"]//@href|//a[@id="highres-show"]//@href'     )  
-         # '//img[@id="image"]/@src'  # '//a[@class="original-file-unchanged"]/@href'     
+        l.add_xpath('image_urls', '//img[@id="image"]/@src|//a[@id="png"]//@href|//a[@id="highres"]//@href|//a[@id="highres-show"]//@href'     )  
+         # ''  # '//a[@class="original-file-unchanged"]/@href'     
         l.add_xpath('title', '//title/text()')
         l.add_xpath('img_folder', '//title/text()')
         # l.add_xpath('datetime', './/div[@class="metaLeft"]//div[@class="month_Year"]/text()')

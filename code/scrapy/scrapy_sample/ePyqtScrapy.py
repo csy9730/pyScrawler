@@ -57,8 +57,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             {"name":"dmzj","tag":["漫画"],"base_url":"https://manhua.dmzj.com","description":"..."},
             {"name": "sfacg","tag":["漫画"],"base_url":"https://manhua.sfacg.com","description":"..."},
         ]
-        with open('spider_info.json','r',encoding="utf-8")as fp:
-            self.spider_info = json.load(fp)
+        if os.path.exists('spider_info.json'):
+            with open('spider_info.json','r',encoding="utf-8")as fp:
+                self.spider_info = json.load(fp)
         spiderList = [d["name"] for d in self.spider_info ]
         self.comboBox.clear()
         self.comboBox.addItems(spiderList)  

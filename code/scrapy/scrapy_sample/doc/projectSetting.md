@@ -44,7 +44,17 @@ set对应 setting，argument对应自定义参数。
 命令行可以表示简单一阶字典`{"a":"ww","ab":"wb"}`。通过append实现value可以取值列表。
 
 通过=或":"赋值操作实现二阶字典。`{"a":{"aa":"ww","ab":"wb"},"b":"bv"}`
-
+``` python
+dct ={
+        "ITEM_PIPELINES":{
+            'scrapy_sample.pipelines.RefererImagePipeline': 1,
+             'scrapy_sample.pipelines.ImagePipeline': 555,
+        }
+}
+dct2 = {"a":{"aa":"ww","ab":"wb"},"b":"bv"}
+a=2&b=bv&c=ccc
+# ITEM_PIPELINES='scrapy_sample.pipelines.RefererImagePipeline'=1
+```
 通过；分隔实现二阶列表。
 `{"a":{ "wer":{"aa":"ww","ab":"wb"},"aa":"cc"},"b":"bv"}`
 

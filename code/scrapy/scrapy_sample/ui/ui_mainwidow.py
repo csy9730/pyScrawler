@@ -847,4 +847,4 @@ class Ui_MainWindow(object):
         self.actionClearItems.setText(_translate("MainWindow", "清除列表项"))
         self.actionPause.setText(_translate("MainWindow", "暂停"))
 
-import pyscr_rc
+# import pyscr_rc

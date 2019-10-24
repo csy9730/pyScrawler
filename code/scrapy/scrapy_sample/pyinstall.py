@@ -7,9 +7,9 @@ if __name__ == '__main__':
     from PyInstaller.__main__ import run
     # '-F'  单文件打包    '--clean', 
     opts=[
-        # 'ePyqtScrapy.py','-w',
+        #'ePyqtScrapy.py','-w',
          'crawl.py',
-        '--onedir', '--hidden-import=queue', "--distpath=dist"
+        '--onefile', '--hidden-import=queue', "--distpath=dist"
         , '--exclude-module=scikit-learn', '--exclude-module=PySide' 
         , '--exclude-module=pandas', '--exclude-module=matplotlib', '--exclude-module=numpy', '--exclude-module=scipy'
         ,  '--exclude-module=PyQt4'
