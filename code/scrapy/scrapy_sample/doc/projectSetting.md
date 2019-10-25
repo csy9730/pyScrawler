@@ -14,14 +14,7 @@ project配置包含：spider配置，外围配置，
 * custom_spider配置文件    （文件打开生效）
 * 基于spider内置配置    （默认生效）
 
-## UI
-UI布局使用H型布局，左边栏，右边栏，中上主框体，中下交互命令行。
-仿vscode布局页面，仿vscode的peacock的调色模块。
-[] REPL工具 prompt
-[] 状态栏添加按钮，点击可以显示或隐藏split的widget。
-[]  baiduimage &dmzj 的动态生成start_urls 
-[] 下拉抽屉菜单，可以持久显示，移动界面不消失。
-[] jupyter中调试request。
+
 ## cmdline配置
 ``` python
     import argparse
