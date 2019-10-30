@@ -1,5 +1,18 @@
 # projectSetting
 
+输入一个url，在一个文件夹内得到一个或多个文件。
+* 输入配置：url，pg，pg_range,word
+* 输出配置：sql，xls，json，fold_name,JOBDIR,
+* 过程控制： 早退出条件。
+
+首先要思考到底哪些参数是必需的。
+
+使用状态机处理response。
+
+
+
+## misc
+
 配置包含： project，preferences，machine
 preferences配置包含 skin，窗口及控件的位置和大小布局，插件相关，快捷键相关。（由用户设置，偏慢变化）
 machine：保存project history，（内置，无需用户操心，快速变化）

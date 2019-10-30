@@ -51,6 +51,21 @@ def execJsDemo():
     with open('./test.js') as f:  # 执行 JS 文件
         ctx = execjs.compile(f.read())
         ctx.call('add', 1, 2)
+def addLink(self,response):
+    xp = '//div[@class="pagination"]//a[@class="next_page"]/@href'
+    rules = [ {"selector":"xpath","path":"","re":".*","callback":None,"format":"https://konachan.com{0}"}]
+    for r in rules:
+        urls = response.xpath(r["path"]).getall()
+        for url in urls:
+            yield  Request( r["format"].format(url) ,callback=self.parse_image)
+def parse(self,response):
+    # tart url 中 分配  callback_index  # url = response.url
+    callback_index = response.meta["response"]
+    resp = bg[callback_index]
+    resp["rule"]
+    resp[""]
+
+
 if __name__ == "__main__":
     main()
 

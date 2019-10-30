@@ -1,0 +1,349 @@
+/**  black background, white fore ground, oliver green as hover/selected/pressed color */
+*{
+    background-color:#3a3e3f;
+    color: #cccccc;
+}
+QToolBar{
+    background-color:#4f4e4f;
+    border:2px sold #330000; /*消除边框*/
+}
+
+
+/**********提示**********/
+QToolTip{
+        border: 0px solid #3a3e3f;
+        background:#1b1e1e ;
+        color:#cccccc;
+}
+
+QLabel{
+        color:#b2b2b2;
+        padding:2px;
+}
+
+/*************按钮***************/
+
+QPushButton{
+        width:75px;
+        height:25px;
+        border-color:#57585c;
+        border-style:groove;
+        border-width:2px;
+        color:#cccccc;
+        padding: 1px;
+        font-family: "SimHei";
+        font-size:15px;
+        background-color:#2f3034;
+border-radius:4px;
+}
+
+QPushButton:hover{
+        color:#aace38;
+        border-color:#aace38;
+        border-style:solid;
+        border-width:1px;
+        border-radius:4px;
+background-color:#2f3034;
+}
+
+QPushButton:pressed{
+        margin:2px;
+        color:#aace38;
+        border-color:#aace38;
+        border-style:solid;
+        border-width:1px;
+}
+
+
+/* Customize radio buttons. */
+
+QRadioButton {
+    spacing: 5px;
+}
+
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+}
+
+QRadioButton::indicator::unchecked {
+    image: url(:/images/radio/radiobutton_unchecked.png);
+}
+
+QRadioButton::indicator:unchecked:hover {
+    image: url(:/images/radio/radiobutton_unchecked_hover.png);
+}
+
+QRadioButton::indicator:unchecked:pressed {
+    image: url(:/images/radio/radiobutton_unchecked_pressed.png);
+}
+
+QRadioButton::indicator::checked {
+    image: url(:/images/radio/radiobutton_checked.png);
+}
+
+QRadioButton::indicator:checked:hover {
+    image: url(:/images/radio/radiobutton_checked_hover.png);
+}
+
+QRadioButton::indicator:checked:pressed {
+    image: url(:/images/radio/radiobutton_checked_pressed.png);
+}
+
+/* Customize check boxes. */
+QCheckBox {
+    spacing: 5px;
+}
+
+QCheckBox::indicator {
+    width: 13px;
+    height: 13px;
+}
+QCheckBox::indicator:unchecked {
+    image: url(:/images/checkbox/checkbox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover {
+    image: url(:/images/checkbox/checkbox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    image: url(:/images/checkbox/checkbox_unchecked_pressed.png);
+}
+
+QCheckBox::indicator:checked {
+    image: url(:/images/checkbox/checkbox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover {
+    image: url(:/images/checkbox/checkbox_checked_hover.png);
+}
+
+QCheckBox::indicator:checked:pressed {
+    image: url(:/images/checkbox/checkbox_checked_pressed.png);
+}
+
+/**************text ***************/
+QTextEdit,QLineEdit{
+        background-color:#1b1e1e;
+        color:#b3b3b3;
+        border:none;
+}
+
+/** 进度条 ***/
+
+QProgressBar{
+       color:white;/* 文字颜色*/
+        border: 0px solid grey;
+       text-align: center;
+        border-radius: 5px;
+        background-color:black;
+}
+QProgressBar::chunk{
+        background-color: #aace38;/** 填充部分颜色**/
+        border-radius: 3px;
+}
+/**********滚动条-水平**********/
+QScrollBar:horizontal {
+        height: 15px;
+        background: transparent;
+        margin-top: 3px;
+        margin-bottom: 3px;
+}
+QScrollBar::handle:horizontal {
+        height: 20px;
+        min-width: 60px;
+        background: #aecc38;
+        margin-left: 15px;
+        margin-right: 15px;
+border-radius:4px;
+}
+QScrollBar::handle:horizontal:hover {
+        background:#a0c631;
+}
+QScrollBar::sub-line:horizontal {
+        width: 15px;
+        background: transparent;
+        image: url(:/images/scrollBar/arrow0-s/cling_arrow_left.png);
+        subcontrol-position: left;
+}
+QScrollBar::add-line:horizontal {
+        width: 15px;
+        background: transparent;
+        image: url(:/images/scrollBar/arrow0-s/cling_arrow_right.png);
+        subcontrol-position: right;
+}
+QScrollBar::sub-line:horizontal:hover {
+        background: rgb(68, 69, 73);
+}
+QScrollBar::add-line:horizontal:hover {
+        background: rgb(68, 69, 73);
+}
+QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal {
+        background: transparent;
+}
+
+/**********滚动条-垂直**********/
+QScrollBar:vertical {
+        width: 15px;
+        background: transparent;
+        margin-left: 3px;
+        margin-right: 3px;
+}
+QScrollBar::handle:vertical {
+        width: 20px;
+        min-height: 30px;
+       background: #aecc38;
+        margin-top: 15px;
+        margin-bottom: 15px;
+
+border-radius:4px;
+}
+QScrollBar::handle:vertical:hover {
+        background:#a0c631;
+}
+QScrollBar::sub-line:vertical {
+        height: 15px;
+        background: transparent;
+        image: url(:/images/scrollBar/arrow0-s/cling_arrow_up.png);
+        subcontrol-position: top;
+}
+
+QScrollBar::add-line:vertical {
+        height: 15px;
+        background: transparent;
+        image: url(:/images/scrollBar/arrow0-s/cling_arrow_down.png);
+        subcontrol-position: bottom;
+}
+QScrollBar::sub-line:vertical:hover {
+        background: rgb(68, 69, 73);
+}
+QScrollBar::add-line:vertical:hover {
+        background: rgb(68, 69, 73);
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: transparent;
+}
+
+QScrollBar#verticalScrollBar:vertical {
+        margin-top: 30px;
+}
+
+/**********滚动区域**********/
+QScrollArea,QGroupBox {
+        border: none;
+}
+
+/********* 表格*****************/
+
+QTableWidget{
+        color: white;
+        gridline-color: #000;
+        background: #2c2c2d;
+        border:none;
+        padding: 2px 4px;
+        min-height: 44px;
+        outline: none;
+}
+  QTableView QTableCornerButton::section {
+      background: #474846;
+      border: 2px inner ;
+  }
+
+QHeaderView::section {
+        background-color: #474846;
+        color: #999999;
+        padding-left: 4px;
+        border:none;
+        min-height: 40px;
+        min-width: 30px;
+        alignment:right;
+        border-right: 1px solid #151618;/**similar to head line grid*/
+    border-bottom:1px solid #151618;
+}
+QTableWidget::item {
+        padding-left: 5px;
+        padding-right:5px;
+        border-right: 1px solid #151618;
+        border-bottom: 1px solid #151618;
+}
+
+/*** alternate color*/
+QTableWidget::item:alternate{
+    color:#cdcccc;
+    background-color:#404040;
+}
+QTableWidget::item:!alternate{
+        color:#b3b3b3;
+    background-color:#303030;
+}
+QTableWidget::item:selected{
+    color:#e5e5e5;
+    background-color:rgb(71,85,23);
+    border:none;
+}
+
+
+/**********页签项**********/
+QTabWidget::pane {
+                border: none;
+                border-top: 3px solid rgb(30, 32, 33);
+                background: rgb(255, 0, 0); /** nop **/
+}
+QTabWidget::tab-bar {
+                border: none;
+}
+QTabBar::tab {
+                border: none;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                color: #cccccc;
+                background: #2f3034;
+                height: 28px;
+                min-width: 85px;
+                margin-right: 5px;
+                padding-left: 5px;
+                padding-right: 5px;
+}
+QTabBar::tab:hover {
+        color:#aace38;
+}
+QTabBar::tab:selected {
+        color:#aace38;
+        padding:1px;
+}
+
+/** 下拉项*/
+QComboBox, QLineEdit, QSpinBox, QTextEdit, QListView {
+    selection-color: #aace38;
+    selection-background-color: #332200;
+}
+QSlider::handle:horizontal {
+        background: #aace38;
+        border: 1px solid #55661c;
+        width: 18px;
+        margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+        border-radius: 3px;
+}
+
+/**copy from QTableWidget***/
+QListWidget::item {
+        padding-left: 5px;
+        padding-right:5px;
+        border-right: 1px solid #151618;
+        border-bottom: 1px solid #151618;
+}
+QListWidget::item:selected{
+    color:#e5e5e5;
+    background-color:rgb(71,85,23);
+    border:none;
+}
+QListWidget{
+        color: white;
+        gridline-color: #000;
+        background: #2c2c2d;
+        border:none;
+        padding: 2px 4px;
+        min-height: 44px;
+        outline: none;
+}

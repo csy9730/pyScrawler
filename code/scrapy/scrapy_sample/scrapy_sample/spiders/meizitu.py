@@ -73,7 +73,7 @@ class MeizituSpider0(scrapy.Spider):
 class KonachanSpider(scrapy.Spider):
     name = 'konachan'
     urlpre = 'https://konachan.com'
-    start_urls = [#'http://www.meizitu.org/page/2/',
+    start_urls = [
         'https://konachan.com/post/',
         #'https://konachan.com/post?page=3&tags=',
 	]

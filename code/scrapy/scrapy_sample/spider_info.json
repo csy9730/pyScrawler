@@ -55,7 +55,15 @@
         "base_url": "https://image.baidu.com/",
         "description": "输入关键字生成start_url"
     },
-		{
+    {
+        "name": "konachan",
+        "tag": [
+            "图片"
+        ],
+        "base_url": "https://konachan.com/post/",
+        "description": "图片网"
+    },
+    {
         "name": "doc_scrapy",
         "tag": [
             "文档"
@@ -71,6 +79,14 @@
         ],
         "base_url": "http://www.23us.so",
         "description": "23us网站小说"
+    },
+    {
+        "name": "biqukan",
+        "tag": [
+            "小说"
+        ],
+        "base_url": "https://www.biqukan.com",
+        "description": "biqukan网站小说"
     }
 	,
 		{
@@ -98,5 +114,13 @@
     ],
     "base_url": "http://zuopinj.com/writer/",
     "description": "作品集网站小说"
-    }		
+    }	,
+    {
+        "name": "36mh",
+        "tag": [
+            "漫画"
+        ],
+        "base_url": "https://m.36mh.com/manhua/",
+        "description": "36漫画"
+    }
 ]

@@ -26,5 +26,25 @@
         <file>img/停止_nor.png</file>
         <file>img/停止_sel.png</file>
         <file>img/icons8-spider.svg</file>
+        <file>images/checkbox/checkbox_checked.png</file>
+        <file>images/checkbox/checkbox_checked_hover.png</file>
+        <file>images/checkbox/checkbox_checked_pressed.png</file>
+        <file>images/checkbox/checkbox_unchecked.png</file>
+        <file>images/checkbox/checkbox_unchecked_hover.png</file>
+        <file>images/checkbox/checkbox_unchecked_pressed.png</file>
+        <file>images/radio/radiobutton_checked.png</file>
+        <file>images/radio/radiobutton_checked_hover.png</file>
+        <file>images/radio/radiobutton_checked_pressed.png</file>
+        <file>images/radio/radiobutton_unchecked.png</file>
+        <file>images/radio/radiobutton_unchecked_hover.png</file>
+        <file>images/radio/radiobutton_unchecked_pressed.png</file>
+        <file>images/scrollBar/arrow0-s/cling_arrow_down.png</file>
+        <file>images/scrollBar/arrow0-s/cling_arrow_left.png</file>
+        <file>images/scrollBar/arrow0-s/cling_arrow_right.png</file>
+        <file>images/scrollBar/arrow0-s/cling_arrow_up.png</file>
+        <file>img/20191009052302759_easyicon_net_64.ico</file>
+        <file>img/icons8-save-80.png</file>
+        <file>img/icons8-spider-64.png</file>
+        <file>qss/black_green.qss</file>
     </qresource>
 </RCC>

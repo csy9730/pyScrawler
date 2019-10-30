@@ -7,7 +7,7 @@ import subprocess, io
 
 from PyQt5 import QtCore, QtGui, uic,QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMessageBox, QVBoxLayout, QSizePolicy, QWidget,QListWidgetItem,QFileDialog,QFileSystemModel 
-from PyQt5.QtCore import Qt,QTimer
+from PyQt5.QtCore import Qt,QTimer,QFile
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
 from PyQt5.QtWidgets import QFileDialog,QListWidgetItem,QTableWidgetItem
@@ -76,11 +76,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.treeView.setModel(self.dirModel )  
         self.setDir()
         QTimer.singleShot(200, self.setDir)
-
+        self.addStyleSheet("ui/qss/black_green.qss")
         # self.tmrTime = QtCore.QTimer()
         # self.tmrTime.setInterval(1000)
         # self.tmrTime.timeout.connect( self.on_tmrTime_timeout)
         # self.tmrTime.start()
+
+    def addStyleSheet(self,pfn):
+        with open(pfn,"rb") as fp:
+            styleSheet = fp.read()
+            print(styleSheet)
+            self.setStyleSheet( styleSheet.decode("utf-8"))
+
     def initProc(self):
         self.proc = QProcess(self)
         self.proc.setProcessChannelMode(QtCore.QProcess.MergedChannels)
@@ -333,15 +340,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.listWidget.addItem( aItem);
     def listWidget_export(self):
         return [ self.listWidget.item(i).text() for i in range(self.listWidget.count())  ]
+    
     @pyqtSlot() 
     def on_tableWidget_itemDoubleClicked(self):
         item = self.tableWidget.currentItem() 
         item.setFlags(item.flags() | Qt.ItemIsEditable)
 
-    def tableWidget_import(self,lst): 
+    def tableWidget_import(self,lst):        
+        self.tableWidget.clear()
+        if not lst:
+            return 
         row = len(lst);
         col = len(lst[0].keys() );
-        self.tableWidget.clear()
+        
         self.tableWidget.setRowCount(row);
         self.tableWidget.setColumnCount(col);
         
@@ -354,17 +365,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 aItem.setText( v )
                 self.tableWidget.setItem( i,j,aItem);
 
-        
     @pyqtSlot() 
     def on_btnTmp_clicked(self):
         pass
         # print( lst)
     @pyqtSlot() 
     def on_btnTmp2_clicked(self):
-        lst = ['1', '234234', '_为e东扥个qwe  er   ']
-        self.listWidget_import(lst )
-    
-    
+        pass
+    # 过滤表格的spider
+    @pyqtSlot(int) 
+    def on_cmbTagFilter_currentIndexChanged(self, index):
+        st = self.cmbTagFilter.itemText(index )        
+        lst = self.spider_info
+        lst = list( filter( lambda x: (st=="全部") or (st in x["tag"]), lst))                
+        self.tableWidget_import(lst)
+    # 从表格选定spider
+    @pyqtSlot(QTableWidgetItem)     
+    def on_tableWidget_itemClicked(self,item):
+        row = item.row()
+        spd =  self.tableWidget.item( row,0).text()
+        base_url =  self.tableWidget.item( row,2).text()
+        self.comboBox.setCurrentIndex( self.comboBox.findText( spd ))
+        self.lbBaseurl.setText( base_url )
+        print( spd)
+
+
+        
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QIcon('ui/img/icons8-spider-64.png'))
