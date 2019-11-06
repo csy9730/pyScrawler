@@ -11,7 +11,63 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1022, 664)
+        MainWindow.resize(1076, 664)
+        MainWindow.setStyleSheet("*{\n"
+"   background-color:#3a3e3f;\n"
+"}\n"
+"QMainWindow{\n"
+"    background-color:#3a3e3f;\n"
+"}\n"
+"QPushButton{\n"
+"    background-color:#3a3e3f;\n"
+"}\n"
+"QTabWidget::pane {\n"
+"        border: none;\n"
+"        border-top: 3px solid rgb(0, 78, 161);\n"
+"        background: rgb(187, 212, 238);\n"
+"}\n"
+"QTabWidget::tab-bar {\n"
+"        border: none;\n"
+"}\n"
+"QTabBar::tab {\n"
+"        border: none;\n"
+"        border-top-left-radius: 4px;\n"
+"        border-top-right-radius: 4px;\n"
+"        color: white;\n"
+"        background: rgb(120, 170, 220);\n"
+"        height: 28px;\n"
+"        min-width: 85px;\n"
+"        margin-right: 5px;\n"
+"        padding-left: 5px;\n"
+"        padding-right: 5px;\n"
+"}\n"
+"QTabBar::tab:hover {\n"
+"        background: rgb(0, 78, 161);\n"
+"}\n"
+"QTabBar::tab:selected {\n"
+"        color: white;\n"
+"        background: rgb(0, 78, 161);\n"
+"}\n"
+"\n"
+"QTabWidget#tabWidget::pane {\n"
+"        border: 1px solid rgb(111, 156, 207);\n"
+"        background: rgb(232, 241, 252);\n"
+"        margin-top: -1px;\n"
+"}\n"
+"\n"
+"QTabBar#tabBar::tab {\n"
+"        border: 1px solid rgb(111, 156, 207);\n"
+"        border-bottom: none;\n"
+"        color: rgb(70, 71, 73);\n"
+"        background: transparent;\n"
+"}\n"
+"QTabBar#tabBar::tab:hover {\n"
+"        color: rgb(2, 65, 132);\n"
+"}\n"
+"QTabBar#tabBar::tab:selected {\n"
+"        color: rgb(2, 65, 132);\n"
+"        background: rgb(232, 241, 252);\n"
+"}")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralWidget)
@@ -29,8 +85,6 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setContentsMargins(11, 11, 11, 11)
         self.gridLayout_2.setSpacing(6)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem, 6, 0, 1, 1)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setContentsMargins(11, 11, 11, 11)
         self.horizontalLayout_5.setSpacing(6)
@@ -52,15 +106,6 @@ class Ui_MainWindow(object):
         self.lbBaseurl = QtWidgets.QLabel(self.groupBox_2)
         self.lbBaseurl.setObjectName("lbBaseurl")
         self.gridLayout_2.addWidget(self.lbBaseurl, 0, 0, 1, 1)
-        self.listWidget = QtWidgets.QListWidget(self.groupBox_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy)
-        self.listWidget.setMaximumSize(QtCore.QSize(16777215, 99))
-        self.listWidget.setObjectName("listWidget")
-        self.gridLayout_2.addWidget(self.listWidget, 4, 0, 1, 2)
         self.comboBox = QtWidgets.QComboBox(self.groupBox_2)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
@@ -74,9 +119,6 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.gridLayout_2.addWidget(self.comboBox, 0, 1, 1, 1)
-        self.label_20 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_20.setObjectName("label_20")
-        self.gridLayout_2.addWidget(self.label_20, 5, 0, 1, 1)
         self.tableStartParams = QtWidgets.QTableWidget(self.groupBox_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -100,12 +142,15 @@ class Ui_MainWindow(object):
         self.tableStartParams.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableStartParams.setHorizontalHeaderItem(3, item)
-        self.gridLayout_2.addWidget(self.tableStartParams, 7, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.tableStartParams, 5, 0, 1, 2)
         self.btnNewParams = QtWidgets.QPushButton(self.groupBox_2)
         self.btnNewParams.setMinimumSize(QtCore.QSize(75, 0))
         self.btnNewParams.setMaximumSize(QtCore.QSize(75, 16777215))
         self.btnNewParams.setObjectName("btnNewParams")
-        self.gridLayout_2.addWidget(self.btnNewParams, 5, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.btnNewParams, 4, 1, 1, 1)
+        self.label_20 = QtWidgets.QLabel(self.groupBox_2)
+        self.label_20.setObjectName("label_20")
+        self.gridLayout_2.addWidget(self.label_20, 4, 0, 1, 1)
         self.verticalLayout_2.addWidget(self.groupBox_2)
         self.tabWidget_3 = QtWidgets.QTabWidget(self.centralWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
@@ -169,8 +214,8 @@ class Ui_MainWindow(object):
         self.btnImagedir.setObjectName("btnImagedir")
         self.horizontalLayout_2.addWidget(self.btnImagedir)
         self.gridLayout_3.addLayout(self.horizontalLayout_2, 5, 2, 1, 3)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem1, 8, 2, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_3.addItem(spacerItem, 8, 2, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.tab_11)
         self.label_2.setObjectName("label_2")
         self.gridLayout_3.addWidget(self.label_2, 4, 0, 1, 1)
@@ -244,8 +289,8 @@ class Ui_MainWindow(object):
         self.checkBox_6 = QtWidgets.QCheckBox(self.tab_12)
         self.checkBox_6.setObjectName("checkBox_6")
         self.gridLayout_4.addWidget(self.checkBox_6, 6, 0, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_4.addItem(spacerItem2, 7, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_4.addItem(spacerItem1, 7, 0, 1, 1)
         self.tabWidget_3.addTab(self.tab_12, "")
         self.tab_13 = QtWidgets.QWidget()
         self.tab_13.setObjectName("tab_13")
@@ -297,8 +342,8 @@ class Ui_MainWindow(object):
         self.label_19 = QtWidgets.QLabel(self.tab_13)
         self.label_19.setObjectName("label_19")
         self.gridLayout.addWidget(self.label_19, 6, 0, 1, 1)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem3, 7, 0, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem2, 7, 0, 1, 1)
         self.tabWidget_3.addTab(self.tab_13, "")
         self.tab_10 = QtWidgets.QWidget()
         self.tab_10.setObjectName("tab_10")
@@ -439,8 +484,8 @@ class Ui_MainWindow(object):
         self.ledKeyword = QtWidgets.QLineEdit(self.tab_28)
         self.ledKeyword.setObjectName("ledKeyword")
         self.horizontalLayout_7.addWidget(self.ledKeyword)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_7.addItem(spacerItem4)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem3)
         self.btnNewSpider = QtWidgets.QPushButton(self.tab_28)
         self.btnNewSpider.setObjectName("btnNewSpider")
         self.horizontalLayout_7.addWidget(self.btnNewSpider)
@@ -453,14 +498,14 @@ class Ui_MainWindow(object):
         self.tableWidget.setColumnCount(0)
         self.tableWidget.setRowCount(0)
         self.verticalLayout_7.addWidget(self.tableWidget)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_7.addItem(spacerItem5)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_7.addItem(spacerItem4)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setContentsMargins(11, 11, 11, 11)
         self.horizontalLayout_8.setSpacing(6)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_8.addItem(spacerItem6)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem5)
         self.verticalLayout_7.addLayout(self.horizontalLayout_8)
         self.tabWidget_5.addTab(self.tab_28, "")
         self.tab_27 = QtWidgets.QWidget()
@@ -493,8 +538,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(11, 11, 11, 11)
         self.horizontalLayout_6.setSpacing(6)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem7)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem6)
         self.btnImportConfig = QtWidgets.QPushButton(self.tab_4)
         self.btnImportConfig.setObjectName("btnImportConfig")
         self.horizontalLayout_6.addWidget(self.btnImportConfig)
@@ -505,8 +550,8 @@ class Ui_MainWindow(object):
         self.txtConfig = QtWidgets.QTextEdit(self.tab_4)
         self.txtConfig.setObjectName("txtConfig")
         self.verticalLayout_5.addWidget(self.txtConfig)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 244, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_5.addItem(spacerItem8)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 244, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_5.addItem(spacerItem7)
         self.tabWidget_5.addTab(self.tab_4, "")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -517,23 +562,30 @@ class Ui_MainWindow(object):
         self.treeView = QtWidgets.QTreeView(self.tab)
         self.treeView.setObjectName("treeView")
         self.verticalLayout_4.addWidget(self.treeView)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 256, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_4.addItem(spacerItem9)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 256, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem8)
         self.tabWidget_5.addTab(self.tab, "")
         self.tab_29 = QtWidgets.QWidget()
         self.tab_29.setObjectName("tab_29")
-        self.lineEdit_8 = QtWidgets.QLineEdit(self.tab_29)
-        self.lineEdit_8.setGeometry(QtCore.QRect(260, 130, 113, 20))
-        self.lineEdit_8.setObjectName("lineEdit_8")
-        self.pushButton = QtWidgets.QPushButton(self.tab_29)
-        self.pushButton.setGeometry(QtCore.QRect(150, 90, 75, 23))
-        self.pushButton.setObjectName("pushButton")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.tab_29)
+        self.gridLayout_5.setContentsMargins(11, 11, 11, 11)
+        self.gridLayout_5.setSpacing(6)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.btnViewUrl = QtWidgets.QPushButton(self.tab_29)
+        self.btnViewUrl.setObjectName("btnViewUrl")
+        self.gridLayout_5.addWidget(self.btnViewUrl, 0, 0, 1, 1)
+        self.ledViewUrl = QtWidgets.QLineEdit(self.tab_29)
+        self.ledViewUrl.setObjectName("ledViewUrl")
+        self.gridLayout_5.addWidget(self.ledViewUrl, 0, 1, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.tab_29)
-        self.pushButton_2.setGeometry(QtCore.QRect(160, 130, 75, 23))
         self.pushButton_2.setObjectName("pushButton_2")
-        self.lineEdit_9 = QtWidgets.QLineEdit(self.tab_29)
-        self.lineEdit_9.setGeometry(QtCore.QRect(250, 90, 113, 20))
-        self.lineEdit_9.setObjectName("lineEdit_9")
+        self.gridLayout_5.addWidget(self.pushButton_2, 1, 0, 1, 1)
+        self.lineEdit_8 = QtWidgets.QLineEdit(self.tab_29)
+        self.lineEdit_8.setObjectName("lineEdit_8")
+        self.gridLayout_5.addWidget(self.lineEdit_8, 1, 1, 1, 1)
+        self.wdgWeb = QtWidgets.QWidget(self.tab_29)
+        self.wdgWeb.setObjectName("wdgWeb")
+        self.gridLayout_5.addWidget(self.wdgWeb, 2, 0, 1, 2)
         self.tabWidget_5.addTab(self.tab_29, "")
         self.tab_14 = QtWidgets.QWidget()
         self.tab_14.setObjectName("tab_14")
@@ -628,11 +680,20 @@ class Ui_MainWindow(object):
         self.btnTmp2 = QtWidgets.QPushButton(self.tab_3)
         self.btnTmp2.setGeometry(QtCore.QRect(350, 190, 75, 23))
         self.btnTmp2.setObjectName("btnTmp2")
+        self.listWidget = QtWidgets.QListWidget(self.tab_3)
+        self.listWidget.setGeometry(QtCore.QRect(-120, 160, 262, 73))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
+        self.listWidget.setSizePolicy(sizePolicy)
+        self.listWidget.setMaximumSize(QtCore.QSize(16777215, 99))
+        self.listWidget.setObjectName("listWidget")
         self.tabWidget.addTab(self.tab_3, "")
         self.horizontalLayout.addWidget(self.splitter)
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1022, 23))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1076, 26))
         self.menuBar.setObjectName("menuBar")
         self.menu = QtWidgets.QMenu(self.menuBar)
         self.menu.setObjectName("menu")
@@ -653,9 +714,9 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.statusBar)
         self.label_4.setGeometry(QtCore.QRect(35, 0, 72, 15))
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.statusBar)
-        self.label_5.setGeometry(QtCore.QRect(300, 0, 72, 15))
-        self.label_5.setObjectName("label_5")
+        self.lbTime = QtWidgets.QLabel(self.statusBar)
+        self.lbTime.setGeometry(QtCore.QRect(300, 0, 72, 15))
+        self.lbTime.setObjectName("lbTime")
         self.btnShowTab = QtWidgets.QPushButton(self.statusBar)
         self.btnShowTab.setGeometry(QtCore.QRect(5, -5, 25, 20))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -744,7 +805,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget_3.setCurrentIndex(1)
-        self.tabWidget_5.setCurrentIndex(0)
+        self.tabWidget_5.setCurrentIndex(4)
         self.tabWidget_2.setCurrentIndex(7)
         self.tabWidget_4.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
@@ -757,7 +818,6 @@ class Ui_MainWindow(object):
         self.ledBookname.setPlaceholderText(_translate("MainWindow", "https://manhua.dmzj.com/yaojingdeweiba"))
         self.btnNewItem.setText(_translate("MainWindow", "添加"))
         self.lbBaseurl.setText(_translate("MainWindow", "https://manhua.dmzj.com/"))
-        self.listWidget.setToolTip(_translate("MainWindow", "右键添加起始网页链接列表"))
         self.comboBox.setItemText(0, _translate("MainWindow", "dmzj"))
         self.comboBox.setItemText(1, _translate("MainWindow", "meizitu0"))
         self.comboBox.setItemText(2, _translate("MainWindow", "sgacg"))
@@ -768,7 +828,6 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(7, _translate("MainWindow", "doc_scrapy"))
         self.comboBox.setItemText(8, _translate("MainWindow", "baiduimage"))
         self.comboBox.setItemText(9, _translate("MainWindow", "23us"))
-        self.label_20.setText(_translate("MainWindow", "最近任务"))
         item = self.tableStartParams.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "1"))
         item = self.tableStartParams.verticalHeaderItem(1)
@@ -782,8 +841,9 @@ class Ui_MainWindow(object):
         item = self.tableStartParams.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "起始页码"))
         item = self.tableStartParams.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "结束页码"))
+        item.setText(_translate("MainWindow", "翻页数"))
         self.btnNewParams.setText(_translate("MainWindow", "添加"))
+        self.label_20.setText(_translate("MainWindow", "最近任务"))
         self.label_3.setText(_translate("MainWindow", "图片路径"))
         self.chbAddScratch.setText(_translate("MainWindow", "增量抓取"))
         self.radioButton_3.setText(_translate("MainWindow", "json"))
@@ -868,7 +928,7 @@ class Ui_MainWindow(object):
         self.btnExportConfig.setText(_translate("MainWindow", "导出"))
         self.tabWidget_5.setTabText(self.tabWidget_5.indexOf(self.tab_4), _translate("MainWindow", "配置"))
         self.tabWidget_5.setTabText(self.tabWidget_5.indexOf(self.tab), _translate("MainWindow", "目录"))
-        self.pushButton.setText(_translate("MainWindow", "view"))
+        self.btnViewUrl.setText(_translate("MainWindow", "view"))
         self.pushButton_2.setText(_translate("MainWindow", "xpath"))
         self.tabWidget_5.setTabText(self.tabWidget_5.indexOf(self.tab_29), _translate("MainWindow", "预览"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_2), _translate("MainWindow", "全部"))
@@ -891,6 +951,7 @@ class Ui_MainWindow(object):
         self.btnRun.setText(_translate("MainWindow", "run"))
         self.btnTmp.setText(_translate("MainWindow", "tmp"))
         self.btnTmp2.setText(_translate("MainWindow", "tmp2"))
+        self.listWidget.setToolTip(_translate("MainWindow", "右键添加起始网页链接列表"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "命令行"))
         self.menu.setTitle(_translate("MainWindow", "文件"))
         self.menu_2.setTitle(_translate("MainWindow", "编辑"))
@@ -898,7 +959,7 @@ class Ui_MainWindow(object):
         self.menu_4.setTitle(_translate("MainWindow", "工具"))
         self.menu_5.setTitle(_translate("MainWindow", "帮助"))
         self.label_4.setText(_translate("MainWindow", "123456"))
-        self.label_5.setText(_translate("MainWindow", "9789796"))
+        self.lbTime.setText(_translate("MainWindow", "18:30:31"))
         self.btnShowTab.setText(_translate("MainWindow", "..."))
         self.actionStart.setText(_translate("MainWindow", "开始"))
         self.actionStart.setShortcut(_translate("MainWindow", "F5"))

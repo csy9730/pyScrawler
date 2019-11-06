@@ -6,12 +6,70 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
+    <width>1076</width>
     <height>664</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+   background-color:#3a3e3f;
+}
+QMainWindow{
+	background-color:#3a3e3f;
+}
+QPushButton{
+	background-color:#3a3e3f;
+}
+QTabWidget::pane {
+		border: none;
+		border-top: 3px solid rgb(0, 78, 161);
+		background: rgb(187, 212, 238);
+}
+QTabWidget::tab-bar {
+		border: none;
+}
+QTabBar::tab {
+		border: none;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		color: white;
+		background: rgb(120, 170, 220);
+		height: 28px;
+		min-width: 85px;
+		margin-right: 5px;
+		padding-left: 5px;
+		padding-right: 5px;
+}
+QTabBar::tab:hover {
+		background: rgb(0, 78, 161);
+}
+QTabBar::tab:selected {
+		color: white;
+		background: rgb(0, 78, 161);
+}
+
+QTabWidget#tabWidget::pane {
+        border: 1px solid rgb(111, 156, 207);
+        background: rgb(232, 241, 252);
+        margin-top: -1px;
+}
+
+QTabBar#tabBar::tab {
+        border: 1px solid rgb(111, 156, 207);
+        border-bottom: none;
+        color: rgb(70, 71, 73);
+        background: transparent;
+}
+QTabBar#tabBar::tab:hover {
+        color: rgb(2, 65, 132);
+}
+QTabBar#tabBar::tab:selected {
+        color: rgb(2, 65, 132);
+        background: rgb(232, 241, 252);
+}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
@@ -987,7 +1045,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_5">
           <property name="currentIndex">
-           <number>0</number>
+           <number>4</number>
           </property>
           <widget class="QWidget" name="tab_28">
            <attribute name="title">
@@ -1241,52 +1299,31 @@
            <attribute name="title">
             <string>预览</string>
            </attribute>
-           <widget class="QLineEdit" name="lineEdit_8">
-            <property name="geometry">
-             <rect>
-              <x>260</x>
-              <y>130</y>
-              <width>113</width>
-              <height>20</height>
-             </rect>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="pushButton">
-            <property name="geometry">
-             <rect>
-              <x>150</x>
-              <y>90</y>
-              <width>75</width>
-              <height>23</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>view</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="geometry">
-             <rect>
-              <x>160</x>
-              <y>130</y>
-              <width>75</width>
-              <height>23</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>xpath</string>
-            </property>
-           </widget>
-           <widget class="QLineEdit" name="lineEdit_9">
-            <property name="geometry">
-             <rect>
-              <x>250</x>
-              <y>90</y>
-              <width>113</width>
-              <height>20</height>
-             </rect>
-            </property>
-           </widget>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="btnViewUrl">
+              <property name="text">
+               <string>view</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="ledViewUrl"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>xpath</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lineEdit_8"/>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QWidget" name="wdgWeb" native="true"/>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="tab_14">
            <attribute name="title">
@@ -1541,8 +1578,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1022</width>
-     <height>23</height>
+     <width>1076</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -1617,7 +1654,7 @@
      <string>123456</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="lbTime">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -1627,7 +1664,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>9789796</string>
+     <string>18:30:31</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnShowTab">

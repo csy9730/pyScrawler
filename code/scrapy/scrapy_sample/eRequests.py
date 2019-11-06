@@ -75,22 +75,24 @@ def downloadsWzryCover(lst , hero_images_path):
 
 
 
-def main(args):
+def main(spider,output,**vnargs):
     handle = {"chelaile":geChelaile, "weather":getWeather, "xiaomiweather":getMiWeather,
          "wzryHeroList":hero_imgs_download}
-    dct = handle[args.url]()
+    dct = handle[spider]()
     print( dct)
-    if args.url == "wzryHeroList":
-        downloadsWzryCover(dct , args.savepath)
+    if spider == "wzryHeroList":
+        downloadsWzryCover(dct , output)
     print("______________________finished____________________")
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(prog='requests')
-    parser.add_argument('url',choices=['chelaile','weather','xiaomiweather','wzryHeroList' ], help='argument setting ')
+    parser.add_argument('spider',choices=['chelaile','weather','xiaomiweather','wzryHeroList' ], help='argument setting ')
     parser.add_argument('--set','-s', default=[],action='append', help='setting')
-    parser.add_argument('--output','-o', default="images",dest='savepath', action='append', help='output')
+    parser.add_argument('--output','-o', default="images",dest='output', action='append', help='output')
     parser.set_defaults(handle = main ) 
-    args  = parser.parse_args()      
+    args  = parser.parse_args()   
+    dct = vars(args)   
+    print( dct)
     if hasattr(args,'handle'):        
-        args.handle( args)
+        args.handle( **dct)
 

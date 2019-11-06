@@ -11,6 +11,7 @@ from PyQt5.QtCore import Qt,QTimer,QFile
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
 from PyQt5.QtWidgets import QFileDialog,QListWidgetItem,QTableWidgetItem
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from ui.pyscr_rc import  *
 from ui.ui_mainwidow import  Ui_MainWindow
@@ -81,7 +82,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.tmrTime.setInterval(1000)
         # self.tmrTime.timeout.connect( self.on_tmrTime_timeout)
         # self.tmrTime.start()
-
+        self.install_web()
     def addStyleSheet(self,pfn):
         with open(pfn,"rb") as fp:
             styleSheet = fp.read()
@@ -389,9 +390,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lbBaseurl.setText( base_url )
         print( spd)
 
-
-        
-
+    @pyqtSlot()     
+    def on_btnViewUrl_clicked(self):
+        url = self.ledViewUrl.text()
+        print( url)
+        self.webview.load(QUrl(url))
+    def install_web(self,url="https://www.baidu.com"):        
+        self.webview = QWebEngineView()
+        self.webview.load(QUrl(url))
+        self.hbl = QtWidgets.QHBoxLayout(self.wdgWeb)
+        self.hbl.setSpacing(6)
+        self.hbl.setContentsMargins(11, 11, 11, 11)
+        self.hbl.addWidget(self.webview,0)
+        # self.wdgWeb.addWidget(self.webview)    
+        # self.webview.setParent(self.wdgWeb)  
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
