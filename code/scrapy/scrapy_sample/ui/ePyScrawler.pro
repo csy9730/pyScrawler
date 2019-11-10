@@ -25,13 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    dialog.cpp \
+    DialogWizard.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    dialog.h \
+    DialogWizard.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    dialog.ui \
+    DialogWizard.ui
 
 RESOURCES += \
     pyscr.qrc

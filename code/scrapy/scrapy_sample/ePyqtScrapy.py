@@ -34,6 +34,44 @@ class EmittingStream(QtCore.QObject):
         textWritten = QtCore.pyqtSignal(str)  #定义一个发送str的信号
         def write(self, text):
             self.textWritten.emit(str(text)) 
+def listWidget_export(listWidget):
+    return [ listWidget.item(i).text() for i in range(listWidget.count())  ]
+def listWidget_import(listWidget,lst):
+    listWidget.clear()
+    for s in lst:
+        aItem = QListWidgetItem()
+        aItem.setText(s);
+        listWidget.addItem( aItem)
+# todo
+def tableWidget_fill_head(tableWidget,lst):
+    pass
+def tableWidget_fill_body(tableWidget,lst):        
+        tableWidget.clear()
+        if not lst:
+            return         
+        tableWidget.setRowCount(len(lst)); 
+        tableWidget.setColumnCount(len(lst[0].keys() ));  
+        for i,s in enumerate(lst):
+            for j,k in enumerate(s.keys()):
+                aItem = QTableWidgetItem()
+                v=   lst[i][k]
+                if isinstance(v,list):
+                    v= ','.join(v)
+                aItem.setText( v )
+                tableWidget.setItem( i,j,aItem)
+def tableWidget_export(tableWidget):        
+        row = tableWidget.rowCount()
+        col = tableWidget.colCount()  
+        dbLst = []      
+        for i,s in range(row):
+            lst= []
+            for j in range(col):
+                aItem =listWidget.item(i,j)
+                lst.append(aItem.text())
+            dbLst.append( lst)
+        return dbLst
+
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     sgnDat = pyqtSignal(list) ###
     sgnLabel = pyqtSignal(list) ###
@@ -62,16 +100,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             with open('spider_info.json','r',encoding="utf-8")as fp:
                 self.spider_info = json.load(fp)
         spiderList = [d["name"] for d in self.spider_info ]
-        self.comboBox.clear()
-        self.comboBox.addItems(spiderList)  
+        self.cmbSpider.clear()
+        self.cmbSpider.addItems(spiderList)  
 
         self.listWidget.addAction(self.actionNewItem)
         self.listWidget.addAction(self.actionDeleteItem)        
         self.listWidget.addAction(self.actionClearItems)
         self.listWidget.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.listWidget.itemDoubleClicked.connect( self.on_listWidget_itemDoubleClicked)
+        
+        tableWidget_fill_body(self.tableWidget,self.spider_info)
+        self.stackedWidget.setCurrentIndex(0)  
+        self.tabProject.setCurrentIndex(0) 
 
-        self.tableWidget_import(self.spider_info)
         self._recordRecent = {"recentProject":["setting.scrproj"],}
         self.dirModel = QFileSystemModel()
         self.treeView.setModel(self.dirModel )  
@@ -100,7 +141,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.treeView.setRootIndex(self.dirModel.index(pth))
 
     def _configWrite(self,dct):
-        self.comboBox.setCurrentIndex( self.comboBox.findText(dct['spider']))
+        self.cmbSpider.setCurrentIndex( self.cmbSpider.findText(dct['spider']))
         
         self.ledImagedir.setText( dct["set"].get("IMAGES_STORE",""))
         if dct["set"].get("JOBDIR") is not None:
@@ -127,7 +168,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
         if dct.get('start_urls'):
-            self.listWidget_import( dct['start_urls']  )
+            listWidget_import( self.listWidget,dct['start_urls']  )
             # self.ledBookname.setText(dct['start_urls'][0])
             # self.ledBookname.setText("")
                    
@@ -160,7 +201,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if dct['set'].get("CLOSESPIDER_PAGECOUNT"):
                 del(dct['set']['CLOSESPIDER_PAGECOUNT'])
         
-        lst = self.listWidget_export()
+        lst = listWidget_export(self.listWidget)
         if lst!=[]:
             dct['start_urls'] = lst
         else:
@@ -181,7 +222,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 del(dct["set"]["LOG_FILE"])
         dct["set"]["LOG_STDOUT"] = self.chkLogStdout.isChecked()
 
-        dct["spider"] = self.comboBox.currentText() 
+        dct["spider"] = self.cmbSpider.currentText() 
         return dct
     def saveConfig(self,project_name='setting.scrproj'):
         self.config.update(self._configRead())        
@@ -294,6 +335,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print(cmdSp) 
         self.textBrowser.append(cmd)    
         self.proc.start(cmdSp[0], cmdSp[1:] )
+        self.stackedWidget.setCurrentIndex(1)
+        self.tabRunning.setCurrentIndex(0)
     #@pyqtSlot() a
     def onFinished(self, exitCode, exitStatus):
         print("onFinished ")
@@ -332,63 +375,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot() 
     def on_listWidget_itemDoubleClicked(self):
         item = self.listWidget.currentItem() 
-        item.setFlags(item.flags() | Qt.ItemIsEditable)
-    def listWidget_import(self,lst):
-        self.listWidget.clear()
-        for s in lst:
-            aItem = QListWidgetItem()
-            aItem.setText(s);
-            self.listWidget.addItem( aItem);
-    def listWidget_export(self):
-        return [ self.listWidget.item(i).text() for i in range(self.listWidget.count())  ]
-    
+        item.setFlags(item.flags() | Qt.ItemIsEditable) 
     @pyqtSlot() 
     def on_tableWidget_itemDoubleClicked(self):
         item = self.tableWidget.currentItem() 
         item.setFlags(item.flags() | Qt.ItemIsEditable)
 
-    def tableWidget_import(self,lst):        
-        self.tableWidget.clear()
-        if not lst:
-            return 
-        row = len(lst);
-        col = len(lst[0].keys() );
-        
-        self.tableWidget.setRowCount(row);
-        self.tableWidget.setColumnCount(col);
-        
-        for i,s in enumerate(lst):
-            for j,k in enumerate(s.keys()):
-                aItem = QTableWidgetItem()
-                v=   lst[i][k]
-                if isinstance(v,list):
-                    v= ','.join(v)
-                aItem.setText( v )
-                self.tableWidget.setItem( i,j,aItem);
-
-    @pyqtSlot() 
-    def on_btnTmp_clicked(self):
-        pass
-        # print( lst)
-    @pyqtSlot() 
-    def on_btnTmp2_clicked(self):
-        pass
     # 过滤表格的spider
     @pyqtSlot(int) 
     def on_cmbTagFilter_currentIndexChanged(self, index):
         st = self.cmbTagFilter.itemText(index )        
         lst = self.spider_info
         lst = list( filter( lambda x: (st=="全部") or (st in x["tag"]), lst))                
-        self.tableWidget_import(lst)
+        tableWidget_fill_body(self.tableWidget,lst)
     # 从表格选定spider
     @pyqtSlot(QTableWidgetItem)     
     def on_tableWidget_itemClicked(self,item):
         row = item.row()
         spd =  self.tableWidget.item( row,0).text()
         base_url =  self.tableWidget.item( row,2).text()
-        self.comboBox.setCurrentIndex( self.comboBox.findText( spd ))
+        description =  self.tableWidget.item( row,3).text()
+        self.cmbSpider.setCurrentIndex( self.cmbSpider.findText( spd ))
+        self.lbSpider.setText( spd)        
         self.lbBaseurl.setText( base_url )
+        self.lbDescription.setText(description  )
         print( spd)
+
+    @pyqtSlot()     
+    def on_btnNewParams_clicked(self):
+        print("on_btnNewParams_clicked")
+        row = self.tableStartParams.rowCount()
+        self.tableStartParams.setRowCount( row+1)
+        for j in range(self.tableStartParams.columnCount() ):
+            aItem = QTableWidgetItem()
+            aItem.setText("")
+            print( row,j)
+            self.tableStartParams.setItem( row,j,aItem)
 
     @pyqtSlot()     
     def on_btnViewUrl_clicked(self):
@@ -403,8 +425,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.hbl.setContentsMargins(11, 11, 11, 11)
         self.hbl.addWidget(self.webview,0)
         # self.wdgWeb.addWidget(self.webview)    
-        # self.webview.setParent(self.wdgWeb)  
-
+        # self.webview.setParent(self.wdgWeb) 
+    # 切换主页面 
+    @pyqtSlot()
+    def on_btnProjectTab_clicked(self):
+        self.stackedWidget.setCurrentIndex(0)
+    @pyqtSlot()
+    def on_btnCustomTab_clicked(self):
+        self.stackedWidget.setCurrentIndex(2)
+    @pyqtSlot()
+    def on_btnRunningTab_clicked(self):
+        self.stackedWidget.setCurrentIndex(1)
+    @pyqtSlot()
+    def on_btnExportTab_clicked(self):
+        self.stackedWidget.setCurrentIndex(3)
+    @pyqtSlot()
+    def on_btnJumpTemplate_clicked(self):
+        self.stackedWidget.setCurrentIndex(0)  
+        self.tabProject.setCurrentIndex(1) 
+    @pyqtSlot()
+    def on_btnGotoTemplate_clicked(self):
+        self.stackedWidget.setCurrentIndex(0)  
+        self.tabProject.setCurrentIndex(2) 
+        if self.lbSpider=="baiduimage":
+            self.tabWidget_2.setCurrentIndex(1)
+        else:
+            self.tabWidget_2.setCurrentIndex(0)
+    
+    @pyqtSlot() 
+    def on_btnTmp_clicked(self):
+        pass
+        # print( lst)
+    @pyqtSlot() 
+    def on_btnTmp2_clicked(self):
+        pass
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setWindowIcon(QIcon('ui/img/icons8-spider-64.png'))

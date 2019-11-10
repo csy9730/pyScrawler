@@ -148,19 +148,21 @@ if __name__ == "__main__":
     cmdline =  ['--spider', 'baiduimage','--argument','word=猪八戒','--setting','CLOSESPIDER_ITEMCOUNT=2',
                 '--start_urls','www.baidu.com'] # ,'--start_urls','word=moon',
     cmdline = ['-d','baiduimage','--start_params','[{"word":"moon","pn":0,"pg_range":1}]']
+    # cmdlines = """ -d baiduimage --start_params "[{'word':'moon','pn':0,'pg_range':1}]"  """
     # dct0 = {'argument': {'word': 'moon\n==='}, 'set': {'CLOSESPIDER_ITEMCOUNT': '2'},
     #     'spider': 'baiduimage', 'output': None, 'start_urls': ['www.baidu.com'], 'name': None, 'allowed_domains': None, 'loadconfig': None}
     # dctstr = json.dumps(dct0,ensure_ascii=False)
     # lst = dict2cmdline(dct0)
     # print(lst)
-    args  = parser.parse_args(cmdline)
+    args  = parser.parse_args()
     print(args)
     dct = vars(args)
     for k in dct.keys():
         if k in ["setting","argument"]:
             dct[k] = fStrList2Dict( dct[k] )
-        if k in ["start_params"]:
-            dct[k] = json.loads(dct[k] )
+        if k in ["start_params"] and dct[k]:
+            print( dct[k].replace("'",'"') )
+            dct[k] = json.loads(dct[k].replace("'",'"') )
     # print("dct2=",dct==dct0, dct)
     # lst = dict2cmdline(dct)
     # print(lst,set(lst)==set(cmdline))
