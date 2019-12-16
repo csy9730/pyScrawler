@@ -24,6 +24,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setSpacing(6)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralWidget)
+        self.groupBox_2.setStyleSheet(".QPushButton[checkable=\"true\"]{\n"
+"    border: none;\n"
+"    min-width:100px;\n"
+"    min-height:35px;\n"
+"}\n"
+".QPushButton[checked=\"true\"]{\n"
+"    background:#aaaaaa;\n"
+"}")
         self.groupBox_2.setTitle("")
         self.groupBox_2.setObjectName("groupBox_2")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox_2)
@@ -31,7 +39,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setSpacing(6)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.btnProjectTab = QtWidgets.QPushButton(self.groupBox_2)
+        self.btnProjectTab.setStyleSheet("")
         self.btnProjectTab.setCheckable(True)
+        self.btnProjectTab.setChecked(False)
         self.btnProjectTab.setAutoExclusive(True)
         self.btnProjectTab.setObjectName("btnProjectTab")
         self.gridLayout_2.addWidget(self.btnProjectTab, 1, 1, 1, 1)
@@ -829,10 +839,11 @@ class Ui_MainWindow(object):
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         self.label_4 = QtWidgets.QLabel(self.statusBar)
-        self.label_4.setGeometry(QtCore.QRect(35, 0, 72, 15))
+        self.label_4.setGeometry(QtCore.QRect(35, 0, 72, 20))
+        self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.lbTime = QtWidgets.QLabel(self.statusBar)
-        self.lbTime.setGeometry(QtCore.QRect(300, 0, 72, 15))
+        self.lbTime.setGeometry(QtCore.QRect(150, 0, 160, 20))
         self.lbTime.setObjectName("lbTime")
         self.btnShowTab = QtWidgets.QPushButton(self.statusBar)
         self.btnShowTab.setGeometry(QtCore.QRect(5, -5, 25, 20))
@@ -845,7 +856,7 @@ class Ui_MainWindow(object):
         self.btnShowTab.setFlat(True)
         self.btnShowTab.setObjectName("btnShowTab")
         self.progressBar = QtWidgets.QProgressBar(self.statusBar)
-        self.progressBar.setGeometry(QtCore.QRect(420, 0, 118, 23))
+        self.progressBar.setGeometry(QtCore.QRect(420, 0, 118, 20))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
         MainWindow.setStatusBar(self.statusBar)
@@ -922,10 +933,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
-        self.tabProject.setCurrentIndex(4)
+        self.tabProject.setCurrentIndex(1)
         self.tabWidget_2.setCurrentIndex(0)
-        self.tabWidget_3.setCurrentIndex(0)
-        self.tabRunning.setCurrentIndex(1)
+        self.tabWidget_3.setCurrentIndex(2)
+        self.tabRunning.setCurrentIndex(0)
         self.tabWidget_4.setCurrentIndex(0)
         self.tabCategory.setCurrentIndex(8)
         self.tabExport.setCurrentIndex(0)
@@ -1119,8 +1130,7 @@ class Ui_MainWindow(object):
         self.menu_3.setTitle(_translate("MainWindow", "视图"))
         self.menu_4.setTitle(_translate("MainWindow", "工具"))
         self.menu_5.setTitle(_translate("MainWindow", "帮助"))
-        self.label_4.setText(_translate("MainWindow", "123456"))
-        self.lbTime.setText(_translate("MainWindow", "18:30:31"))
+        self.lbTime.setText(_translate("MainWindow", "2019/11/11 18:30:31"))
         self.btnShowTab.setText(_translate("MainWindow", "..."))
         self.actionStart.setText(_translate("MainWindow", "开始"))
         self.actionStart.setShortcut(_translate("MainWindow", "F5"))
@@ -1145,4 +1155,4 @@ class Ui_MainWindow(object):
         self.actionClearItems.setText(_translate("MainWindow", "清除列表项"))
         self.actionPause.setText(_translate("MainWindow", "暂停"))
 
-import pyscr_rc
+# import pyscr_rc

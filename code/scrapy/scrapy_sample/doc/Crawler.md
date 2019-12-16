@@ -51,3 +51,22 @@
 命令行配置： 
 `spider -c abc`
 **Q**: 如何配置pythonobject，例如item，middleware，pipeline等等
+
+££ todo
+- [ ] 添加类postman内容的request
+- [ ] 查询参数拼接时是否有序？
+- [ ] jupyter中调试request。
+- [ ] scrapy markdown
+- [ ] scrapy rss 
+- [x]  readthedocs
+- [ ] scrapy 通用爬虫,broadcrawler
+- [ ] coolscrapy
+- [-] docker & splash
+- [ ] smtp
+- [ ] add headless chrome options
+- [ ] email 保存&接收&发送
+- [ ] ss: celery
+- [ ] ss:rpc 框架
+- [ ] ss:事件循环
+- [ ] https://www.51xs.org/info/1.html
+- [ ]  http://www.girl13.com  

@@ -12,9 +12,7 @@
 
 
 Crawler汇总爬虫程序
-
 projectSetting设计接口程序
-
 pyqtCrawler设计GUI程序
 
 

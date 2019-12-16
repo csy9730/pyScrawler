@@ -22,17 +22,33 @@
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QGroupBox" name="groupBox_2">
+        <property name="styleSheet">
+         <string notr="true">.QPushButton[checkable=&quot;true&quot;]{
+	border: none;
+	min-width:100px;
+	min-height:35px;
+}
+.QPushButton[checked=&quot;true&quot;]{
+	background:#aaaaaa;
+}</string>
+        </property>
         <property name="title">
          <string/>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="1" column="1">
           <widget class="QPushButton" name="btnProjectTab">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="text">
             <string>项目</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
            </property>
            <property name="autoExclusive">
             <bool>true</bool>
@@ -110,7 +126,7 @@
           </property>
           <widget class="QTabWidget" name="tabProject">
            <property name="currentIndex">
-            <number>3</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab_30">
             <attribute name="title">
@@ -2075,24 +2091,24 @@
       <x>35</x>
       <y>0</y>
       <width>72</width>
-      <height>15</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>123456</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="lbTime">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>150</x>
       <y>0</y>
-      <width>72</width>
-      <height>15</height>
+      <width>160</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>18:30:31</string>
+     <string>2019/11/11 18:30:31</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnShowTab">
@@ -2126,7 +2142,7 @@
       <x>420</x>
       <y>0</y>
       <width>118</width>
-      <height>23</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="value">

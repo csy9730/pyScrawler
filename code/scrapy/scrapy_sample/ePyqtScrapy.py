@@ -11,7 +11,7 @@ from PyQt5.QtCore import Qt,QTimer,QFile
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal, pyqtProperty,QUrl,QProcess
 from PyQt5.QtWidgets import QFileDialog,QListWidgetItem,QTableWidgetItem
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from ui.pyscr_rc import  *
 from ui.ui_mainwidow import  Ui_MainWindow
@@ -118,17 +118,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.treeView.setModel(self.dirModel )  
         self.setDir()
         QTimer.singleShot(200, self.setDir)
-        self.addStyleSheet("ui/qss/black_green.qss")
-        # self.tmrTime = QtCore.QTimer()
-        # self.tmrTime.setInterval(1000)
-        # self.tmrTime.timeout.connect( self.on_tmrTime_timeout)
-        # self.tmrTime.start()
+        self.addStyleSheet("/ui/qss/black_green.qss")
+   
         self.install_web()
+
+        self.tmr = QTimer()
+        self.tmr.start(1000)
+        self.tmr.timeout.connect( self.updateTime)
+    def updateTime(self):
+        st=time.strftime("%Y/%m/%d %H:%M:%S", time.localtime()) 
+        self.lbTime.setText(st)
     def addStyleSheet(self,pfn):
-        with open(pfn,"rb") as fp:
-            styleSheet = fp.read()
-            print(styleSheet)
-            self.setStyleSheet( styleSheet.decode("utf-8"))
+        print(pfn)
+        if os.path.exists(pfn):
+            with open(pfn,"rb") as fp:
+                styleSheet = fp.read()
+                print(styleSheet)
+                self.setStyleSheet( styleSheet.decode("utf-8"))
 
     def initProc(self):
         self.proc = QProcess(self)
@@ -228,32 +234,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.config.update(self._configRead())        
         with open(project_name,'w') as fp:
             json.dump(self.config,fp,indent=4)
-        self.showConfig()
+        self.showConfigAtEdit()
     
     def loadConfig(self,project_name =  'setting.scrproj'):
         if os.path.exists(project_name):
             with open(project_name, 'r')   as fp:                           
                 dct = json.load(fp)
                 self.config.update( dct)
-                self.showConfig()
-    def showConfig(self):
+                self.showConfigAtEdit()
+
+    def showConfigAtEdit(self):
         self.txtConfig.setText( json.dumps( self.config,indent=4,ensure_ascii=False))
-    def importConfig(self):
+    def importConfigFromtEdit(self):
         try:
             txt = self.txtConfig.toPlainText()
             self.config = json.loads( txt )
         except:
             QMessageBox.warning(self,"error","配置导入出错")
+
     @pyqtSlot() 
     def on_btnImportConfig_clicked(self):
-        self.importConfig()
+        self.importConfigFromtEdit()
         self._configWrite(self.config) 
     @pyqtSlot() 
     def on_btnExportConfig_clicked(self):
-        self.showConfig()
+        self.showConfigAtEdit()
     @pyqtSlot() 
     def on_actionNewProj_triggered(self):
-        print("on_actionNewProj_triggered")
         self.config = self._default_config  
         self._configWrite(self.config)
     @pyqtSlot()
@@ -307,7 +314,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_actionStart_triggered(self):
         self.config = self._configRead()
         # print(self.config)
-        self.showConfig()
+        self.showConfigAtEdit()
         param = dict2cmdline(self.config)
         if os.path.exists('crawl.exe'):
             cmdline =  [ 'crawl'  ]
@@ -417,7 +424,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         url = self.ledViewUrl.text()
         print( url)
         self.webview.load(QUrl(url))
-    def install_web(self,url="https://www.baidu.com"):        
+    def install_web(self,url="https://www.baidu.com"):  
+        return      
         self.webview = QWebEngineView()
         self.webview.load(QUrl(url))
         self.hbl = QtWidgets.QHBoxLayout(self.wdgWeb)
