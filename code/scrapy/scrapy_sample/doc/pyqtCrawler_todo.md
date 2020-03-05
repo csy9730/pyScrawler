@@ -4,7 +4,9 @@
 20200116
 - [ ] add: todo.md
 - [ ] abs: 分离pyqt部分
-
+- [ ] abs: 分离csv组件和json组件 和列表组件
+- [ ] tune：模板页使用csv组件，初始参数配置json组件，task管理列表组件，下载控件管理组件
+- [ ] abs: 常用控件 任务管理器列表QListWidget,json配置文件QTreeView，csv编辑文件QTableView，统计图控件QChart。
 
 
 - [ ] 添加下载进程的可视化设计
